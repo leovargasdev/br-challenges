@@ -13,7 +13,12 @@ export default NextAuth({
   callbacks: {
     async signIn({ user }) {
       await connectMongoose()
-      await User.findOneAndUpdate(user, { upsert: true })
+
+      try {
+        await User.create({ ...user, avatar_url: user.image })
+      } catch (err) {
+        console.log(err)
+      }
 
       return true
     }
