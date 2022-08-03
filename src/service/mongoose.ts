@@ -8,13 +8,13 @@ const urlMongo = MONGODB_URI + MONGODB_DB
 interface IUser {
   name: string
   email: string
-  avatar_url?: string
+  image?: string
 }
 
 const userSchema = new Schema<IUser>({
   name: { type: String, required: true },
   email: { type: String, unique: true, required: true, lowercase: true },
-  avatar_url: String
+  image: String
 })
 
 const User = models.User || model('User', userSchema)

@@ -14,11 +14,14 @@ export default NextAuth({
     async signIn({ user }) {
       await connectMongoose()
 
-      try {
-        await User.create({ ...user, avatar_url: user.image })
-      } catch (err) {
-        console.log(err)
+      const isUser = await User.findOneAndUpdate({ email: user.email }, user)
+
+      if (isUser) {
+        console.log('usuário já cadastrado')
+        return true
       }
+
+      await User.create(user)
 
       return true
     }
