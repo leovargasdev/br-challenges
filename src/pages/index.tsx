@@ -1,8 +1,8 @@
 import Image from 'next/image'
+import { GetServerSideProps, NextPage } from 'next'
 import { signOut, getSession } from 'next-auth/react'
 
 import styles from 'styles/home.module.scss'
-import { GetServerSideProps, NextPage } from 'next'
 
 interface UserProps {
   name: string
@@ -19,6 +19,7 @@ const HomePage: NextPage<UserProps> = user => (
             <Image src={user?.image} layout="fill" objectFit="cover" />
           </div>
         )}
+
         <div className={styles.user__info}>
           <strong>{user.name}</strong>
           <span>{user.email}</span>
