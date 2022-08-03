@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "mongodb": "^4.8.1",
+    "mongoose": "^6.5.0",
     "next": "12.2.3",
     "next-auth": "^4.10.3",
     "react": "18.2.0",
@@ -17,6 +19,8 @@
     "sass": "^1.54.0"
   },
   "devDependencies": {
+    "@types/mongodb": "^4.0.7",
+    "@types/mongoose": "^5.11.97",
     "@types/node": "18.6.3",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
