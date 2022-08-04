@@ -4,18 +4,28 @@ import { HiOutlineClock, HiFire, HiBadgeCheck } from 'react-icons/hi'
 
 import styles from './styles.module.scss'
 
-export const ChallengeCard = () => (
+interface ChallengeCardProps {
+  isSubmited?: boolean
+  challengeNumber: number
+}
+
+export const ChallengeCard = ({
+  isSubmited = false,
+  challengeNumber
+}: ChallengeCardProps) => (
   <article className={styles.challenge}>
-    {/* <span>
-      <HiBadgeCheck /> Participando
-    </span> */}
+    {isSubmited && (
+      <span>
+        <HiBadgeCheck /> Participando
+      </span>
+    )}
 
     <div className={styles.challenge__image}>
       <Image src="/challenge-thumbs.png" layout="fill" objectFit="cover" />
     </div>
 
     <div className={styles.challenge__content}>
-      <small>Desafio 01</small>
+      <small>Desafio {challengeNumber}</small>
       <strong>Mount E Coast Photography</strong>
 
       <ul>
