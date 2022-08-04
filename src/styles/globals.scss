@@ -15,12 +15,17 @@ html {
 }
 
 :root {
-  --background: #181820;
-  --background-light: #21212B;
+  --text: #94a1b2;
+  --text-light: #fffffe;
+  --text-dark: #72757e;
+  --background: #1A1A2E;
+  --background-light: #161627;
 
-  --primary: #FFFFFF;
-  --secondary: #F95738;
-  --terciary: #bbbbbb;
+  --white: rgba(255, 255, 255, 0.1);
+
+  --link: #7f5af0;
+  --link-dark: #2f2843;
+  --green: #2cb67d;
 }
 
 body {
@@ -28,7 +33,7 @@ body {
 }
 
 body, button, textarea, input {
-  color: var(--primary);
+  color: var(--text-light);
   font: 400 1rem "Roboto", sans-serif;
 }
 

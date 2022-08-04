@@ -11,47 +11,53 @@ interface UserProps {
 }
 
 const HomePage: NextPage<UserProps> = user => (
-  <div className={styles.container}>
-    <header className={styles.header}>
-      <div className={styles.user}>
-        {user?.image && (
-          <div className={styles.user__avatar}>
-            <Image src={user?.image} layout="fill" objectFit="cover" />
-          </div>
-        )}
+  // <div className={styles.container}>
+  //   <header className={styles.header}>
+  //     <div className={styles.user}>
+  //       {user?.image && (
+  //         <div className={styles.user__avatar}>
+  //           <Image src={user?.image} layout="fill" objectFit="cover" />
+  //         </div>
+  //       )}
 
-        <div className={styles.user__info}>
-          <strong>{user.name}</strong>
-          <span>{user.email}</span>
-        </div>
-      </div>
+  //       <div className={styles.user__info}>
+  //         <strong>{user.name}</strong>
+  //         <span>{user.email}</span>
+  //       </div>
+  //     </div>
 
-      <button
-        type="button"
-        onClick={() => signOut()}
-        className={styles.signOut}
-      >
-        SAIR
-      </button>
-    </header>
+  //     <button
+  //       type="button"
+  //       onClick={() => signOut()}
+  //       className={styles.signOut}
+  //     >
+  //       SAIR
+  //     </button>
+  //   </header>
 
-    <h1>tela inicial</h1>
-  </div>
+  <h1>tela inicial</h1>
+  // </div>
 )
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req })
+  // const session = await getSession({ req })
 
-  if (session === null) {
-    return {
-      props: {},
-      redirect: {
-        destination: '/login'
-      }
-    }
+  // if (session === null) {
+  //   return {
+  //     props: {},
+  //     redirect: {
+  //       destination: '/login'
+  //     }
+  //   }
+  // }
+
+  // const user = session?.user || {}
+
+  const user = {
+    image: 'https://avatars.githubusercontent.com/u/11177716?v=4',
+    name: 'Leonardo Vargas',
+    email: 'teste124@!dfjasd.com'
   }
-
-  const user = session?.user || {}
 
   return { props: user }
 }

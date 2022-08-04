@@ -12,8 +12,10 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
           <meta property="og:type" content="website" />
           <meta property="og:locale" content="pt_BR" />
-          <meta property="og:site_name" content="NextJS Boilerplate" />
+          <meta property="og:site_name" content="Portal de desafios" />
           <meta name="author" content="Leonardo Luis de Vargas" />
+
+          <title>Portal de Desafios</title>
 
           <link
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
