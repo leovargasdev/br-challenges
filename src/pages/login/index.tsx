@@ -6,7 +6,7 @@ import styles from './styles.module.scss'
 
 const LoginPage = () => (
   <div className={styles.container}>
-    <button type="button" onClick={() => signIn()}>
+    <button type="button" onClick={() => signIn('github')}>
       <GoOctoface />
       Login
     </button>
