@@ -1,8 +1,35 @@
 .challenge {
   overflow: hidden;
-  border-radius: 4px 4px 12px 12px;
-  background: var(--background-light);
-  box-shadow: rgba(58, 50, 80, 0.2) 2px 4px 10px 5px;
+
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  
+  box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.08);
+  position: relative;
+
+  > span {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
+
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+
+    padding: 8px;
+    border-radius: 6px;
+    background: #F86624;
+    background: #EE4266;
+
+    font-size: 0.75rem;
+
+    svg {
+      width: 1rem;
+      height: auto;
+    }
+  }
 }
 
 .challenge__image {
@@ -17,10 +44,10 @@
   flex-direction: column;
   row-gap: 4px;
 
-  padding: 24px;
+  padding: 32px;
 
   small {
-    border-radius: 12px;
+    border-radius: 4px;
     padding: 4px 8px;
     align-self: center;
     font-weight: 500;
@@ -50,7 +77,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      column-gap: 4px;
+      column-gap: 2px;
 
       svg {
         width: 1.125rem;

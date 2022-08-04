@@ -7,6 +7,7 @@ import styles from 'styles/home.module.scss'
 
 const HomePage: NextPage = () => (
   <section className={styles.home}>
+    {/* <h1>olar mundo</h1> */}
     <ChallengeCard />
     <ChallengeCard />
     <ChallengeCard />

@@ -44,7 +44,9 @@
 .header {
   display: flex;
   background: var(--background-light);
+  // border-bottom: 1px solid var(--white);
   padding: 24px 40px;
+  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.2);
 }
 
 .header__content {
@@ -92,8 +94,8 @@
   font-weight: bold;
 
   border-radius: 4px;
-  padding: 8px 24px;
-  background: var(--background);
+  padding: 12px 40px;
+  background: var(--white);
 
   transition: filter 0.2s;
 

@@ -1,11 +1,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { FaCalendar, FaUsers } from 'react-icons/fa'
+import { HiOutlineClock, HiFire, HiBadgeCheck } from 'react-icons/hi'
 
 import styles from './styles.module.scss'
 
 export const ChallengeCard = () => (
   <article className={styles.challenge}>
+    {/* <span>
+      <HiBadgeCheck /> Participando
+    </span> */}
+
     <div className={styles.challenge__image}>
       <Image src="/challenge-thumbs.png" layout="fill" objectFit="cover" />
     </div>
@@ -16,10 +20,10 @@ export const ChallengeCard = () => (
 
       <ul>
         <li>
-          <FaCalendar /> 12 dias restantes
+          <HiOutlineClock /> 12 dias restantes
         </li>
         <li>
-          <FaUsers /> 8 participantes
+          <HiFire /> 8 participantes
         </li>
       </ul>
 

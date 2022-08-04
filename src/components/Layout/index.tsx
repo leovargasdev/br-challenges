@@ -34,13 +34,13 @@ export const Layout = ({ children }: LayoutProps) => {
             </div>
           )}
 
-          <button
+          {/* <button
             type="button"
             onClick={() => signOut()}
             className={styles.signOut}
           >
             SAIR
-          </button>
+          </button> */}
         </div>
       </header>
 
