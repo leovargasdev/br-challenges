@@ -1,0 +1,39 @@
+{
+  "id": "mock-doc-id",
+  "url": null,
+  "type": "challenges",
+  "href": null,
+  "tags": [],
+  "first_publication_date": "1970-01-01T00:00:01+0000",
+  "last_publication_date": "1970-01-01T00:00:01+0000",
+  "slugs": [],
+  "linked_documents": [],
+  "lang": "en-us",
+  "alternate_languages": [],
+  "data": {
+    "name": "thrown",
+    "image": {
+      "dimensions": {
+        "width": 900,
+        "height": 500
+      },
+      "alt": null,
+      "copyright": null,
+      "url": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2"
+    },
+    "title": "tears",
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Mollit anim Lorem enim exercitation cupidatat enim quis excepteur.",
+        "spans": []
+      }
+    ],
+    "prototype": {
+      "link_type": "Web",
+      "url": "http://twitter.com"
+    },
+    "deadline": "2021-03-03",
+    "finished": true
+  }
+}

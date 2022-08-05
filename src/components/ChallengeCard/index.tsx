@@ -3,41 +3,40 @@ import Image from 'next/image'
 import { HiOutlineClock, HiFire, HiBadgeCheck } from 'react-icons/hi'
 
 import styles from './styles.module.scss'
+import { ChallengeSimple } from 'types/challenge'
 
-interface ChallengeCardProps {
+interface ChallengeCardProps extends ChallengeSimple {
   isSubmited?: boolean
   challengeNumber: number
 }
 
-export const ChallengeCard = ({
-  isSubmited = false,
-  challengeNumber
-}: ChallengeCardProps) => (
+export const ChallengeCard = (challenge: ChallengeCardProps) => (
   <article className={styles.challenge}>
-    {isSubmited && (
+    {challenge.isSubmited && (
       <span>
         <HiBadgeCheck /> Participando
       </span>
     )}
 
     <div className={styles.challenge__image}>
-      <Image src="/challenge-thumbs.png" layout="fill" objectFit="cover" />
+      <Image src={challenge.image.url} layout="fill" objectFit="cover" />
     </div>
 
     <div className={styles.challenge__content}>
-      <small>Desafio {challengeNumber}</small>
-      <strong>Mount E Coast Photography</strong>
+      <small>Desafio {challenge.challengeNumber}</small>
+      <strong>{challenge.title}</strong>
 
       <ul>
         <li>
-          <HiOutlineClock /> 12 dias restantes
+          <HiOutlineClock />
+          {challenge.deadline} dias restantes
         </li>
         <li>
           <HiFire /> 8 participantes
         </li>
       </ul>
 
-      <Link href="/desafio/01">
+      <Link href={'/desafio/'.concat(challenge.id)}>
         <a>Acessar desafio</a>
       </Link>
     </div>

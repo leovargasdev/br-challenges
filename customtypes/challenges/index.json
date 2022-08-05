@@ -1,0 +1,72 @@
+{
+  "id": "challenges",
+  "label": "Desafios",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "id",
+          "placeholder": ""
+        }
+      },
+      "name": {
+        "type": "Text",
+        "config": {
+          "label": "Nome",
+          "placeholder": ""
+        }
+      },
+      "image": {
+        "type": "Image",
+        "config": {
+          "label": "Imagem",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "Titulo",
+          "placeholder": ""
+        }
+      },
+      "content": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Conteudo",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+      "prototype": {
+        "type": "Link",
+        "config": {
+          "label": "Protótipo",
+          "placeholder": "",
+          "select": null
+        }
+      },
+      "deadline": {
+        "type": "Date",
+        "config": {
+          "label": "Data de entrega",
+          "placeholder": ""
+        }
+      },
+      "finished": {
+        "type": "Boolean",
+        "config": {
+          "label": "Finalizado",
+          "default_value": false,
+          "placeholder_true": "true",
+          "placeholder_false": "false"
+        }
+      }
+    }
+  }
+}
