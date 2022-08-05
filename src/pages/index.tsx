@@ -1,4 +1,3 @@
-import { asHTML } from '@prismicio/helpers'
 import { getSession } from 'next-auth/react'
 import { GetServerSideProps, NextPage } from 'next'
 
@@ -7,6 +6,7 @@ import { Challenge } from 'types/challenge'
 import { ChallengeCard } from 'components/ChallengeCard/'
 
 import styles from 'styles/home.module.scss'
+import { formattedChallange } from 'utils/format'
 
 interface HomePageProps {
   challenges: Challenge[]
@@ -35,30 +35,23 @@ const HomePage: NextPage<HomePageProps> = ({ challenges }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  // const session = await getSession({ req })
+  const session = await getSession({ req })
 
-  // if (session === null) {
-  //   return {
-  //     props: {},
-  //     redirect: {
-  //       destination: '/login'
-  //     }
-  //   }
-  // }
+  if (session === null) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/login'
+      }
+    }
+  }
 
   const client = prismic({ req })
-  const response = await client.getAllByType('challenges', { pageSize: 5 })
+  const response = await client.getAllByType('challenges', {
+    pageSize: 5
+  })
 
-  const challenges = response.map(challenge => ({
-    id: challenge.uid,
-    name: challenge.data.name,
-    title: challenge.data.title,
-    finished: challenge.data.finished,
-    content: asHTML(challenge.data.content),
-    deadline: challenge.data.deadline,
-    image: challenge.data.image,
-    prototype_url: challenge.data.prototype.url
-  }))
+  const challenges = response.map(formattedChallange)
 
   return {
     props: {
