@@ -1,8 +1,8 @@
-import { format } from 'date-fns'
 import Image from 'next/image'
+import { format } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
+import { getSession } from 'next-auth/react'
 import { HiOutlineClock } from 'react-icons/hi'
-
 import { GetServerSideProps, NextPage } from 'next'
 
 import { prismic } from 'service/prismic'
@@ -40,6 +40,17 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   query
 }) => {
+  const session = await getSession({ req })
+
+  if (session === null) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/login'
+      }
+    }
+  }
+
   const challengeUID = String(query.challenge)
 
   const client = prismic({ req })

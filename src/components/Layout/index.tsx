@@ -11,38 +11,40 @@ interface LayoutProps {
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-  const { data } = useSession()
+  const { data, status } = useSession()
 
   const user = data?.user as User
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.header__content}>
-          {user && (
-            <div className={styles.user}>
-              {user?.image && (
-                <div className={styles.user__avatar}>
-                  <Image src={user?.image} layout="fill" objectFit="cover" />
+      {status === 'authenticated' && (
+        <header className={styles.header}>
+          <div className={styles.header__content}>
+            {user && (
+              <div className={styles.user}>
+                {user?.image && (
+                  <div className={styles.user__avatar}>
+                    <Image src={user?.image} layout="fill" objectFit="cover" />
+                  </div>
+                )}
+
+                <div className={styles.user__info}>
+                  <strong>{user.name}</strong>
+                  <span>{user.email}</span>
                 </div>
-              )}
-
-              <div className={styles.user__info}>
-                <strong>{user.name}</strong>
-                <span>{user.email}</span>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* <button
-            type="button"
-            onClick={() => signOut()}
-            className={styles.signOut}
-          >
-            SAIR
-          </button> */}
-        </div>
-      </header>
+            <button
+              type="button"
+              onClick={() => signOut()}
+              className={styles.signOut}
+            >
+              SAIR
+            </button>
+          </div>
+        </header>
+      )}
 
       <main className={styles.main}>{children}</main>
 
