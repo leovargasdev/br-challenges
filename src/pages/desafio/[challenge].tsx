@@ -5,6 +5,8 @@ import { getSession } from 'next-auth/react'
 import { HiOutlineClock } from 'react-icons/hi'
 import { GetServerSideProps, NextPage } from 'next'
 
+import { AuthorCard } from 'components/AuthorCard'
+
 import { prismic } from 'service/prismic'
 import { Challenge } from 'types/challenge'
 import { formattedChallange } from 'utils/format'
@@ -22,6 +24,7 @@ const ChallengePage: NextPage<Challenge> = challenge => (
       />
     </div>
     <h1>{challenge.title}</h1>
+
     <time>
       <HiOutlineClock />
       {format(new Date(challenge.deadline), "dd' de 'MMMM' de 'yyyy", {
@@ -29,10 +32,18 @@ const ChallengePage: NextPage<Challenge> = challenge => (
       })}
     </time>
 
-    <div
-      dangerouslySetInnerHTML={{ __html: challenge.content || '' }}
-      className={styles.challenge__content}
-    />
+    <div className={styles.challenge__content}>
+      <span dangerouslySetInnerHTML={{ __html: challenge.content || '' }} />
+
+      <h2>Protótipo do desafio</h2>
+
+      <iframe
+        allowFullScreen
+        src={`https://www.figma.com/embed?embed_host=astra&url=${challenge.prototype_url}`}
+      />
+    </div>
+
+    <AuthorCard />
   </div>
 )
 
