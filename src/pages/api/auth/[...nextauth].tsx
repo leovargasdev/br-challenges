@@ -21,9 +21,28 @@ export default NextAuth({
         return true
       }
 
-      await User.create(user)
+      await User.create({ ...user, role: 'normal' })
 
       return true
+    },
+    async session({ session }) {
+      await connectMongoose()
+
+      const { user } = session
+
+      if (user) {
+        const userMongo = await User.findOne({ email: user.email })
+
+        return {
+          ...session,
+          user: {
+            ...user,
+            ...userMongo._doc
+          }
+        }
+      }
+
+      return session
     }
   }
 })

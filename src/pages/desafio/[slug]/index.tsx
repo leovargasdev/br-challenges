@@ -44,7 +44,7 @@ const ChallengePage: NextPage<Challenge> = challenge => (
       />
     </div>
 
-    <Link href="">
+    <Link href={`/desafio/${challenge.id}/participar`}>
       <a className={styles.challenge__solution}>
         <HiPencilAlt />
         Participar

@@ -18,8 +18,6 @@ export const Input = ({ name, label, ...rest }: InputProps) => {
   const error: any = errors[name]?.message || ''
   const isError = !!error
 
-  console.log(errors[name])
-
   return (
     <div className={styles.field}>
       <label htmlFor={name}>{label}</label>

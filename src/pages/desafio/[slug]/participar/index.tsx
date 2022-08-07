@@ -1,29 +1,38 @@
-import { z as zod } from 'zod'
+import { useRouter } from 'next/router'
 import { HiPaperAirplane } from 'react-icons/hi'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, FormProvider } from 'react-hook-form'
 
 import { Input } from 'components/Input'
 
+import api from 'service/api'
 import styles from './styles.module.scss'
-
-const Solution = zod.object({
-  repository_url: zod
-    .string()
-    .min(1, { message: 'A url do repositório é obrigatória' })
-    .startsWith('https://git', {
-      message: 'O repositório deverá ser do github ou gitlab'
-    })
-})
+import { zodSolutionSchema } from 'utils/zod'
 
 const SolutionChallengePage = () => {
+  const router = useRouter()
   const useFormMethods = useForm({
     mode: 'all',
-    resolver: zodResolver(Solution)
+    resolver: zodResolver(zodSolutionSchema)
   })
 
   const onSubmit = async (data: any): Promise<void> => {
-    console.log(data)
+    try {
+      const solution = {
+        ...data,
+        challenge_id: router.query.slug
+      }
+
+      await api.post('challenge/solution', solution)
+
+      // CRIAR TOAST DE SUCESSO
+
+      console.log('sajhdahdjkadhakjdhakjh')
+
+      router.push('/')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
