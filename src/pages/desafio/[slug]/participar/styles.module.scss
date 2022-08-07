@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  row-gap: 16px;
+
+  padding: 40px;
+  border-radius: 6px 6px 16px 16px;
+  background: rgba(255, 255, 255, 0.01);
+  box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.08);
+
+  width: 100%;
+  max-width: 900px;
+  margin: 64px auto 0;
+
+  h1, button {
+    align-self: center;
+  }
+
+  h1 {
+    margin-bottom: 16px;
+  }
+
+  button {
+    margin-top: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 6px;
+
+    font-size: 1.5rem;
+    line-height: 2rem;
+
+    width: 100%;
+    height: 48px;
+    max-width: 300px;
+    border-radius: 6px;
+    background: var(--link);
+  }
+}

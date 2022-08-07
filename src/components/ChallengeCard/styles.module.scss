@@ -1,12 +1,10 @@
 .challenge {
+  position: relative;
   overflow: hidden;
 
-  border-radius: 6px 6px 16px 16px;
-
   background: transparent;
-  
+  border-radius: 6px 6px 16px 16px;
   box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.08);
-  position: relative;
 
   > span {
     position: absolute;

@@ -1,0 +1,48 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 6px;
+
+  label {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+  }
+
+  input {
+    outline: none;
+
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    background: transparent;
+    border: 1px solid var(--white);
+
+    &:focus, &:not(:placeholder-shown) {
+      border-color: var(--link);
+    }
+
+    &[aria-invalid=true] {
+      border-color: var(--red);
+    }
+
+    &::placeholder {
+      color: var(--white);
+    }
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    column-gap: 2px;
+
+    font-size: 0.875rem;
+    line-height: 1rem;
+    color: var(--red);
+
+    svg {
+      width: 0.875rem;
+      height: auto;
+    }
+  }
+}
