@@ -53,80 +53,9 @@
   align-items: center;
   justify-content: space-between;
 
-  > svg {
+  > a svg {
     width: auto;
     height: 24px;
   }
 
-}
-
-.user {
-  display: flex;
-  align-items: center;
-  column-gap: 8px;
-  position: relative;
-
-  .user__avatar {
-    position: relative;
-
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    overflow: hidden;
-  }
-}
-
-.user__info {
-  position: absolute;
-  top: 70px;
-  right: 0;
-  z-index: 10;
-
-  border-radius: 10px;
-  padding: 16px;
-  background: var(--background-light);
-  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.2);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 2px;
-
-  strong, span {
-    padding: 0 16px;
-  }
-
-  strong {
-    font-size: 1.125rem;
-    line-height: 1.5rem;
-  }
-
-  span {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    color: var(--text);
-  }
-
-  hr {
-    width: 100%;
-    border: 0;
-    border-bottom: 1px solid var(--text-dark);
-    margin: 16px 0;
-  }
-}
-
-.signOut {
-  font-size: 1rem;
-  font-weight: bold;
-
-  width: 80%;
-  border-radius: 4px;
-  padding: 8px 0;
-  background: var(--white);
-
-  transition: filter 0.2s;
-
-  &:hover {
-    filter: brightness(0.9);
-  }
 }

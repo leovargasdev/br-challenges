@@ -1,9 +1,10 @@
+import Link from 'next/link'
 import Image from 'next/image'
 import { format } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import { getSession } from 'next-auth/react'
-import { HiOutlineClock } from 'react-icons/hi'
 import { GetServerSideProps, NextPage } from 'next'
+import { HiOutlineClock, HiPencilAlt } from 'react-icons/hi'
 
 import { AuthorCard } from 'components/AuthorCard'
 
@@ -43,6 +44,13 @@ const ChallengePage: NextPage<Challenge> = challenge => (
       />
     </div>
 
+    <Link href="">
+      <a className={styles.challenge__solution}>
+        <HiPencilAlt />
+        Participar
+      </a>
+    </Link>
+
     <AuthorCard />
   </div>
 )
@@ -62,7 +70,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     }
   }
 
-  const challengeUID = String(query.challenge)
+  const challengeUID = String(query.slug)
 
   const client = prismic({ req })
 

@@ -1,9 +1,9 @@
-import Image from 'next/image'
-import { useState } from 'react'
-import { signOut, useSession } from 'next-auth/react'
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
 import { User } from 'types/user'
 import { Logo, WaveFooter } from 'components/SVG'
+import { AvatarMenu } from 'components/AvatarMenu'
 
 import styles from './styles.module.scss'
 
@@ -14,7 +14,6 @@ interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
   const { data, status } = useSession()
-  const [isActiveMenu, setIsActiveMenu] = useState<boolean>(false)
 
   const user = data?.user as User
 
@@ -23,36 +22,13 @@ export const Layout = ({ children }: LayoutProps) => {
       {status === 'authenticated' && (
         <header className={styles.header}>
           <div className={styles.header__content}>
-            <Logo />
+            <Link href="/">
+              <a>
+                <Logo />
+              </a>
+            </Link>
 
-            <div className={styles.user}>
-              {user?.image && (
-                <button
-                  className={styles.user__avatar}
-                  type="button"
-                  onClick={() => setIsActiveMenu(state => !state)}
-                >
-                  <Image src={user?.image} layout="fill" objectFit="cover" />
-                </button>
-              )}
-
-              {isActiveMenu && (
-                <div className={styles.user__info}>
-                  <strong>{user.name}</strong>
-                  <span>{user.email}</span>
-
-                  <hr />
-
-                  <button
-                    type="button"
-                    onClick={() => signOut()}
-                    className={styles.signOut}
-                  >
-                    SAIR
-                  </button>
-                </div>
-              )}
-            </div>
+            <AvatarMenu user={user} />
           </div>
         </header>
       )}
