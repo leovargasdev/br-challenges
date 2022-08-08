@@ -3,6 +3,7 @@ import { PrismicNextImage } from '@prismicio/next'
 import { HiOutlineClock, HiPencilAlt } from 'react-icons/hi'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 
+import { SEO } from 'components/SEO'
 import { AuthorCard } from 'components/AuthorCard'
 
 import { Challenge } from 'types/challenge'
@@ -13,6 +14,12 @@ import styles from './styles.module.scss'
 
 const ChallengePage: NextPage<Challenge> = challenge => (
   <div className={styles.challenge}>
+    <SEO
+      tabName={`Desafio - ${challenge.title}`}
+      title={`Desafio - ${challenge.title}`}
+      description="Venha confirir esse desafio incrivel"
+    />
+
     <div className={styles.challenge__image}>
       <PrismicNextImage
         field={challenge.image}

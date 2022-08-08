@@ -8,6 +8,7 @@ import { formattedChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
 
 import styles from 'styles/home.module.scss'
+import { SEO } from 'components/SEO'
 
 interface PageProps {
   challenges: Challenge[]
@@ -15,6 +16,11 @@ interface PageProps {
 
 const HomePage: NextPage<PageProps> = ({ challenges }) => (
   <section className={styles.home}>
+    <SEO
+      tabName="Home"
+      title="Página inicial"
+      description="Essa eh a página inicial"
+    />
     <ChallengeCard challengeNumber={1} {...challenges[0]} />
   </section>
 )
