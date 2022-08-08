@@ -2,8 +2,8 @@
   position: relative;
   overflow: hidden;
 
-  background: transparent;
   border-radius: 6px 6px 16px 16px;
+  background: var(--background-light);
   box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.08);
 
   > span {

@@ -42,9 +42,9 @@
 
 .header {
   display: flex;
-  background: var(--background-light);
-  // border-bottom: 1px solid var(--white);
+
   padding: 16px 40px;
+  background: var(--background-light);
   box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.2);
 }
 
