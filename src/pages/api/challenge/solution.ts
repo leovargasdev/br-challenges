@@ -2,7 +2,7 @@
 import { getSession } from 'next-auth/react'
 import { NextApiResponse, NextApiRequest } from 'next'
 
-import { connectMongoose, Solution } from 'service/mongoose'
+import { connectMongoose, SolutionModel } from 'service/mongoose'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const solution = req.body
@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       if (session?.user) {
         const user_id = session.user._id
-        await Solution.create({ ...solution, user_id })
+        await SolutionModel.create({ ...solution, user_id })
       }
 
       return res.status(200).json({ create: true })

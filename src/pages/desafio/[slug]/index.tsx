@@ -1,36 +1,31 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import { format } from 'date-fns'
-import ptBR from 'date-fns/locale/pt-BR'
-import { getSession } from 'next-auth/react'
-import { GetServerSideProps, NextPage } from 'next'
+import { PrismicNextImage } from '@prismicio/next'
 import { HiOutlineClock, HiPencilAlt } from 'react-icons/hi'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 
 import { AuthorCard } from 'components/AuthorCard'
 
-import { prismic } from 'service/prismic'
 import { Challenge } from 'types/challenge'
-import { formattedChallange } from 'utils/format'
+import { formattedChallenge, getFullDate } from 'utils/format'
+import { createClientPrismic, collectionSlugs } from 'service/prismic'
 
 import styles from './styles.module.scss'
 
 const ChallengePage: NextPage<Challenge> = challenge => (
   <div className={styles.challenge}>
     <div className={styles.challenge__image}>
-      <Image
-        src={challenge.image.url}
-        alt={challenge.image.alt}
+      <PrismicNextImage
+        field={challenge.image}
         layout="fill"
         objectFit="cover"
       />
     </div>
+
     <h1>{challenge.title}</h1>
 
     <time>
       <HiOutlineClock />
-      {format(new Date(challenge.deadline), "dd' de 'MMMM' de 'yyyy", {
-        locale: ptBR
-      })}
+      {getFullDate(challenge.deadline)}
     </time>
 
     <div className={styles.challenge__content}>
@@ -44,7 +39,8 @@ const ChallengePage: NextPage<Challenge> = challenge => (
       />
     </div>
 
-    <Link href={`/desafio/${challenge.id}/participar`}>
+    {/* Desabilitar o botão com o auth === 'off' */}
+    <Link href={challenge.participate_url}>
       <a className={styles.challenge__solution}>
         <HiPencilAlt />
         Participar
@@ -55,28 +51,22 @@ const ChallengePage: NextPage<Challenge> = challenge => (
   </div>
 )
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  query
-}) => {
-  const session = await getSession({ req })
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = await collectionSlugs('/desafio', 'challenges')
 
-  if (session === null) {
-    return {
-      props: {},
-      redirect: {
-        destination: '/login'
-      }
-    }
-  }
+  return { fallback: 'blocking', paths }
+}
 
-  const challengeUID = String(query.slug)
+export const getStaticProps: GetStaticProps = async props => {
+  const { params, previewData } = props
 
-  const client = prismic({ req })
+  const challengeSlug = String(params?.slug)
 
-  const challenge = await client.getByUID('challenges', challengeUID)
+  const prismic = createClientPrismic({ previewData })
 
-  return { props: formattedChallange(challenge) }
+  const challenge = await prismic.getByUID('challenges', challengeSlug)
+
+  return { props: formattedChallenge(challenge) }
 }
 
 export default ChallengePage

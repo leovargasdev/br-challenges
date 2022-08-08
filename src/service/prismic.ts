@@ -1,20 +1,43 @@
-import * as prismicNext from '@prismicio/next'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { asLink } from '@prismicio/helpers'
+import { enableAutoPreviews } from '@prismicio/next'
 import { createClient, getRepositoryName } from '@prismicio/client'
 
 const prismicURL = process.env.PRISMIC_URL || ''
 
 export const repositoryName = getRepositoryName(prismicURL)
 
-interface CreateClientProps {
-  req: any
+interface PrismicConfg {
+  req?: any
+  previewData?: any
 }
 
-export const prismic = ({ req }: CreateClientProps) => {
+export const createClientPrismic = (config: PrismicConfg = {}) => {
   const client = createClient(prismicURL, {
     accessToken: process.env.PRISMIC_TOKEN
   })
 
-  prismicNext.enableAutoPreviews({ client, req })
+  enableAutoPreviews({ client, ...config })
 
   return client
+}
+
+export const collectionSlugs = async (
+  baseUrl: string,
+  collectionName: string
+): Promise<string[]> => {
+  try {
+    const client = createClientPrismic()
+    const itens = await client.getAllByType(collectionName)
+
+    const slugs = itens.map(item =>
+      asLink(item, () => `${baseUrl}/${item.uid}`)
+    )
+
+    return slugs as string[]
+  } catch (err) {
+    console.log(err)
+  }
+
+  return []
 }

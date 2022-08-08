@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
 
-import { User, connectMongoose } from 'service/mongoose'
+import { UserModel, connectMongoose } from 'service/mongoose'
 
 export default NextAuth({
   providers: [
@@ -14,14 +14,17 @@ export default NextAuth({
     async signIn({ user }) {
       await connectMongoose()
 
-      const isUser = await User.findOneAndUpdate({ email: user.email }, user)
+      const isUser = await UserModel.findOneAndUpdate(
+        { email: user.email },
+        user
+      )
 
       if (isUser) {
         console.log('usuário já cadastrado')
         return true
       }
 
-      await User.create({ ...user, role: 'normal' })
+      await UserModel.create({ ...user, role: 'normal' })
 
       return true
     },
@@ -31,7 +34,7 @@ export default NextAuth({
       const { user } = session
 
       if (user) {
-        const userMongo = await User.findOne({ email: user.email })
+        const userMongo = await UserModel.findOne({ email: user.email })
 
         return {
           ...session,

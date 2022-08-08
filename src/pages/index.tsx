@@ -1,18 +1,19 @@
 import { getSession } from 'next-auth/react'
 import { GetServerSideProps, NextPage } from 'next'
 
-import { prismic } from 'service/prismic'
+import { ChallengeCard } from 'components/ChallengeCard'
+
 import { Challenge } from 'types/challenge'
-import { formattedChallange } from 'utils/format'
-import { ChallengeCard } from 'components/ChallengeCard/'
+import { formattedChallenge } from 'utils/format'
+import { createClientPrismic } from 'service/prismic'
 
 import styles from 'styles/home.module.scss'
 
-interface HomePageProps {
+interface PageProps {
   challenges: Challenge[]
 }
 
-const HomePage: NextPage<HomePageProps> = ({ challenges }) => (
+const HomePage: NextPage<PageProps> = ({ challenges }) => (
   <section className={styles.home}>
     <ChallengeCard challengeNumber={1} {...challenges[0]} />
   </section>
@@ -30,12 +31,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
   }
 
-  const client = prismic({ req })
-  const response = await client.getAllByType('challenges', {
-    pageSize: 5
-  })
+  const prismic = createClientPrismic({ req })
 
-  const challenges = response.map(formattedChallange)
+  const response = await prismic.getAllByType('challenges')
+
+  const challenges = response.map(formattedChallenge)
 
   return {
     props: {

@@ -1,21 +1,19 @@
 import type { AppProps } from 'next/app'
+import { PrismicPreview } from '@prismicio/next'
 import { SessionProvider } from 'next-auth/react'
 
-import 'styles/globals.scss'
 import { Layout } from 'components/Layout'
 
-// const MOCK_USER = {
-//   image: 'https://avatars.githubusercontent.com/u/11177716?v=4',
-//   name: 'Leonardo Vargas',
-//   email: 'teste124@!dfjasd.com'
-// }
+import 'styles/globals.scss'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <PrismicPreview repositoryName="br-challenges">
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </PrismicPreview>
     </SessionProvider>
   )
 }
