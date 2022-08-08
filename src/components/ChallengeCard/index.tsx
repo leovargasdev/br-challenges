@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import ptBR from 'date-fns/locale/pt-BR'
 import { formatDistanceStrict } from 'date-fns'
+import { PrismicNextImage } from '@prismicio/next'
 import { HiOutlineClock, HiFire, HiBadgeCheck } from 'react-icons/hi'
 
 import styles from './styles.module.scss'
@@ -28,7 +28,11 @@ export const ChallengeCard = (challenge: ChallengeCardProps) => {
       )}
 
       <div className={styles.challenge__image}>
-        <Image src={challenge.image.url} layout="fill" objectFit="cover" />
+        <PrismicNextImage
+          field={challenge.image}
+          layout="fill"
+          objectFit="cover"
+        />
       </div>
 
       <div className={styles.challenge__content}>

@@ -18,8 +18,9 @@
 
 .footer {
   position: relative;
-  height: 160px;
+  height: 180px;
   overflow: hidden;
+  // background: rgba(255, 255, 255, 0.1);
 
   display: flex;
   align-items: flex-end;
@@ -30,13 +31,19 @@
   svg {
     position: absolute;
     left: 0;
-    bottom: -130px;
+    bottom: -30px;
 
     z-index: -1;
   }
 
   small {
     font-size: 0.875rem;
+    padding-bottom: 16px;
+
+    a {
+      font-family: var(--family-bold);
+      font-weight: bold;
+    }
   }
 }
 
@@ -55,7 +62,7 @@
 
   > a svg {
     width: auto;
-    height: 24px;
+    height: 32px;
   }
 
 }

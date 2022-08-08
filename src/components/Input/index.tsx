@@ -15,11 +15,11 @@ export const Input = ({ name, label, ...rest }: InputProps) => {
     formState: { errors }
   } = useFormContext()
 
-  const error: any = errors[name]?.message || ''
-  const isError = !!error
+  const error = errors[name]?.message
+  const isError = typeof error === 'string'
 
   return (
-    <div className={styles.field}>
+    <fieldset className={styles.field}>
       <label htmlFor={name}>{label}</label>
       <input
         id={name}
@@ -34,6 +34,6 @@ export const Input = ({ name, label, ...rest }: InputProps) => {
           {error}
         </span>
       )}
-    </div>
+    </fieldset>
   )
 }

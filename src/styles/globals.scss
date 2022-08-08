@@ -4,16 +4,6 @@
   box-sizing: border-box;
 }
 
-html {
-  @media (max-width: 1080px) {
-    font-size: 93.75%; // 15px
-  }
-
-  @media (max-width: 720px) {
-    font-size: 87.5%; // 14px
-  }
-}
-
 :root {
   --text: #94a1b2;
   --text-light: #fffffe;
@@ -29,6 +19,9 @@ html {
   --link-dark: #2f2843;
   --green: #2cb67d;
   --red: #FF6B6B;
+
+  --family-normal: "Inter";
+  --family-bold: "Poppins";
 }
 
 body {
@@ -37,7 +30,11 @@ body {
 
 body, button, textarea, input {
   color: var(--text-light);
-  font: 400 1rem "Roboto", sans-serif;
+  font: 400 1rem var(--family-normal), sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, strong, b {
+  font-family: var(--family-bold);
 }
 
 a {

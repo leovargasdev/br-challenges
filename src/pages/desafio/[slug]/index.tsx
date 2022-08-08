@@ -66,7 +66,7 @@ export const getStaticProps: GetStaticProps = async props => {
 
   const challenge = await prismic.getByUID('challenges', challengeSlug)
 
-  return { props: formattedChallenge(challenge) }
+  return { props: formattedChallenge(challenge), revalidate: 60 * 5 }
 }
 
 export default ChallengePage

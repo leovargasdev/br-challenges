@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose'
-import { User } from 'service/mongoose'
+import { UserModel } from 'service/mongoose'
 
 import { Solution } from 'types'
 
@@ -21,7 +21,7 @@ export const solutionSchema = new Schema<Solution>(
 )
 
 solutionSchema.pre('save', async function (next) {
-  const userExist = await User.exists({ _id: this.user_id })
+  const userExist = await UserModel.exists({ _id: this.user_id })
   if (userExist) {
     next()
   } else {

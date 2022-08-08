@@ -39,7 +39,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <WaveFooter />
 
         <small>
-          © 2022{' '}
+          Desenvolvido por{' '}
           <a
             href="https://www.leonardovargas.dev/"
             target="_blank"
