@@ -7,21 +7,10 @@
   justify-content: center;
 
   button {
-    display: flex;
-    align-items: center;
-    column-gap: 8px;
-
     font-size: 1.25rem;
-    font-weight: bold;
+    line-height: 1.75rem;
 
-    border-radius: 4px;
-    padding: 12px 32px;
-    background: var(--link);
-
-    transition: filter 0.2s;
-
-    &:hover {
-      filter: brightness(0.9);
-    }
+    column-gap: 6px;
+    max-width: 160px;
   }
 }

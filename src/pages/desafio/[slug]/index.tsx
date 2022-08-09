@@ -11,53 +11,60 @@ import { formattedChallenge, getFullDate } from 'utils/format'
 import { createClientPrismic, collectionSlugs } from 'service/prismic'
 
 import styles from './styles.module.scss'
+import { useSession } from 'next-auth/react'
 
-const ChallengePage: NextPage<Challenge> = challenge => (
-  <div className={styles.challenge}>
-    <SEO
-      tabName={`Desafio - ${challenge.title}`}
-      title={`Desafio - ${challenge.title}`}
-      description="Venha confirir esse desafio incrivel"
-    />
+const ChallengePage: NextPage<Challenge> = challenge => {
+  const { status } = useSession()
 
-    <div className={styles.challenge__image}>
-      <PrismicNextImage
-        field={challenge.image}
-        layout="fill"
-        objectFit="cover"
+  return (
+    <div className={styles.challenge}>
+      <SEO
+        tabName={`Desafio - ${challenge.title}`}
+        title={`Desafio - ${challenge.title}`}
+        description="Venha confirir esse desafio incrivel"
       />
+
+      <div className={styles.challenge__image}>
+        <PrismicNextImage
+          field={challenge.image}
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
+
+      <h1>{challenge.title}</h1>
+
+      <time>
+        <HiOutlineClock />
+        {getFullDate(challenge.deadline)}
+      </time>
+
+      <div className={styles.challenge__content}>
+        <span dangerouslySetInnerHTML={{ __html: challenge.content || '' }} />
+
+        <h2>Protótipo do desafio</h2>
+
+        <iframe
+          allowFullScreen
+          src={`https://www.figma.com/embed?embed_host=astra&url=${challenge.prototype_url}`}
+        />
+      </div>
+
+      {/* Desabilitar o botão com o auth === 'off' */}
+      <Link href={challenge.participate_url}>
+        <a
+          aria-disabled={status !== 'authenticated'}
+          className={'button '.concat(styles.challenge__solution)}
+        >
+          <HiPencilAlt />
+          Participar
+        </a>
+      </Link>
+
+      <AuthorCard />
     </div>
-
-    <h1>{challenge.title}</h1>
-
-    <time>
-      <HiOutlineClock />
-      {getFullDate(challenge.deadline)}
-    </time>
-
-    <div className={styles.challenge__content}>
-      <span dangerouslySetInnerHTML={{ __html: challenge.content || '' }} />
-
-      <h2>Protótipo do desafio</h2>
-
-      <iframe
-        allowFullScreen
-        src={`https://www.figma.com/embed?embed_host=astra&url=${challenge.prototype_url}`}
-      />
-    </div>
-
-    {/* Desabilitar o botão com o auth === 'off' */}
-    <Link href={challenge.participate_url}>
-      <a className={styles.challenge__solution}>
-        <HiPencilAlt />
-        Participar
-      </a>
-    </Link>
-
-    <AuthorCard />
-  </div>
-)
-
+  )
+}
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = await collectionSlugs('/desafio', 'challenges')
 

@@ -23,19 +23,12 @@
 
   button {
     margin-top: 32px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
     column-gap: 6px;
 
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
 
-    width: 100%;
-    height: 48px;
     max-width: 300px;
-    border-radius: 6px;
-    background: var(--link);
+
   }
 }

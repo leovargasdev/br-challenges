@@ -2,11 +2,14 @@ import { GetServerSideProps } from 'next'
 import { GoOctoface } from 'react-icons/go'
 import { signIn, getSession } from 'next-auth/react'
 
+import { SEO } from 'components/SEO'
 import styles from './styles.module.scss'
 
 const LoginPage = () => (
   <div className={styles.container}>
-    <button type="button" onClick={() => signIn('github')}>
+    <SEO tabName="Login" title="Acessar conta" />
+
+    <button type="button" onClick={() => signIn('github')} className="button">
       <GoOctoface />
       Login
     </button>

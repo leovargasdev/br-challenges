@@ -74,19 +74,9 @@
 }
 
 .challenge__solution {
-  width: 100%;
-  height: 48px;
-  border-radius: 8px;
-  background: var(--link);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
   column-gap: 8px;
-
+  margin-top: 32px;
+  
   font-size: 1.25rem;
   line-height: 1.5rem;
-  font-weight: 600;
-
-  margin-top: 32px;
 }

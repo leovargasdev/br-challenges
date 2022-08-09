@@ -50,7 +50,7 @@ export const ChallengeCard = (challenge: ChallengeCardProps) => {
         </ul>
 
         <Link href={'/desafio/'.concat(challenge.id)}>
-          <a>Acessar desafio</a>
+          <a className="button outline disable">Acessar desafio</a>
         </Link>
       </div>
     </article>

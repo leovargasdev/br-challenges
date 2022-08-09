@@ -3,6 +3,7 @@ import { HiPaperAirplane } from 'react-icons/hi'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, FormProvider } from 'react-hook-form'
 
+import { SEO } from 'components/SEO'
 import { Input } from 'components/Input'
 
 import api from 'service/api'
@@ -37,6 +38,8 @@ const SolutionChallengePage = () => {
 
   return (
     <FormProvider {...useFormMethods}>
+      <SEO tabName="Participar do desafio" title="Participar do desafio" />
+
       <form
         className={styles.container}
         onSubmit={useFormMethods.handleSubmit(onSubmit)}
@@ -68,7 +71,7 @@ const SolutionChallengePage = () => {
           placeholder="Url ao compartilhar a chamada do desafio"
         />
 
-        <button type="submit">
+        <button type="submit" className="button">
           <HiPaperAirplane />
           Enviar
         </button>
