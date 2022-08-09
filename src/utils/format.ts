@@ -12,7 +12,6 @@ export const formattedChallenge = (
   challenge: ChallengePrismic | any
 ): Challenge => ({
   id: challenge.uid,
-  name: challenge.data.name,
   title: challenge.data.title,
   finished: challenge.data.finished,
   content: asHTML(challenge.data.content),

@@ -21,7 +21,13 @@ const HomePage: NextPage<PageProps> = ({ challenges }) => (
       title="Página inicial"
       description="Essa eh a página inicial"
     />
-    <ChallengeCard challengeNumber={1} {...challenges[0]} />
+    {challenges.map((challenge, index) => (
+      <ChallengeCard
+        key={challenge.id}
+        challengeNumber={index}
+        {...challenge}
+      />
+    ))}
   </section>
 )
 

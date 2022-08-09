@@ -12,7 +12,6 @@ export interface ChallengeSimple {
 }
 
 export interface Challenge extends ChallengeSimple {
-  name: string
   author: Author
   content: string | null
   prototype_url: string
