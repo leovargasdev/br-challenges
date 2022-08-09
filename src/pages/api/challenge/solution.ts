@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { getSession } from 'next-auth/react'
 import { NextApiResponse, NextApiRequest } from 'next'
 

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 import { PrismicNextImage } from '@prismicio/next'
 import { HiOutlineClock, HiPencilAlt } from 'react-icons/hi'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
@@ -11,7 +12,6 @@ import { formattedChallenge, getFullDate } from 'utils/format'
 import { createClientPrismic, collectionSlugs } from 'service/prismic'
 
 import styles from './styles.module.scss'
-import { useSession } from 'next-auth/react'
 
 const ChallengePage: NextPage<Challenge> = challenge => {
   const { status } = useSession()
@@ -50,7 +50,6 @@ const ChallengePage: NextPage<Challenge> = challenge => {
         />
       </div>
 
-      {/* Desabilitar o botão com o auth === 'off' */}
       <Link href={challenge.participate_url}>
         <a
           aria-disabled={status !== 'authenticated'}
@@ -61,7 +60,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
         </a>
       </Link>
 
-      <AuthorCard />
+      <AuthorCard {...challenge.author} />
     </div>
   )
 }

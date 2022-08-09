@@ -19,7 +19,8 @@ export const formattedChallenge = (
   deadline: challenge.data.deadline,
   image: challenge.data.image,
   prototype_url: challenge.data.prototype.url,
-  participate_url: `/desafio/${challenge.uid}/participar`
+  participate_url: `/desafio/${challenge.uid}/participar`,
+  author: challenge.data.author[0]
 })
 
 export const getFullDate = (value: string): string => {

@@ -23,6 +23,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "camelcase": "off",
         "prettier/prettier": "error",
         "space-before-function-paren": "off",
         "react/prop-types": "off",

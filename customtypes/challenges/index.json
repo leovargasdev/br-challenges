@@ -66,6 +66,43 @@
           "placeholder_true": "true",
           "placeholder_false": "false"
         }
+      },
+      "author": {
+        "type": "Group",
+        "config": {
+          "label": "Autor",
+          "fields": {
+            "name": {
+              "type": "Text",
+              "config": {
+                "label": "Nome",
+                "placeholder": ""
+              }
+            },
+            "description": {
+              "type": "Text",
+              "config": {
+                "label": "Descrição",
+                "placeholder": ""
+              }
+            },
+            "links": {
+              "type": "Text",
+              "config": {
+                "label": "Links",
+                "placeholder": ""
+              }
+            },
+            "image": {
+              "type": "Image",
+              "config": {
+                "label": "Imagem",
+                "constraint": {},
+                "thumbnails": []
+              }
+            }
+          }
+        }
       }
     }
   }

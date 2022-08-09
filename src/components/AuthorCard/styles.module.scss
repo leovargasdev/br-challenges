@@ -60,25 +60,17 @@
   margin-top: 12px;
 
   a {
-    padding: 8px 24px;
-    border-radius: 4px; 
-    background: var(--link);
-
-    display: flex;
-    align-items: center;
+    padding: 8px 16px;
+    border-radius: 4px;
     column-gap: 4px;
 
-    transition: background 0.4s;
+    text-transform: capitalize;
 
     svg {
       width: 12px;
       height: auto;
 
       fill: var(--text-light);
-    }
-
-    &:hover {
-      background: #6643cf;
     }
   }
 }

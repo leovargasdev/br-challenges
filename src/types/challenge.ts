@@ -1,5 +1,7 @@
 import { ImageFieldImage, FilledLinkToWebField } from '@prismicio/types'
 
+import { Author } from './author'
+
 export interface ChallengeSimple {
   id: string
   title: string
@@ -11,6 +13,7 @@ export interface ChallengeSimple {
 
 export interface Challenge extends ChallengeSimple {
   name: string
+  author: Author
   content: string | null
   prototype_url: string
 }
@@ -25,5 +28,6 @@ export interface ChallengePrismic {
     deadline: string
     image: ImageFieldImage
     prototype: FilledLinkToWebField
+    author: Author
   }
 }
