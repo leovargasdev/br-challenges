@@ -15,9 +15,9 @@
 
   &[aria-disabled="true"] {
     opacity: 0.7;
-    filter: grayscale(0.2);
     user-select: none;
     pointer-events: none;
+    background: rgb(41 41 58);
   }
 
   &:hover {

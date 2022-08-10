@@ -7,6 +7,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { SEO } from 'components/SEO'
 import { AuthorCard } from 'components/AuthorCard'
 
+import { FULL_DATE } from 'constants/date'
 import { Challenge } from 'types/challenge'
 import { formattedChallenge, getFullDate } from 'utils/format'
 import { createClientPrismic, collectionSlugs } from 'service/prismic'
@@ -36,7 +37,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
 
       <time>
         <HiOutlineClock />
-        {getFullDate(challenge.deadline)}
+        {getFullDate(challenge.deadline, FULL_DATE)}
       </time>
 
       <div className={styles.challenge__content}>

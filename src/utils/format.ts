@@ -1,6 +1,6 @@
-import { format } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import { asHTML } from '@prismicio/helpers'
+import { format, formatDistanceStrict } from 'date-fns'
 
 import { Challenge, ChallengePrismic } from 'types/challenge'
 
@@ -22,7 +22,17 @@ export const formattedChallenge = (
   author: challenge.data.author[0]
 })
 
-export const getFullDate = (value: string): string => {
+export const getFullDate = (value: string, formatString: string): string => {
   const date = new Date(value)
-  return format(date, "dd' de 'MMMM' de 'yyyy", dateFnsOptions)
+
+  return format(date, formatString, dateFnsOptions)
+}
+
+export const getDaysRemaining = (value: string): string => {
+  const today = new Date()
+  const dateTest = new Date(value)
+  return formatDistanceStrict(today, dateTest, {
+    unit: 'day',
+    ...dateFnsOptions
+  })
 }

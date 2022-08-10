@@ -1,4 +1,7 @@
 .challenge {
+  display: flex;
+  flex-direction: column;
+
   position: relative;
   overflow: hidden;
 
@@ -7,27 +10,55 @@
   background: var(--background-light);
   box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.08);
 
-  > span {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 3;
-
-    display: flex;
-    align-items: center;
-    column-gap: 4px;
-
-    padding: 8px;
-    border-radius: 6px;
-    
-    background: #3C91E6;
-
-    font-size: 0.75rem;
-
-    svg {
-      width: 1rem;
-      height: auto;
+  &.expired, &.finished {
+    img {
+      filter: brightness(0.5);
     }
+
+    strong, small {
+      opacity: 0.7;
+    }
+  }
+}
+
+.challenge__status {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 4px;
+
+  width: 100%;
+  padding: 14px 0;
+
+  backdrop-filter: blur(10px);
+
+  &[data-type="submitted"] {
+    background: rgba(#0B6E4F, 0.4);
+  }
+
+  &[data-type="finished"] {
+    background: rgba(#00E8FC, 0.4);
+  }
+
+  &[data-type="expired"] {
+    background: rgba(#FF4A1C, 0.6);
+  }
+
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  font-size: 0.875rem;
+  font-family: var(--font-bold);
+  text-transform: uppercase;
+
+  svg {
+    width: 1rem;
+    height: auto;
   }
 }
 
@@ -39,6 +70,8 @@
 }
 
 .challenge__content {
+  flex: 1;
+
   display: flex;
   flex-direction: column;
   row-gap: 4px;
@@ -50,7 +83,7 @@
 
   small {
     border-radius: 4px;
-    padding: 4px 8px;
+    padding: 4px 16px;
     align-self: center;
     font-weight: 500;
     background: var(--green);
@@ -65,16 +98,17 @@
     max-width: 90%;
     align-self: center;
 
-    margin-bottom: auto;
+    margin: auto 0;
   }
 
   ul {
     margin: 10px 0 30px;
     list-style: none;
 
-    li {
-      font-size: 0.875rem;
-      line-height: 1rem;
+    li, time {
+      font-size: 1rem;
+      line-height: 1.5rem;
+      text-transform: capitalize;
 
       color: var(--text);
 
@@ -89,12 +123,14 @@
       }
 
       & + li {
-        margin-top: 8px;
+        margin-top: 4px;
       }
     }
   }
+}
 
-  a {
-    margin-top: auto;
-  }
+.challenge__buttons {
+  display: flex;
+  align-items: stretch;
+  column-gap: 8px;
 }

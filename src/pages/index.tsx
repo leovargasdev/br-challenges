@@ -1,6 +1,7 @@
 import { getSession } from 'next-auth/react'
 import { GetServerSideProps, NextPage } from 'next'
 
+import { SEO } from 'components/SEO'
 import { ChallengeCard } from 'components/ChallengeCard'
 
 import { Challenge } from 'types/challenge'
@@ -8,7 +9,6 @@ import { formattedChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
 
 import styles from 'styles/home.module.scss'
-import { SEO } from 'components/SEO'
 
 interface PageProps {
   challenges: Challenge[]
@@ -21,13 +21,11 @@ const HomePage: NextPage<PageProps> = ({ challenges }) => (
       title="Página inicial"
       description="Essa eh a página inicial"
     />
-    {challenges.map((challenge, index) => (
-      <ChallengeCard
-        key={challenge.id}
-        challengeNumber={index}
-        {...challenge}
-      />
-    ))}
+    {challenges
+      .sort((a, b) => (a.deadline > b.deadline ? 1 : -1))
+      .map(challenge => (
+        <ChallengeCard key={challenge.id} {...challenge} />
+      ))}
   </section>
 )
 

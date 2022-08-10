@@ -1,29 +1,44 @@
 import Link from 'next/link'
-import ptBR from 'date-fns/locale/pt-BR'
-import { formatDistanceStrict } from 'date-fns'
+import { useMemo } from 'react'
+import { isPast } from 'date-fns'
+import { useSession } from 'next-auth/react'
 import { PrismicNextImage } from '@prismicio/next'
-import { HiOutlineClock, HiFire, HiBadgeCheck } from 'react-icons/hi'
+import { HiOutlineClock, HiFire, HiCalendar } from 'react-icons/hi'
 
 import styles from './styles.module.scss'
-import { ChallengeSimple } from 'types/challenge'
+import { SHORT_DATE } from 'constants/date'
+import { Challenge, StatusChallenge } from 'types'
+import { getDaysRemaining, getFullDate } from 'utils/format'
 
-interface ChallengeCardProps extends ChallengeSimple {
-  isSubmited?: boolean
-  challengeNumber: number
-}
+export const ChallengeCard = (challenge: Challenge) => {
+  const { data } = useSession()
 
-export const ChallengeCard = (challenge: ChallengeCardProps) => {
-  const daysRemaining = formatDistanceStrict(
-    new Date(),
-    new Date(challenge.deadline),
-    { unit: 'day', locale: ptBR }
+  // MOVER ESSE CÓDIGO NO EVENTO DE FORMATAR O DESAFIO
+  const status: StatusChallenge = useMemo(() => {
+    if (challenge.finished) {
+      return { type: 'finished', name: 'Finalizado' }
+    }
+
+    if (isPast(new Date(challenge.deadline))) {
+      return { type: 'expired', name: 'Encerrado' }
+    }
+
+    if (['recriando-o-site-de-jogos-da-blizzard'].includes(challenge.id)) {
+      return { type: 'submitted', name: 'Em andamento' }
+    }
+    return { type: 'active', name: '' }
+  }, [challenge, data])
+
+  const isClosed = useMemo(
+    () => ['finished', 'expired'].includes(status.type),
+    [status]
   )
 
   return (
-    <article className={styles.challenge}>
-      {challenge.isSubmited && (
-        <span>
-          <HiBadgeCheck /> Participando
+    <article className={`${styles.challenge} ${styles[status.type]}`}>
+      {status.type !== 'active' && (
+        <span className={styles.challenge__status} data-type={status.type}>
+          {status.name}
         </span>
       )}
 
@@ -36,22 +51,46 @@ export const ChallengeCard = (challenge: ChallengeCardProps) => {
       </div>
 
       <div className={styles.challenge__content}>
-        <small>Desafio {challenge.challengeNumber}</small>
+        <small title="Autor do protótipo">{challenge.author.name}</small>
+
         <strong>{challenge.title}</strong>
 
         <ul>
           <li>
-            <HiOutlineClock />
-            {daysRemaining} restantes
+            <time dateTime={challenge.deadline}>
+              {isClosed ? (
+                <>
+                  <HiCalendar />
+                  {getFullDate(challenge.deadline, SHORT_DATE)}
+                </>
+              ) : (
+                <>
+                  <HiOutlineClock />
+                  {getDaysRemaining(challenge.deadline)} restantes
+                </>
+              )}
+            </time>
           </li>
           <li>
             <HiFire /> 8 participantes
           </li>
         </ul>
 
-        <Link href={'/desafio/'.concat(challenge.id)}>
-          <a className="button outline disable">Acessar desafio</a>
-        </Link>
+        <div className={styles.challenge__buttons}>
+          <Link href={'/desafio/'.concat(challenge.id)}>
+            <a className="button outline">
+              {isClosed ? 'Detalhes' : 'Acessar desafio'}
+            </a>
+          </Link>
+
+          {isClosed && (
+            <Link href={`/desafio/${challenge.id}/resultado`}>
+              <a className="button" aria-disabled={status.type === 'expired'}>
+                Soluções
+              </a>
+            </Link>
+          )}
+        </div>
       </div>
     </article>
   )
