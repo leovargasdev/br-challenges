@@ -22,7 +22,7 @@
 
 ## 💻 Projeto
 
-Plataforma de desafios frontend.
+Plataforma de desafios frontend, quadro do notion com as tarefas [AQUI](https://leovargas.notion.site/741c30d90cc942f7aeff6f0af1699e7e?v=d81f9faa01b843929c01872ab2be6aee)
 
 -  [Next.js](https://nextjs.org/)
 -  [Sass](https://sass-lang.com/)
