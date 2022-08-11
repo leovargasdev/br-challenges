@@ -27,10 +27,7 @@ const SolutionChallengePage = () => {
       await api.post('challenge/solution', solution)
 
       // CRIAR TOAST DE SUCESSO
-
-      console.log('sajhdahdjkadhakjdhakjh')
-
-      router.push('/')
+      // router.push('/')
     } catch (err) {
       console.log(err)
     }

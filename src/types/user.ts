@@ -7,4 +7,5 @@ export interface User {
   role: 'normal' | 'admin'
   username_discord?: string
   pix_key?: string
+  challenges: string[]
 }

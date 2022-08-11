@@ -19,7 +19,8 @@ export const UserSchema = new Schema<User>(
       required: true
     },
     pix_key: String,
-    username_discord: String
+    username_discord: String,
+    challenges: [String]
   },
   {
     timestamps: true
