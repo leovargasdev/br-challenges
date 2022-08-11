@@ -10,9 +10,11 @@ interface SEOProps {
 export const SEO = ({ tabName, title, description = '' }: SEOProps) => {
   const { asPath } = useRouter()
 
+  const titleTab = `${tabName} • BRChallenges`
+
   return (
     <Head>
-      <title>{tabName} • BRChallenges</title>
+      <title>{titleTab}</title>
       <meta name="title" content={title} />
       <meta name="description" content={description} />
 
