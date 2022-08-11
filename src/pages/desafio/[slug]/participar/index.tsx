@@ -12,7 +12,7 @@ import api from 'service/api'
 import { Solution } from 'types'
 import styles from './styles.module.scss'
 import { zodSolutionSchema } from 'utils/zod'
-import { SolutionModel } from 'service/mongoose'
+import { SolutionModel, connectMongoose } from 'service/mongoose'
 
 const SolutionChallengePage: NextPage<Solution | undefined> = solution => {
   const router = useRouter()
@@ -88,41 +88,38 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   const session = await getSession({ req })
 
-  if (session?.user) {
-    const user_id = session.user._id
-    const challenge_id = query.slug
-
-    const solution = (
-      await SolutionModel.findOne({
-        user_id,
-        challenge_id
-      })
-    )._doc
-
-    delete solution.createdAt
-    delete solution.updatedAt
-
-    // const solution = await SolutionModel.aggregate([
-    //   {
-    //     $match: {
-    //       user_id,
-    //       challenge_id
-    //     }
-    //   },
-    //   { $project: { createdAt: 0, updatedAt: 0 } }
-    // ])
-
+  if (session === null) {
     return {
-      props: {
-        ...solution,
-        user_id,
-        _id: solution._id.toString()
+      props: {},
+      redirect: {
+        destination: '/login'
       }
     }
   }
 
+  const challenge_id = query.slug as string
+  const { _id: user_id, challenges } = session.user
+
+  const isSolution = challenges.includes(challenge_id)
+
+  // Ainda não enviou solução para esse desafio
+  if (!isSolution) {
+    return { props: {} }
+  }
+
+  await connectMongoose()
+
+  const { _doc: solution } = await SolutionModel.findOne(
+    { user_id, challenge_id },
+    { createdAt: 0, updatedAt: 0 }
+  )
+
   return {
-    props: {}
+    props: {
+      ...solution,
+      user_id,
+      _id: solution._id.toString()
+    }
   }
 }
 
