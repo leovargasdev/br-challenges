@@ -1,44 +1,30 @@
 import Link from 'next/link'
 import { useMemo } from 'react'
-import { isPast } from 'date-fns'
-import { useSession } from 'next-auth/react'
 import { PrismicNextImage } from '@prismicio/next'
 import { HiOutlineClock, HiFire, HiCalendar } from 'react-icons/hi'
 
+import { Challenge } from 'types'
 import styles from './styles.module.scss'
 import { SHORT_DATE } from 'constants/date'
-import { Challenge, StatusChallenge } from 'types'
-import { getDaysRemaining, getFullDate } from 'utils/format'
+import { getDaysRemaining, getFullDate } from 'utils/format/'
 
 export const ChallengeCard = (challenge: Challenge) => {
-  const { data } = useSession()
-
-  // MOVER ESSE CÓDIGO NO EVENTO DE FORMATAR O DESAFIO
-  const status: StatusChallenge = useMemo(() => {
-    if (challenge.finished) {
-      return { type: 'finished', name: 'Finalizado' }
-    }
-
-    if (isPast(new Date(challenge.deadline))) {
-      return { type: 'expired', name: 'Encerrado' }
-    }
-
-    if (['recriando-o-site-de-jogos-da-blizzard'].includes(challenge.id)) {
-      return { type: 'submitted', name: 'Em andamento' }
-    }
-    return { type: 'active', name: '' }
-  }, [challenge, data])
-
   const isClosed = useMemo(
-    () => ['finished', 'expired'].includes(status.type),
-    [status]
+    () =>
+      challenge.status
+        ? ['finished', 'expired'].includes(challenge.status.type)
+        : false,
+    [challenge.status]
   )
 
   return (
-    <article className={`${styles.challenge} ${styles[status.type]}`}>
-      {status.type !== 'active' && (
-        <span className={styles.challenge__status} data-type={status.type}>
-          {status.name}
+    <article className={`${styles.challenge} ${styles[challenge.status.type]}`}>
+      {challenge.status.type !== 'active' && (
+        <span
+          className={styles.challenge__status}
+          data-type={challenge.status.type}
+        >
+          {challenge.status.name}
         </span>
       )}
 
@@ -85,7 +71,10 @@ export const ChallengeCard = (challenge: Challenge) => {
 
           {isClosed && (
             <Link href={`/desafio/${challenge.id}/resultado`}>
-              <a className="button" aria-disabled={status.type === 'expired'}>
+              <a
+                className="button"
+                aria-disabled={challenge.status.type === 'expired'}
+              >
                 Soluções
               </a>
             </Link>

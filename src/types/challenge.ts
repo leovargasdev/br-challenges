@@ -2,6 +2,12 @@ import { ImageFieldImage, FilledLinkToWebField } from '@prismicio/types'
 
 import { Author } from './author'
 
+type TypeStatusChallenge = 'submitted' | 'expired' | 'finished' | 'active'
+
+export interface StatusChallenge {
+  name: string
+  type: TypeStatusChallenge
+}
 export interface Challenge {
   id: string
   title: string
@@ -12,6 +18,7 @@ export interface Challenge {
   author: Author
   content: string | null
   prototype_url: string
+  status: StatusChallenge
 }
 export interface ChallengePrismic {
   uid: string | null
@@ -25,11 +32,4 @@ export interface ChallengePrismic {
     prototype: FilledLinkToWebField
     author: Author
   }
-}
-
-type TypeStatusChallenge = 'submitted' | 'expired' | 'finished' | 'active'
-
-export interface StatusChallenge {
-  name: string
-  type: TypeStatusChallenge
 }
