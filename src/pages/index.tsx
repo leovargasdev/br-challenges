@@ -1,12 +1,13 @@
 import { getSession } from 'next-auth/react'
+import { compareAsc, parseISO } from 'date-fns'
 import { GetServerSideProps, NextPage } from 'next'
 
 import { SEO } from 'components/SEO'
 import { ChallengeCard } from 'components/ChallengeCard'
 
-import { Challenge } from 'types/challenge'
+import { Challenge } from 'types'
 import { createClientPrismic } from 'service/prismic'
-import { getChallengesInHome } from 'utils/format/challenge'
+import { formattedChallenge } from 'utils/format/challenge'
 
 import styles from 'styles/home.module.scss'
 
@@ -21,6 +22,7 @@ const HomePage: NextPage<PageProps> = ({ challenges }) => (
       title="Página inicial"
       description="Essa eh a página inicial"
     />
+
     {challenges.map(challenge => (
       <ChallengeCard key={challenge.id} {...challenge} />
     ))}
@@ -39,17 +41,25 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
   }
 
-  const prismic = createClientPrismic({ req })
+  try {
+    const prismic = createClientPrismic({ req })
 
-  const response = await prismic.getAllByType('challenges')
+    const data = await prismic.getAllByType('challenges')
 
-  const challenges = getChallengesInHome(response, session.user.challenges)
+    const challenges = data.map(challenge =>
+      formattedChallenge(challenge, session.user.challenges)
+    )
 
-  return {
-    props: {
-      challenges
-    }
+    challenges.sort((a, b) =>
+      compareAsc(parseISO(a.deadline), parseISO(b.deadline))
+    )
+
+    return { props: { challenges } }
+  } catch (err) {
+    console.log(err)
   }
+
+  return { props: { challenges: [] } }
 }
 
 export default HomePage

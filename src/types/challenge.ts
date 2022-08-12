@@ -8,6 +8,7 @@ export interface StatusChallenge {
   name: string
   type: TypeStatusChallenge
 }
+
 export interface Challenge {
   id: string
   title: string
@@ -20,6 +21,7 @@ export interface Challenge {
   prototype_url: string
   status: StatusChallenge
 }
+
 export interface ChallengePrismic {
   uid: string | null
   data: {
@@ -30,6 +32,6 @@ export interface ChallengePrismic {
     deadline: string
     image: ImageFieldImage
     prototype: FilledLinkToWebField
-    author: Author
+    author: Author[]
   }
 }

@@ -7,8 +7,8 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { SEO } from 'components/SEO'
 import { AuthorCard } from 'components/AuthorCard'
 
+import { Challenge } from 'types'
 import { FULL_DATE } from 'constants/date'
-import { Challenge } from 'types/challenge'
 import { formattedChallenge, getFullDate } from 'utils/format'
 import { createClientPrismic, collectionSlugs } from 'service/prismic'
 
@@ -80,7 +80,10 @@ export const getStaticProps: GetStaticProps = async props => {
 
   const challenge = await prismic.getByUID('challenges', challengeSlug)
 
-  return { props: formattedChallenge(challenge), revalidate: 60 * 5 }
+  return {
+    props: formattedChallenge(challenge),
+    revalidate: 60 * 5
+  }
 }
 
 export default ChallengePage

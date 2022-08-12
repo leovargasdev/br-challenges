@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useMemo } from 'react'
 import { PrismicNextImage } from '@prismicio/next'
 import { HiOutlineClock, HiFire, HiCalendar } from 'react-icons/hi'
 
@@ -9,13 +8,7 @@ import { SHORT_DATE } from 'constants/date'
 import { getDaysRemaining, getFullDate } from 'utils/format/'
 
 export const ChallengeCard = (challenge: Challenge) => {
-  const isClosed = useMemo(
-    () =>
-      challenge.status
-        ? ['finished', 'expired'].includes(challenge.status.type)
-        : false,
-    [challenge.status]
-  )
+  const isClosed = ['finished', 'expired'].includes(challenge.status.type)
 
   return (
     <article className={`${styles.challenge} ${styles[challenge.status.type]}`}>

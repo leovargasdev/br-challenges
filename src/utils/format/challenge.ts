@@ -2,19 +2,28 @@ import { isPast } from 'date-fns'
 import { asHTML } from '@prismicio/helpers'
 import { Challenge, ChallengePrismic, StatusChallenge } from 'types'
 
-export const getStatusChallenge = (
-  challenge: Challenge,
+interface GetStatusProps {
+  id: string
+  finished: boolean
+  deadline: string
   userChallenges: string[]
-): StatusChallenge => {
-  if (challenge.finished) {
+}
+
+const getStatusChallenge = ({
+  id,
+  finished,
+  deadline,
+  userChallenges
+}: GetStatusProps): StatusChallenge => {
+  if (finished) {
     return { type: 'finished', name: 'Finalizado' }
   }
 
-  if (isPast(new Date(challenge.deadline))) {
+  if (isPast(new Date(deadline))) {
     return { type: 'expired', name: 'Encerrado' }
   }
 
-  if (userChallenges.includes(challenge.id)) {
+  if (userChallenges.includes(id)) {
     return { type: 'submitted', name: 'Em andamento' }
   }
 
@@ -22,7 +31,8 @@ export const getStatusChallenge = (
 }
 
 export const formattedChallenge = (
-  challenge: ChallengePrismic | any
+  challenge: ChallengePrismic | any,
+  userChallenges: string[] = []
 ): Challenge => ({
   id: challenge.uid,
   title: challenge.data.title,
@@ -33,23 +43,9 @@ export const formattedChallenge = (
   prototype_url: challenge.data.prototype.url,
   participate_url: `/desafio/${challenge.uid}/participar`,
   author: challenge.data.author[0],
-  status: {
-    type: 'active',
-    name: ''
-  }
-})
-
-export const getChallengesInHome = (
-  challenges: ChallengePrismic[] | any,
-  userChallenges: string[]
-): Challenge[] => {
-  const challegesFormatted = challenges.map((challenge: ChallengePrismic) => {
-    const challengeFormatted = formattedChallenge(challenge)
-    return {
-      ...challengeFormatted,
-      status: getStatusChallenge(challengeFormatted, userChallenges)
-    }
+  status: getStatusChallenge({
+    ...challenge.data,
+    userChallenges,
+    id: challenge.uid
   })
-
-  return challegesFormatted
-}
+})
