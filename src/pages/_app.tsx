@@ -5,14 +5,17 @@ import { SessionProvider } from 'next-auth/react'
 import { Layout } from 'components/Layout'
 
 import 'styles/globals.scss'
+import { ToastProvider } from 'contexts/Toast'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
       <PrismicPreview repositoryName="br-challenges">
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ToastProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ToastProvider>
       </PrismicPreview>
     </SessionProvider>
   )

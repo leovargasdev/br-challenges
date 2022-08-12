@@ -20,23 +20,35 @@
   --link: #7f5af0;
   --link-dark: #2f2843;
   --green: #2cb67d;
-  --red: #FF6B6B;
-  --blue-dark: #4E4187;
+  --red: #ff6b6b;
+  --blue-dark: #4e4187;
 
-  --family-normal: "Inter";
-  --family-bold: "Poppins";
+  --family-normal: 'Inter';
+  --family-bold: 'Poppins';
+
+  --toast-viewport-padding: 25px;
 }
 
 body {
   background: var(--background);
 }
 
-body, button, textarea, input {
+body,
+button,
+textarea,
+input {
   color: var(--text-light);
   font: 400 1rem var(--family-normal), sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6, strong, b {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b {
   font-family: var(--family-bold);
 }
 
