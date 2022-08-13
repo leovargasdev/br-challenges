@@ -9,11 +9,13 @@
   background: var(--link);
 
   font-weight: 600;
-  font-family: var(--font-bold);
+  font-family: var(--family-bold);
+
+  -webkit-touch-callout: none;
 
   transition: all 0.4s;
 
-  &[aria-disabled="true"] {
+  &[aria-disabled='true'] {
     opacity: 0.7;
     user-select: none;
     pointer-events: none;
@@ -33,7 +35,7 @@
     background: var(--link);
   }
 
-  &[aria-disabled="true"] {
+  &[aria-disabled='true'] {
     border-color: var(--link-dark);
   }
 }
