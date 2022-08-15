@@ -1,6 +1,8 @@
 @import './components/button.scss';
 
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -23,44 +25,78 @@
   --red: #ff6b6b;
   --blue-dark: #4e4187;
 
-  --family-normal: 'Inter';
-  --family-bold: 'Poppins';
+  --family-normal: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+    Cantarell, Noto Sans, sans-serif;
+  --family-bold: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+    Cantarell, Noto Sans, sans-serif;
 
   --toast-viewport-padding: 25px;
 }
 
-body {
+:where(html) {
+  block-size: 100%;
+  font-family: var(--family-normal);
+  line-height: 1.5;
+  -webkit-text-size-adjust: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :where(:focus-visible) {
+    transition: outline-offset 145ms cubic-bezier(0.25, 0, 0.4, 1);
+  }
+  :where(:not(:active):focus-visible) {
+    transition-duration: 0.25s;
+  }
+}
+
+:where(:not(:active):focus-visible) {
+  outline-offset: 5px;
+}
+
+:where(body) {
+  min-block-size: 100%;
   background: var(--background);
 }
 
-body,
-button,
-textarea,
-input {
+:where(body, button, textarea, input) {
   color: var(--text-light);
-  font: 400 1rem var(--family-normal), sans-serif;
+  font: 400 1rem var(--family-normal);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-strong,
-b {
+:where(h1, h2, h3, h4, h5, h6, strong, b) {
   font-family: var(--family-bold);
 }
 
-a {
+:where(a, u, ins, abbr) {
+  text-underline-offset: 1px;
+
+  @supports (-moz-appearance: none) {
+    text-underline-offset: 2px;
+  }
+}
+
+:where(a[href], area, button, input, label[for], select, summary, textarea, [tabindex]:not([tabindex*='-'])) {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:where(a) {
   color: inherit;
   text-decoration: none;
 }
 
-button {
-  border: 0;
+:where(img, svg, video, canvas, audio, iframe, embed, object) {
+  display: block;
+}
 
-  &:hover {
-    cursor: pointer;
-  }
+:where(img, svg, video) {
+  max-inline-size: 100%;
+  block-size: auto;
 }
