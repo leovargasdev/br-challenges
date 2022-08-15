@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react'
-import { compareAsc, parseISO } from 'date-fns'
+import { compareAsc, isPast, parseISO } from 'date-fns'
 import { GetServerSideProps, NextPage } from 'next'
 
 import { SEO } from 'components/SEO'
@@ -54,7 +54,31 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       compareAsc(parseISO(a.deadline), parseISO(b.deadline))
     )
 
-    return { props: { challenges } }
+    const order = challenges.reduce(
+      (acc: any, item) => {
+        const { after, before } = acc
+
+        const deadline = isPast(parseISO(item.deadline))
+        if (deadline || item.finished) {
+          return {
+            after: [...after, item],
+            before
+          }
+        }
+
+        return {
+          before: [...before, item],
+          after
+        }
+      },
+      { after: [], before: [] }
+    )
+
+    return {
+      props: {
+        challenges: [...order.before, ...order.after]
+      }
+    }
   } catch (err) {
     console.log(err)
   }
