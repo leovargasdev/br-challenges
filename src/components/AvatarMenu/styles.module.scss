@@ -5,12 +5,14 @@
   position: relative;
 
   .user__avatar {
-    position: relative;
-
     width: 60px;
     height: 60px;
     border-radius: 50%;
     overflow: hidden;
+
+    > span {
+      border-radius: 50%;
+    }
   }
 }
 
@@ -30,7 +32,8 @@
   align-items: center;
   row-gap: 2px;
 
-  strong, span {
+  strong,
+  span {
     padding: 0 16px;
   }
 

@@ -35,7 +35,6 @@
   margin-bottom: 16px;
 }
 
-
 .challenge__content {
   color: var(--text);
 
@@ -43,7 +42,8 @@
     margin: 24px 0 8px;
   }
 
-  ul, ol {
+  ul,
+  ol {
     padding-left: 40px;
   }
 
@@ -51,12 +51,14 @@
     margin-top: 16px;
   }
 
-  p, li {
+  p,
+  li {
     font-size: 1.125rem;
     line-height: 2rem;
   }
 
-  strong, h2 {
+  strong,
+  h2 {
     color: var(--text-light);
   }
 
@@ -76,7 +78,7 @@
 .challenge__solution {
   column-gap: 8px;
   margin-top: 32px;
-  
+
   font-size: 1.25rem;
   line-height: 1.5rem;
 }
