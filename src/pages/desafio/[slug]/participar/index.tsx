@@ -9,10 +9,10 @@ import { SEO } from 'components/SEO'
 import { Input } from 'components/Input'
 
 import api from 'service/api'
-import { Solution } from 'types'
-import styles from './styles.module.scss'
+import type { Solution } from 'types'
 import { zodSolutionSchema } from 'utils/zod'
 import { SolutionModel, connectMongoose } from 'service/mongoose'
+import styles from './styles.module.scss'
 
 const SolutionChallengePage: NextPage<Solution | undefined> = solution => {
   const router = useRouter()

@@ -1,24 +1,28 @@
 import { getSession } from 'next-auth/react'
-import { NextApiResponse, NextApiRequest } from 'next'
+import type { NextApiResponse, NextApiRequest } from 'next'
+import { z, ZodError } from 'zod'
 
 import { connectMongoose, SolutionModel, UserModel } from 'service/mongoose'
+import { zodSolutionSchema } from 'utils/zod'
+
+const bodySchema = zodSolutionSchema.extend({ challenge_id: z.string() })
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === 'POST') {
-    const { challenge_id, ...solution } = req.body
+  try {
+    switch (req.method) {
+      case 'POST': {
+        const session = await getSession({ req })
+        if (!session?.user) return res.status(401).send('Unauthorized')
 
-    try {
-      const session = await getSession({ req })
+        const { challenge_id, ...solution } = bodySchema.parse(req.body)
 
-      await connectMongoose()
-
-      if (session?.user) {
+        await connectMongoose()
         const user_id = session.user._id
-        const challenges = session.user?.challenges || []
+        const challenges = session.user.challenges || []
 
-        const isUpadateSolution = challenges.includes(challenge_id)
+        const hasSolution = challenges.includes(challenge_id)
 
-        if (isUpadateSolution) {
+        if (hasSolution) {
           await SolutionModel.updateOne({ user_id, challenge_id }, solution)
           return res.status(200).json({ update: true })
         }
@@ -35,14 +39,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
 
         await SolutionModel.create(newSolution)
+        return res.status(201).json({ create: true })
       }
-
-      return res.status(200).json({ create: true })
-    } catch (err) {
-      console.log(err)
+      default: {
+        res.setHeader('Allow', 'POST')
+        res.status(405).end('Method not allowed')
+      }
     }
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return res.status(422).json(error.flatten().fieldErrors)
+    }
+    return res.status(500).send('Internal Server Error')
   }
-
-  res.setHeader('Allow', 'POST')
-  res.status(405).end('Method not allowed')
 }
