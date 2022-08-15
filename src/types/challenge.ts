@@ -2,7 +2,7 @@ import { ImageFieldImage, FilledLinkToWebField } from '@prismicio/types'
 
 import { Author } from './author'
 
-type TypeStatusChallenge = 'submitted' | 'expired' | 'finished' | 'active'
+export type TypeStatusChallenge = 'submitted' | 'closed' | 'finished' | 'active'
 
 export interface StatusChallenge {
   name: string

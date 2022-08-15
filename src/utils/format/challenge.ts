@@ -20,11 +20,11 @@ const getStatusChallenge = ({
   }
 
   if (isPast(new Date(deadline))) {
-    return { type: 'expired', name: 'Encerrado' }
+    return { type: 'closed', name: 'Encerrado' }
   }
 
   if (userChallenges.includes(id)) {
-    return { type: 'submitted', name: 'Em andamento' }
+    return { type: 'submitted', name: 'Participando' }
   }
 
   return { type: 'active', name: '' }

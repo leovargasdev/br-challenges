@@ -1,24 +1,37 @@
 import Link from 'next/link'
 import { PrismicNextImage } from '@prismicio/next'
+import { ImTrophy, ImBullhorn, ImTicket } from 'react-icons/im'
 import { HiOutlineClock, HiFire, HiCalendar } from 'react-icons/hi'
 
-import { Challenge } from 'types'
+import { Challenge, TypeStatusChallenge } from 'types'
 import styles from './styles.module.scss'
 import { SHORT_DATE } from 'constants/date'
 import { getDaysRemaining, getFullDate } from 'utils/format/'
 
+// interface IconStatus {
+//   [key: TypeStatusChallenge]: React.ReactNode
+// }
+
 export const ChallengeCard = (challenge: Challenge) => {
-  const isClosed = ['finished', 'expired'].includes(challenge.status.type)
+  const isClosed = ['finished', 'closed'].includes(challenge.status.type)
+
+  const icons: any = {
+    finished: <ImTrophy />,
+    closed: <ImBullhorn />,
+    submitted: <ImTicket />,
+    active: ''
+  }
 
   return (
     <article className={`${styles.challenge} ${styles[challenge.status.type]}`}>
       {challenge.status.type !== 'active' && (
-        <span
+        <div
           className={styles.challenge__status}
           data-type={challenge.status.type}
         >
-          {challenge.status.name}
-        </span>
+          <span>{icons[challenge.status.type]}</span>
+          <strong>{challenge.status.name}</strong>
+        </div>
       )}
 
       <div className={styles.challenge__image}>
@@ -32,7 +45,7 @@ export const ChallengeCard = (challenge: Challenge) => {
       <div className={styles.challenge__content}>
         <small title="Autor do protótipo">{challenge.author.name}</small>
 
-        <strong>{challenge.title}</strong>
+        <h2>{challenge.title}</h2>
 
         <ul>
           <li>
@@ -56,7 +69,7 @@ export const ChallengeCard = (challenge: Challenge) => {
         </ul>
 
         <div className={styles.challenge__buttons}>
-          <Link href={'/desafio/'.concat(challenge.id)}>
+          <Link href={`/desafio/${challenge.id}`}>
             <a className="button outline">
               {isClosed ? 'Detalhes' : 'Acessar desafio'}
             </a>
@@ -66,10 +79,16 @@ export const ChallengeCard = (challenge: Challenge) => {
             <Link href={`/desafio/${challenge.id}/resultado`}>
               <a
                 className="button"
-                aria-disabled={challenge.status.type === 'expired'}
+                aria-disabled={challenge.status.type === 'closed'}
               >
                 Soluções
               </a>
+            </Link>
+          )}
+
+          {challenge.status.type === 'submitted' && (
+            <Link href={`/desafio/${challenge.id}/participar`}>
+              <a className="button">Editar solução</a>
             </Link>
           )}
         </div>
