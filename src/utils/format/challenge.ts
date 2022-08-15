@@ -33,19 +33,24 @@ const getStatusChallenge = ({
 export const formattedChallenge = (
   challenge: ChallengePrismic | any,
   userChallenges: string[] = []
-): Challenge => ({
-  id: challenge.uid,
-  title: challenge.data.title,
-  finished: challenge.data.finished,
-  content: asHTML(challenge.data.content),
-  deadline: challenge.data.deadline,
-  image: challenge.data.image,
-  prototype_url: challenge.data.prototype.url,
-  participate_url: `/desafio/${challenge.uid}/participar`,
-  author: challenge.data.author[0],
-  status: getStatusChallenge({
+): Challenge => {
+  const status = getStatusChallenge({
     ...challenge.data,
     userChallenges,
     id: challenge.uid
   })
-})
+
+  return {
+    id: challenge.uid,
+    title: challenge.data.title,
+    finished: challenge.data.finished,
+    content: asHTML(challenge.data.content),
+    deadline: challenge.data.deadline,
+    image: challenge.data.image,
+    prototype_url: challenge.data.prototype.url,
+    participate_url: `/desafio/${challenge.uid}/participar`,
+    author: challenge.data.author[0],
+    status,
+    participants: 0
+  }
+}
