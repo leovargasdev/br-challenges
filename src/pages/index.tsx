@@ -1,5 +1,4 @@
 import { getSession } from 'next-auth/react'
-import { compareAsc, isPast, parseISO } from 'date-fns'
 import { GetServerSideProps, NextPage } from 'next'
 
 import { SEO } from 'components/SEO'
@@ -7,7 +6,8 @@ import { ChallengeCard } from 'components/ChallengeCard'
 
 import { Challenge } from 'types'
 import { createClientPrismic } from 'service/prismic'
-import { formattedChallenge } from 'utils/format/challenge'
+import { connectMongoose, SolutionModel } from 'service/mongoose'
+import { getListChallenges, getParticipants } from 'utils/format/challenge'
 
 import styles from 'styles/home.module.scss'
 
@@ -22,7 +22,6 @@ const HomePage: NextPage<PageProps> = ({ challenges }) => (
       title="Página inicial"
       description="Essa eh a página inicial"
     />
-
     {challenges.map(challenge => (
       <ChallengeCard key={challenge.id} {...challenge} />
     ))}
@@ -44,39 +43,25 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
     const prismic = createClientPrismic({ req })
 
-    const data = await prismic.getAllByType('challenges')
+    const response = await prismic.getAllByType<any>('challenges')
 
-    const challenges = data.map(challenge =>
-      formattedChallenge(challenge, session.user.challenges)
+    const challenges = await getListChallenges(
+      response,
+      session.user.challenges
     )
 
-    challenges.sort((a, b) =>
-      compareAsc(parseISO(a.deadline), parseISO(b.deadline))
-    )
+    await connectMongoose()
 
-    const order = challenges.reduce(
-      (acc: any, item) => {
-        const { after, before } = acc
-
-        const deadline = isPast(parseISO(item.deadline))
-        if (deadline || item.finished) {
-          return {
-            after: [...after, item],
-            before
-          }
-        }
-
-        return {
-          before: [...before, item],
-          after
-        }
-      },
-      { after: [], before: [] }
-    )
+    const partipants = await SolutionModel.aggregate([
+      { $group: { _id: '$challenge_id', count: { $sum: 1 } } }
+    ])
 
     return {
       props: {
-        challenges: [...order.before, ...order.after]
+        challenges: getParticipants({
+          challenges,
+          partipants
+        })
       }
     }
   } catch (err) {

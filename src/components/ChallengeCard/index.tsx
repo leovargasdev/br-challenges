@@ -1,39 +1,24 @@
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 import { PrismicNextImage } from '@prismicio/next'
 import { ImTrophy, ImBullhorn, ImTicket } from 'react-icons/im'
 import { HiOutlineClock, HiFire, HiCalendar } from 'react-icons/hi'
 
-import api from 'service/api'
 import styles from './styles.module.scss'
 import { SHORT_DATE } from 'constants/date'
 import { Challenge, TypeStatusChallenge } from 'types'
 import { getDaysRemaining, getFullDate } from 'utils/format/'
 
-// interface IconStatus {
-//   [key: TypeStatusChallenge]: React.ReactNode
-// }
+type IconStatus = Record<TypeStatusChallenge, React.ReactNode>
 
 export const ChallengeCard = (challenge: Challenge) => {
-  const [participants, setParticipants] = useState(0)
   const isClosed = ['finished', 'closed'].includes(challenge.status.type)
 
-  const icons: any = {
+  const icons: IconStatus = {
     finished: <ImTrophy />,
     closed: <ImBullhorn />,
     submitted: <ImTicket />,
     active: ''
   }
-
-  const getParticipants = async () => {
-    const response = await api.get(`challenge/${challenge.id}/participants`)
-
-    setParticipants(response.data.count)
-  }
-
-  useEffect(() => {
-    getParticipants()
-  }, [])
 
   return (
     <article className={`${styles.challenge} ${styles[challenge.status.type]}`}>
@@ -77,7 +62,7 @@ export const ChallengeCard = (challenge: Challenge) => {
             </time>
           </li>
           <li>
-            <HiFire /> {participants} participantes
+            <HiFire /> {challenge.participants} participantes
           </li>
         </ul>
 

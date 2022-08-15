@@ -20,11 +20,11 @@ export interface Challenge {
   content: string | null
   prototype_url: string
   status: StatusChallenge
-  participants: number
+  participants?: number
 }
 
 export interface ChallengePrismic {
-  uid: string | null
+  uid: string
   data: {
     name: string
     title: string
