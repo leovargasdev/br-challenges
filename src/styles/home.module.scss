@@ -1,7 +1,11 @@
 .home {
+  --minWidth: 350px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, var(--minWidth)), 1fr)
+  );
   gap: 32px;
 
-  padding: 0 40px;
+  padding-inline: 40px;
 }

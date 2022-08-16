@@ -9,9 +9,9 @@ import { SEO } from 'components/SEO'
 import { Input, RadioGroup } from 'components/Form'
 
 import api from 'service/api'
-import { Solution } from 'types'
+import type { Solution } from 'types'
 import { zodSolutionSchema, SolutionForm } from 'utils/zod'
-import { SolutionModel, connectMongoose } from 'service/mongoose'
+import { connectMongoose, SolutionModel } from 'service/mongoose'
 
 import styles from './styles.module.scss'
 
@@ -99,39 +99,37 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   query
 }) => {
-  return { props: {} }
+  const session = await getSession({ req })
 
-  // const session = await getSession({ req })
+  if (session === null) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/login'
+      }
+    }
+  }
 
-  // if (session === null) {
-  //   return {
-  //     props: {},
-  //     redirect: {
-  //       destination: '/login'
-  //     }
-  //   }
-  // }
+  const challenge_id = query.slug as string
+  const { _id: user_id, challenges } = session.user
 
-  // const challenge_id = query.slug as string
-  // const { _id: user_id, challenges } = session.user
+  const isSolution = challenges.includes(challenge_id)
 
-  // const isSolution = challenges.includes(challenge_id)
+  // Ainda não enviou solução para esse desafio
+  if (!isSolution) {
+    return { props: {} }
+  }
 
-  // // Ainda não enviou solução para esse desafio
-  // if (!isSolution) {
-  //   return { props: {} }
-  // }
+  await connectMongoose()
 
-  // await connectMongoose()
+  const { _doc: solution } = await SolutionModel.findOne(
+    { user_id, challenge_id },
+    { createdAt: 0, updatedAt: 0, _id: 0, user_id: 0 }
+  )
 
-  // const { _doc: solution } = await SolutionModel.findOne(
-  //   { user_id, challenge_id },
-  //   { createdAt: 0, updatedAt: 0, _id: 0, user_id: 0 }
-  // )
-
-  // return {
-  //   props: solution
-  // }
+  return {
+    props: solution
+  }
 }
 
 export default SolutionChallengePage

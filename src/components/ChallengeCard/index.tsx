@@ -5,20 +5,20 @@ import { HiOutlineClock, HiFire, HiCalendar } from 'react-icons/hi'
 
 import styles from './styles.module.scss'
 import { SHORT_DATE } from 'constants/date'
-import { Challenge, TypeStatusChallenge } from 'types'
+import type { Challenge, TypeStatusChallenge } from 'types'
 import { getDaysRemaining, getFullDate } from 'utils/format/'
 
 type IconStatus = Record<TypeStatusChallenge, React.ReactNode>
 
+const icons: IconStatus = {
+  finished: <ImTrophy />,
+  closed: <ImBullhorn />,
+  submitted: <ImTicket />,
+  active: ''
+}
+
 export const ChallengeCard = (challenge: Challenge) => {
   const isClosed = ['finished', 'closed'].includes(challenge.status.type)
-
-  const icons: IconStatus = {
-    finished: <ImTrophy />,
-    closed: <ImBullhorn />,
-    submitted: <ImTicket />,
-    active: ''
-  }
 
   return (
     <article className={`${styles.challenge} ${styles[challenge.status.type]}`}>
