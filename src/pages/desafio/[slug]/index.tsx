@@ -17,6 +17,12 @@ import styles from './styles.module.scss'
 const ChallengePage: NextPage<Challenge> = challenge => {
   const { status } = useSession()
 
+  console.log(challenge)
+
+  const disabledButtonSolution =
+    status !== 'authenticated' ||
+    ['closed', 'finished'].includes(challenge.status.type)
+
   return (
     <div className={styles.challenge}>
       <SEO
@@ -53,7 +59,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
 
       <Link href={challenge.participate_url}>
         <a
-          aria-disabled={status !== 'authenticated'}
+          aria-disabled={disabledButtonSolution}
           className={'button '.concat(styles.challenge__solution)}
         >
           <HiPencilAlt />
@@ -78,7 +84,7 @@ export const getStaticProps: GetStaticProps = async props => {
 
   const prismic = createClientPrismic({ previewData })
 
-  const challenge = await prismic.getByUID('challenges', challengeSlug)
+  const challenge = await prismic.getByUID<any>('challenges', challengeSlug)
 
   return {
     props: formattedChallenge(challenge),

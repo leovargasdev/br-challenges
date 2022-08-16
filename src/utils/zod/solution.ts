@@ -26,3 +26,5 @@ export const zodSolutionSchema = zod.object({
     })
     .or(zod.literal(''))
 })
+
+export type SolutionForm = zod.infer<typeof zodSolutionSchema>

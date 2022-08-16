@@ -10,26 +10,27 @@ import { Input } from 'components/Input'
 
 import api from 'service/api'
 import { Solution } from 'types'
-import styles from './styles.module.scss'
-import { zodSolutionSchema } from 'utils/zod'
+import { zodSolutionSchema, SolutionForm } from 'utils/zod'
 import { SolutionModel, connectMongoose } from 'service/mongoose'
 
-const SolutionChallengePage: NextPage<Solution | undefined> = solution => {
+import styles from './styles.module.scss'
+
+const SolutionChallengePage: NextPage<Solution> = solution => {
   const router = useRouter()
+  const challenge_id = router.query.slug
+
   const useFormMethods = useForm({
     mode: 'all',
     resolver: zodResolver(zodSolutionSchema),
     defaultValues: solution
   })
 
-  const onSubmit = async (data: any): Promise<void> => {
+  const onSubmit = async (data: SolutionForm): Promise<void> => {
     try {
-      const solution = {
+      await api.post('challenge/solution', {
         ...data,
-        challenge_id: router.query.slug
-      }
-
-      await api.post('challenge/solution', solution)
+        challenge_id
+      })
 
       // CRIAR TOAST DE SUCESSO
       router.push('/')
@@ -111,15 +112,11 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const { _doc: solution } = await SolutionModel.findOne(
     { user_id, challenge_id },
-    { createdAt: 0, updatedAt: 0 }
+    { createdAt: 0, updatedAt: 0, _id: 0, user_id: 0 }
   )
 
   return {
-    props: {
-      ...solution,
-      user_id,
-      _id: solution._id.toString()
-    }
+    props: solution
   }
 }
 
