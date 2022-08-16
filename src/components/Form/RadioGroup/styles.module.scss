@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.radios {
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+}
+
+.label {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+}

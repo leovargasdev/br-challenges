@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, FormProvider } from 'react-hook-form'
 
 import { SEO } from 'components/SEO'
-import { Input } from 'components/Input'
+import { Input, RadioGroup } from 'components/Form'
 
 import api from 'service/api'
 import { Solution } from 'types'
@@ -74,7 +74,19 @@ const SolutionChallengePage: NextPage<Solution> = solution => {
           placeholder="Url ao compartilhar a chamada do desafio"
         />
 
-        <button type="submit" className="button">
+        <RadioGroup
+          label="Selecione a dificuldade"
+          options={[
+            { value: 'easy', label: 'Fácil' },
+            { value: 'medium', label: 'Médio' },
+            { value: 'hard', label: 'Difícil' }
+          ]}
+        />
+
+        <button
+          type="submit"
+          className={'button '.concat(styles.button__submit)}
+        >
           <HiPaperAirplane />
           Enviar
         </button>
@@ -87,37 +99,39 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   query
 }) => {
-  const session = await getSession({ req })
+  return { props: {} }
 
-  if (session === null) {
-    return {
-      props: {},
-      redirect: {
-        destination: '/login'
-      }
-    }
-  }
+  // const session = await getSession({ req })
 
-  const challenge_id = query.slug as string
-  const { _id: user_id, challenges } = session.user
+  // if (session === null) {
+  //   return {
+  //     props: {},
+  //     redirect: {
+  //       destination: '/login'
+  //     }
+  //   }
+  // }
 
-  const isSolution = challenges.includes(challenge_id)
+  // const challenge_id = query.slug as string
+  // const { _id: user_id, challenges } = session.user
 
-  // Ainda não enviou solução para esse desafio
-  if (!isSolution) {
-    return { props: {} }
-  }
+  // const isSolution = challenges.includes(challenge_id)
 
-  await connectMongoose()
+  // // Ainda não enviou solução para esse desafio
+  // if (!isSolution) {
+  //   return { props: {} }
+  // }
 
-  const { _doc: solution } = await SolutionModel.findOne(
-    { user_id, challenge_id },
-    { createdAt: 0, updatedAt: 0, _id: 0, user_id: 0 }
-  )
+  // await connectMongoose()
 
-  return {
-    props: solution
-  }
+  // const { _doc: solution } = await SolutionModel.findOne(
+  //   { user_id, challenge_id },
+  //   { createdAt: 0, updatedAt: 0, _id: 0, user_id: 0 }
+  // )
+
+  // return {
+  //   props: solution
+  // }
 }
 
 export default SolutionChallengePage

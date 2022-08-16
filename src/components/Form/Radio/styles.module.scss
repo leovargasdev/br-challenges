@@ -1,0 +1,39 @@
+.radio {
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+
+  label {
+    font-size: 0.875rem;
+  }
+}
+
+.radio__button {
+  display: flex;
+
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 2px solid var(--text);
+  background-color: transparent;
+
+  &:focus {
+    box-shadow: 0 0 0 2px var(--link);
+  }
+}
+
+.radio__indicator {
+  display: flex;
+  margin: auto;
+  position: relative;
+  border-radius: 100%;
+  
+  &::after {
+    content: '';
+
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: var(--link);
+  }
+}

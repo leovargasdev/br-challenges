@@ -13,7 +13,7 @@
   max-width: 900px;
   margin: 40px auto 16px;
 
-  h1, button {
+  h1, .button__submit {
     align-self: center;
   }
 
@@ -21,7 +21,7 @@
     margin-bottom: 16px;
   }
 
-  button {
+  .button__submit {
     margin-top: 32px;
     column-gap: 6px;
 
@@ -29,6 +29,5 @@
     line-height: 1.5rem;
 
     max-width: 300px;
-
   }
 }
