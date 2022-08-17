@@ -8,4 +8,5 @@ export interface Solution {
   linkedin_post: string
   shared_url: string
   createdAt: Date
+  level: string
 }

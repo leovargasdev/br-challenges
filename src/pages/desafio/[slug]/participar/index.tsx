@@ -27,10 +27,7 @@ const SolutionChallengePage: NextPage<Solution> = solution => {
 
   const onSubmit = async (data: SolutionForm): Promise<void> => {
     try {
-      await api.post('challenge/solution', {
-        ...data,
-        challenge_id
-      })
+      await api.post(`challenge/${challenge_id}/solution`, data)
 
       // CRIAR TOAST DE SUCESSO
       router.push('/')
@@ -75,7 +72,9 @@ const SolutionChallengePage: NextPage<Solution> = solution => {
         />
 
         <RadioGroup
+          name="level"
           label="Selecione a dificuldade"
+          defaultValue="easy"
           options={[
             { value: 'easy', label: 'Fácil' },
             { value: 'medium', label: 'Médio' },

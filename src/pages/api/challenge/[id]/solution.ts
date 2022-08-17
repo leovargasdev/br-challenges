@@ -5,7 +5,7 @@ import { z, ZodError } from 'zod'
 import { connectMongoose, SolutionModel, UserModel } from 'service/mongoose'
 import { zodSolutionSchema } from 'utils/zod'
 
-const bodySchema = zodSolutionSchema.extend({ challenge_id: z.string() })
+// const bodySchema = zodSolutionSchema.extend({ challenge_id: z.string() })
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -14,11 +14,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const session = await getSession({ req })
         if (!session?.user) return res.status(401).send('Unauthorized')
 
-        const { challenge_id, ...solution } = bodySchema.parse(req.body)
-
         await connectMongoose()
         const user_id = session.user._id
         const challenges = session.user.challenges || []
+        const challenge_id = req.query.id as string
+        const solution = zodSolutionSchema.parse(req.body)
 
         const hasSolution = challenges.includes(challenge_id)
 

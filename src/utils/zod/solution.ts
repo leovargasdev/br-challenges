@@ -24,7 +24,8 @@ export const zodSolutionSchema = zod.object({
     .startsWith('https://', {
       message: 'O dominio deverá ter certificado SSL'
     })
-    .or(zod.literal(''))
+    .or(zod.literal('')),
+  level: zod.string().optional()
 })
 
 export type SolutionForm = zod.infer<typeof zodSolutionSchema>

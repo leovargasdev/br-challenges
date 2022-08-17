@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose'
 import { UserModel } from 'service/mongoose'
+import { CHALLENGE_LEVELS } from 'constants/index'
 
 import { Solution } from 'types'
 
@@ -8,6 +9,7 @@ export const solutionSchema = new Schema<Solution>(
     repository_url: { type: String, required: true },
     challenge_id: { type: String, required: true },
     solution_url: { type: String, required: true },
+    level: { type: String, required: true, enum: CHALLENGE_LEVELS },
     user_id: {
       required: true,
       type: Schema.Types.ObjectId,
