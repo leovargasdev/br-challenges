@@ -1,3 +1,4 @@
+import { CHALLENGE_LEVELS } from 'constants/index'
 import { Types } from 'mongoose'
 
 export interface Solution {
@@ -8,5 +9,5 @@ export interface Solution {
   linkedin_post: string
   shared_url: string
   createdAt: Date
-  level: string
+  level: typeof CHALLENGE_LEVELS[number]
 }

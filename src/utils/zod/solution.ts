@@ -1,3 +1,4 @@
+import { CHALLENGE_LEVELS } from 'constants/index'
 import { z as zod } from 'zod'
 
 export const zodSolutionSchema = zod.object({
@@ -25,7 +26,7 @@ export const zodSolutionSchema = zod.object({
       message: 'O dominio deverá ter certificado SSL'
     })
     .or(zod.literal('')),
-  level: zod.string().optional()
+  level: zod.enum(CHALLENGE_LEVELS).optional()
 })
 
 export type SolutionForm = zod.infer<typeof zodSolutionSchema>
