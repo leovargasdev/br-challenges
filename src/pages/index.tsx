@@ -45,14 +45,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
     const response = await prismic.getAllByType<any>('challenges')
 
-    const challenges = await getListChallenges(
-      response,
-      session.user.challenges
-    )
+    const challenges = getListChallenges(response, session.user.challenges)
 
     await connectMongoose()
 
-    const partipants = await SolutionModel.aggregate([
+    const participants = await SolutionModel.aggregate([
       { $group: { _id: '$challenge_id', count: { $sum: 1 } } }
     ])
 
@@ -60,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       props: {
         challenges: getParticipants({
           challenges,
-          partipants
+          participants
         })
       }
     }
