@@ -1,4 +1,4 @@
-.field {
+.input {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -28,21 +28,6 @@
 
     &::placeholder {
       color: var(--text-placeholder);
-    }
-  }
-
-  span {
-    display: flex;
-    align-items: center;
-    column-gap: 2px;
-
-    font-size: 0.875rem;
-    line-height: 1rem;
-    color: var(--red);
-
-    svg {
-      width: 0.875rem;
-      height: auto;
     }
   }
 }

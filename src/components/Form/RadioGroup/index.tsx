@@ -1,4 +1,4 @@
-import { Radio, RadioOption } from 'components/Form'
+import { Radio, RadioOption, ErrorMessage } from 'components/Form'
 
 import styles from './styles.module.scss'
 
@@ -17,5 +17,7 @@ export const RadioGroup = ({ name, label, options }: RadioGroupProps) => (
         <Radio key={option.value} name={name} {...option} />
       ))}
     </div>
+
+    <ErrorMessage name={name} />
   </fieldset>
 )
