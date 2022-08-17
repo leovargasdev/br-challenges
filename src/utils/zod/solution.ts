@@ -26,7 +26,9 @@ export const zodSolutionSchema = zod.object({
       message: 'O dominio deverá ter certificado SSL'
     })
     .or(zod.literal('')),
-  level: zod.enum(CHALLENGE_LEVELS).optional()
+  level: zod.enum(CHALLENGE_LEVELS, {
+    invalid_type_error: 'É preciso selecionar um nível de dificuldade'
+  })
 })
 
 export type SolutionForm = zod.infer<typeof zodSolutionSchema>

@@ -6,6 +6,28 @@
   label {
     font-size: 0.875rem;
   }
+
+  input {
+    position: relative;
+
+    &:after {
+      content: '';
+      top: -1px;
+      left: -1px;
+      width: 15px;
+      height: 15px;
+      position: absolute;
+  
+      border-radius: 100%;
+      border: 1px solid var(--link);
+      background-color: var(--background);
+      transition: border 0.2s;
+    }
+
+    &:checked:after {
+      border-width: 5px;
+    }
+  }
 }
 
 .radio__button {

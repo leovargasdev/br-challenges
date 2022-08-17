@@ -17,7 +17,6 @@ import styles from './styles.module.scss'
 
 const SolutionChallengePage: NextPage<Solution> = solution => {
   const router = useRouter()
-  const challenge_id = router.query.slug
 
   const useFormMethods = useForm<SolutionForm>({
     mode: 'all',
@@ -26,10 +25,11 @@ const SolutionChallengePage: NextPage<Solution> = solution => {
   })
 
   const onSubmit = async (data: SolutionForm): Promise<void> => {
+    const challenge_id = router.query.slug
+
     try {
       await api.post(`challenge/${challenge_id}/solution`, data)
 
-      // CRIAR TOAST DE SUCESSO
       router.push('/')
     } catch (err) {
       console.log(err)
@@ -74,7 +74,6 @@ const SolutionChallengePage: NextPage<Solution> = solution => {
         <RadioGroup
           name="level"
           label="Selecione a dificuldade"
-          defaultValue="easy"
           options={[
             { value: 'easy', label: 'Fácil' },
             { value: 'medium', label: 'Médio' },
@@ -114,20 +113,17 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const isSolution = challenges.includes(challenge_id)
 
-  // Ainda não enviou solução para esse desafio
   if (!isSolution) {
     return { props: {} }
   }
 
   await connectMongoose()
-
-  const { _doc: solution } = await SolutionModel.findOne(
-    { user_id, challenge_id },
-    { createdAt: 0, updatedAt: 0, _id: 0, user_id: 0 }
-  )
+  const queryMongo = { user_id, challenge_id }
+  const ignoreFields = { createdAt: 0, updatedAt: 0, _id: 0, user_id: 0 }
+  const solution = await SolutionModel.findOne(queryMongo, ignoreFields)
 
   return {
-    props: solution
+    props: solution._doc
   }
 }
 
