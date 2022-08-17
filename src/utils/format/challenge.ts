@@ -95,7 +95,7 @@ export const getListChallenges = (
 
 interface GetParticipants {
   challenges: Challenge[]
-  partipants: {
+  participants: {
     _id: string
     count: number
   }[]
@@ -103,10 +103,11 @@ interface GetParticipants {
 
 export const getParticipants = ({
   challenges,
-  partipants
+  participants
 }: GetParticipants) => {
   return challenges.map(challenge => ({
     ...challenge,
-    partipants: partipants.find(({ _id }) => _id === challenge.id)?.count || 0
+    participants:
+      participants.find(({ _id }) => _id === challenge.id)?.count || 0
   }))
 }
