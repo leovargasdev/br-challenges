@@ -10,7 +10,7 @@ import { Input, RadioGroup } from 'components/Form'
 
 import api from 'service/api'
 import type { Solution } from 'types'
-import { zodSolutionSchema, SolutionForm } from 'utils/zod'
+import { zodSolutionSchema, type SolutionForm } from 'utils/zod'
 import { connectMongoose, SolutionModel } from 'service/mongoose'
 
 import styles from './styles.module.scss'
@@ -19,7 +19,7 @@ const SolutionChallengePage: NextPage<Solution> = solution => {
   const router = useRouter()
   const challenge_id = router.query.slug
 
-  const useFormMethods = useForm({
+  const useFormMethods = useForm<SolutionForm>({
     mode: 'all',
     resolver: zodResolver(zodSolutionSchema),
     defaultValues: solution

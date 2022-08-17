@@ -1,1 +1,1 @@
-export const CHALLENGE_LEVELS = ['easy', 'medium', 'hard']
+export const CHALLENGE_LEVELS = ['easy', 'medium', 'hard'] as const
