@@ -1,0 +1,44 @@
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.link {
+  position: relative;
+}
+
+.preview__container {
+  will-change: left, top;
+  pointer-events: none;
+  position: absolute;
+  top: calc(var(--y, 0px) + 20px);
+  left: calc(var(--x, 0px) + 20px);
+  width: 224px;
+  visibility: hidden;
+  padding: 16px;
+  background-color: hsla(0, 0%, 100%, 0.1);
+  backdrop-filter: blur(12px) brightness(1) saturate(2);
+  border-radius: 8px;
+  z-index: 50;
+  transition: opacity 400ms ease, top 100ms, left 100ms;
+  opacity: 0;
+
+  .container:hover & {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.preview__image {
+  border-radius: 6px;
+  width: 100%;
+  height: 144px;
+  object-fit: cover;
+}
+
+.preview__title {
+  font-size: 0.75rem;
+  font-weight: normal;
+  line-height: 1;
+  margin-top: 8px;
+}

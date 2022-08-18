@@ -1,6 +1,10 @@
-import { ImageFieldImage, FilledLinkToWebField } from '@prismicio/types'
+import type {
+  ImageFieldImage,
+  FilledLinkToWebField,
+  RichTextField
+} from '@prismicio/types'
 
-import { Author } from './author'
+import type { Author } from './author'
 
 export type TypeStatusChallenge = 'submitted' | 'closed' | 'finished' | 'active'
 
@@ -17,7 +21,7 @@ export interface Challenge {
   deadline: string
   participate_url: string
   author: Author
-  content: string | null
+  content: RichTextField
   prototype_url: string
   status: StatusChallenge
   participants?: number
@@ -29,7 +33,7 @@ export interface ChallengePrismic {
     name: string
     title: string
     finished: boolean
-    content: any
+    content: RichTextField
     deadline: string
     image: ImageFieldImage
     prototype: FilledLinkToWebField

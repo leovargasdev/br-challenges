@@ -22,6 +22,7 @@
     "mongoose": "^6.5.0",
     "next": "12.2.3",
     "next-auth": "^4.10.3",
+    "node-html-parser": "^5.4.2-0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.34.0",
