@@ -1,11 +1,9 @@
+import { ZodError } from 'zod'
 import { getSession } from 'next-auth/react'
 import type { NextApiResponse, NextApiRequest } from 'next'
-import { z, ZodError } from 'zod'
 
-import { connectMongoose, SolutionModel, UserModel } from 'service/mongoose'
 import { zodSolutionSchema } from 'utils/zod'
-
-// const bodySchema = zodSolutionSchema.extend({ challenge_id: z.string() })
+import { connectMongoose, SolutionModel, UserModel } from 'service/mongoose'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -23,7 +21,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const hasSolution = challenges.includes(challenge_id)
 
         if (hasSolution) {
-          await SolutionModel.updateOne({ user_id, challenge_id }, solution)
+          await SolutionModel.updateOne(
+            { user_id, challenge_id },
+            {
+              ...solution,
+              score: 0
+            }
+          )
           return res.status(200).json({ update: true })
         }
 
@@ -35,6 +39,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const newSolution = {
           user_id,
           challenge_id,
+          score: 0,
           ...solution
         }
 

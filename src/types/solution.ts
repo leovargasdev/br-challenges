@@ -1,5 +1,5 @@
-import { CHALLENGE_LEVELS } from 'constants/index'
 import { Types } from 'mongoose'
+import { CHALLENGE_LEVELS } from 'constants/index'
 
 export interface Solution {
   user_id: Types.ObjectId
@@ -10,4 +10,5 @@ export interface Solution {
   shared_url: string
   createdAt: Date
   level: typeof CHALLENGE_LEVELS[number]
+  score: number
 }

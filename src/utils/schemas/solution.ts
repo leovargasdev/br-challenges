@@ -17,7 +17,8 @@ export const solutionSchema = new Schema<Solution>(
       $exists: true
     },
     linkedin_post: String,
-    shared_url: String
+    shared_url: String,
+    score: { type: Number, required: true }
   },
   { timestamps: true }
 )
