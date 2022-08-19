@@ -1,3 +1,4 @@
+import Script from 'next/script'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 export default class MyDocument extends Document {
@@ -19,6 +20,20 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap"
             rel="stylesheet"
           />
+
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-TECCBMJVQH"
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){window.dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-TECCBMJVQH');
+            `}
+          </Script>
         </Head>
 
         <body>

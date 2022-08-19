@@ -17,8 +17,6 @@ import styles from './styles.module.scss'
 const ChallengePage: NextPage<Challenge> = challenge => {
   const { status } = useSession()
 
-  console.log(challenge)
-
   const disabledButtonSolution =
     status !== 'authenticated' ||
     ['closed', 'finished'].includes(challenge.status.type)
