@@ -10,8 +10,9 @@
   box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.08);
 
   width: 100%;
-  max-width: 900px;
-  margin: 40px auto 16px;
+  max-width: var(--width-medium);
+
+  margin-top: 32px;
 
   h1, .button__submit {
     align-self: center;
@@ -29,5 +30,15 @@
     line-height: 1.5rem;
 
     max-width: 300px;
+  }
+
+  @media(max-width: 650px) {
+    padding: 24px 16px;
+
+    h1 {
+      text-align: center;
+      font-size: 1.5rem;
+      max-inline-size: 80%;
+    }
   }
 }

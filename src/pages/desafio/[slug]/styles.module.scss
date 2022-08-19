@@ -1,7 +1,6 @@
 .challenge {
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto 32px;
+  max-width: var(--width-medium);
 
   display: flex;
   flex-direction: column;
@@ -22,6 +21,15 @@
     font-weight: 300;
 
     margin-bottom: 24px;
+  }
+
+  @media(max-width: 650px) {
+    h1 {
+      font-size: 2.5rem;
+      line-height: 3rem;
+
+      margin-bottom: 4px;
+    }
   }
 }
 
@@ -72,6 +80,12 @@
     height: 450px;
     border: 0;
     border-radius: 8px;
+  }
+
+  @media(max-width: 650px) {
+    iframe {
+      height: 400px;
+    }
   }
 }
 

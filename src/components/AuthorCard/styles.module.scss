@@ -18,6 +18,11 @@
   border-radius: 50%;
   position: relative;
   overflow: hidden;
+
+  @media(max-width: 650px) {
+    width: 120px;
+    height: 120px;
+  }
 }
 
 .author__info {

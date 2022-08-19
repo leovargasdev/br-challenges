@@ -1,5 +1,5 @@
 .home {
-  --minWidth: 350px;
+  --minWidth: 410px;
   display: grid;
   grid-template-columns: repeat(
     auto-fit,
@@ -7,5 +7,16 @@
   );
   gap: 32px;
 
-  padding-inline: 40px;
+  width: 100%;
+  max-width: var(--width-normal);
+
+
+  @media(max-width: 900px) {
+    padding: 0 64px;
+    gap: 48px 0;
+  }
+
+  @media(max-width: 650px) {
+    padding: 0;
+  }
 }

@@ -31,6 +31,10 @@
     Cantarell, Noto Sans, sans-serif;
 
   --toast-viewport-padding: 25px;
+
+  --width-normal: 1440px;
+  --width-medium: 900px;
+  --width-small: 600px;
 }
 
 :where(html) {

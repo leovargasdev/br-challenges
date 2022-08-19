@@ -26,6 +26,10 @@
   &:hover {
     background: #5730cc;
   }
+
+  @media(max-width: 650px) {
+    font-size: 0.875rem;
+  }
 }
 
 .button.outline {
