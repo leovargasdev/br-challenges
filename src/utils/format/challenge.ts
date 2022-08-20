@@ -1,4 +1,3 @@
-import { asHTML } from '@prismicio/helpers'
 import { compareAsc, isPast, parseISO } from 'date-fns'
 import {
   Challenge,
@@ -53,7 +52,7 @@ export const formattedChallenge = (
     id: challenge.uid,
     title: challenge.data.title,
     finished: challenge.data.finished,
-    content: asHTML(challenge.data.content),
+    content: challenge.data.content,
     deadline: challenge.data.deadline,
     image: challenge.data.image,
     prototype_url: challenge.data.prototype.url,

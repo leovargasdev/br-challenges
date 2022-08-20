@@ -13,6 +13,8 @@ import { formattedChallenge, getFullDate } from 'utils/format'
 import { createClientPrismic, collectionSlugs } from 'service/prismic'
 
 import styles from './styles.module.scss'
+import { PrismicRichText } from '@prismicio/react'
+import { LinkWithPreview } from 'components/LinkWithPreview'
 
 const ChallengePage: NextPage<Challenge> = challenge => {
   const { status } = useSession()
@@ -45,7 +47,14 @@ const ChallengePage: NextPage<Challenge> = challenge => {
       </time>
 
       <div className={styles.challenge__content}>
-        <span dangerouslySetInnerHTML={{ __html: challenge.content || '' }} />
+        <PrismicRichText
+          field={challenge.content}
+          components={{
+            hyperlink: ({ node, children }) => (
+              <LinkWithPreview node={node}>{children}</LinkWithPreview>
+            )
+          }}
+        />
 
         <h2>Protótipo do desafio</h2>
 
