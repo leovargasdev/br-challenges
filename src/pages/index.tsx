@@ -2,7 +2,7 @@ import { getSession } from 'next-auth/react'
 import { GetServerSideProps, NextPage } from 'next'
 
 import { SEO } from 'components/SEO'
-import { ChallengeCard } from 'components/ChallengeCard'
+import { ChallengeCard } from 'components/Challenge/'
 
 import { Challenge } from 'types'
 import { createClientPrismic } from 'service/prismic'

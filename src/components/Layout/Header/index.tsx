@@ -17,7 +17,7 @@ export const LayoutHeader = () => {
   const user = data?.user as User
 
   return (
-    <header className={styles.header}>
+    <nav className={styles.header}>
       <div className={styles.header__content}>
         <Link href="/">
           <a className={styles.header__logo}>
@@ -27,6 +27,6 @@ export const LayoutHeader = () => {
 
         <AvatarMenu user={user} />
       </div>
-    </header>
+    </nav>
   )
 }

@@ -1,12 +1,16 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { NextPage } from 'next'
 import { GoOctoface } from 'react-icons/go'
 import { useSession } from 'next-auth/react'
 import { HiCalendar, HiLink } from 'react-icons/hi'
+import { GetServerSideProps, NextPage } from 'next'
 
-import { getFullDate } from 'utils/format'
+import { formattedChallenge, getFullDate } from 'utils/format'
+import { ChallengeHeader } from 'components/Challenge'
+
+import { Challenge } from 'types'
 import { SHORT_DATE } from 'constants/date'
+import { createClientPrismic } from 'service/prismic'
 
 import styles from './styles.module.scss'
 
@@ -18,13 +22,13 @@ interface SolutionProps {
 }
 
 const MOCK_SOLUTIONS: SolutionProps[] = [
-  { level: 'hard', date: '2022-20-08' },
-  { level: 'medium', date: '2022-20-08' },
-  { level: 'medium', date: '2022-22-08' },
-  { level: 'easy', date: '2022-21-08' },
-  { level: 'medium', date: '2022-10-08' },
-  { level: 'hard', date: '2022-15-08' },
-  { level: 'medium', date: '2022-01-08' }
+  { level: 'hard', date: '2022-08-20' },
+  { level: 'medium', date: '2022-08-20' },
+  { level: 'medium', date: '2022-08-22' },
+  { level: 'easy', date: '2022-08-21' },
+  { level: 'medium', date: '2022-08-10' },
+  { level: 'hard', date: '2022-08-15' },
+  { level: 'medium', date: '2022-08-01' }
 ]
 
 const LEVELS = {
@@ -33,21 +37,14 @@ const LEVELS = {
   hard: 'Difícil'
 }
 
-const ChallengeResultsPage: NextPage = () => {
+const ChallengeResultsPage: NextPage<Challenge> = challenge => {
   const { data } = useSession()
 
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.header__image}>
-          <Image src="/thumb-challenge.jpeg" layout="fill" objectFit="cover" />
-        </div>
+    <>
+      <ChallengeHeader {...challenge} />
 
-        <h3>Erik Rodrigues</h3>
-        <h1>Recriando o site de jogos da Blizzard</h1>
-      </header>
-
-      <div className={styles.content}>
+      <div className={styles.container}>
         <h2>Listagem das soluções</h2>
 
         <ul>
@@ -76,7 +73,10 @@ const ChallengeResultsPage: NextPage = () => {
                   <span>{LEVELS[solution.level]}</span>
                   <time>
                     <HiCalendar />
-                    {getFullDate(new Date().toISOString(), SHORT_DATE)}
+                    {getFullDate(
+                      new Date(solution.date).toISOString(),
+                      SHORT_DATE
+                    )}
                   </time>
                 </div>
               </span>
@@ -91,7 +91,7 @@ const ChallengeResultsPage: NextPage = () => {
                 <Link href="/">
                   <a className="button outline">
                     <HiLink />
-                    Visualizar Solução
+                    Visualizar solução
                   </a>
                 </Link>
               </div>
@@ -99,8 +99,23 @@ const ChallengeResultsPage: NextPage = () => {
           ))}
         </ul>
       </div>
-    </div>
+    </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  params
+}) => {
+  const challengeSlug = String(params?.slug)
+  console.log(challengeSlug)
+  const prismic = createClientPrismic({ req })
+
+  const challenge = await prismic.getByUID<any>('challenges', challengeSlug)
+
+  return {
+    props: formattedChallenge(challenge)
+  }
 }
 
 export default ChallengeResultsPage

@@ -9,7 +9,7 @@ interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.layout}>
       <LayoutHeader />
 
       <main className={styles.main}>{children}</main>

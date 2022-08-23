@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
-import { PrismicNextImage } from '@prismicio/next'
 import { HiOutlineClock, HiPencilAlt } from 'react-icons/hi'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 
 import { SEO } from 'components/SEO'
 import { AuthorCard } from 'components/AuthorCard'
+import { ChallengeHeader } from 'components/Challenge'
+import { LinkWithPreview } from 'components/LinkWithPreview'
 
 import { Challenge } from 'types'
 import { FULL_DATE } from 'constants/date'
@@ -14,7 +15,6 @@ import { createClientPrismic, collectionSlugs } from 'service/prismic'
 
 import styles from './styles.module.scss'
 import { PrismicRichText } from '@prismicio/react'
-import { LinkWithPreview } from 'components/LinkWithPreview'
 
 const ChallengePage: NextPage<Challenge> = challenge => {
   const { status } = useSession()
@@ -24,58 +24,52 @@ const ChallengePage: NextPage<Challenge> = challenge => {
     ['closed', 'finished'].includes(challenge.status.type)
 
   return (
-    <div className={styles.challenge}>
+    <>
       <SEO
         tabName={`Desafio - ${challenge.title}`}
         title={`Desafio - ${challenge.title}`}
         description="Venha confirir esse desafio incrivel"
       />
 
-      <div className={styles.challenge__image}>
-        <PrismicNextImage
-          field={challenge.image}
-          layout="fill"
-          objectFit="cover"
-        />
+      <ChallengeHeader {...challenge} />
+
+      <div className={styles.challenge}>
+        {/* <time>
+          <HiOutlineClock />
+          {getFullDate(challenge.deadline, FULL_DATE)}
+        </time> */}
+
+        <div className={styles.challenge__content}>
+          <PrismicRichText
+            field={challenge.content}
+            components={{
+              hyperlink: ({ node, children }) => (
+                <LinkWithPreview node={node}>{children}</LinkWithPreview>
+              )
+            }}
+          />
+
+          <h2>Protótipo do desafio</h2>
+
+          <iframe
+            allowFullScreen
+            src={`https://www.figma.com/embed?embed_host=astra&url=${challenge.prototype_url}`}
+          />
+        </div>
+
+        <Link href={challenge.participate_url}>
+          <a
+            aria-disabled={disabledButtonSolution}
+            className={'button '.concat(styles.challenge__solution)}
+          >
+            <HiPencilAlt />
+            Participar
+          </a>
+        </Link>
+
+        <AuthorCard {...challenge.author} />
       </div>
-
-      <h1>{challenge.title}</h1>
-
-      <time>
-        <HiOutlineClock />
-        {getFullDate(challenge.deadline, FULL_DATE)}
-      </time>
-
-      <div className={styles.challenge__content}>
-        <PrismicRichText
-          field={challenge.content}
-          components={{
-            hyperlink: ({ node, children }) => (
-              <LinkWithPreview node={node}>{children}</LinkWithPreview>
-            )
-          }}
-        />
-
-        <h2>Protótipo do desafio</h2>
-
-        <iframe
-          allowFullScreen
-          src={`https://www.figma.com/embed?embed_host=astra&url=${challenge.prototype_url}`}
-        />
-      </div>
-
-      <Link href={challenge.participate_url}>
-        <a
-          aria-disabled={disabledButtonSolution}
-          className={'button '.concat(styles.challenge__solution)}
-        >
-          <HiPencilAlt />
-          Participar
-        </a>
-      </Link>
-
-      <AuthorCard {...challenge.author} />
-    </div>
+    </>
   )
 }
 export const getStaticPaths: GetStaticPaths = async () => {
