@@ -1,4 +1,6 @@
 .home {
+  padding-top: 48px;
+
   --minWidth: 410px;
   display: grid;
   grid-template-columns: repeat(
@@ -11,12 +13,17 @@
   max-width: var(--width-normal);
 
 
+  @media(max-width: 1440px) {
+    padding: 48px 24px 0;
+  }
+
   @media(max-width: 900px) {
-    padding: 0 64px;
+    padding: 48px 64px 0;
     gap: 48px 0;
   }
 
   @media(max-width: 650px) {
-    padding: 0;
+    padding: 24px 20px 0;
+    row-gap: 24px;
   }
 }

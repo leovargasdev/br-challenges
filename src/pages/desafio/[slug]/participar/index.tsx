@@ -37,59 +37,61 @@ const SolutionChallengePage: NextPage<Solution> = solution => {
   }
 
   return (
-    <FormProvider {...useFormMethods}>
-      <SEO tabName="Participar do desafio" title="Participar do desafio" />
+    <div className={styles.container}>
+      <FormProvider {...useFormMethods}>
+        <SEO tabName="Participar do desafio" title="Participar do desafio" />
 
-      <form
-        className={styles.container}
-        onSubmit={useFormMethods.handleSubmit(onSubmit)}
-      >
-        <h1>Formulário para enviar o desafio</h1>
-
-        <Input
-          type="url"
-          label="Repositório"
-          name="repository_url"
-          placeholder="Link do repositório do github"
-        />
-
-        <Input
-          label="Visualização"
-          name="solution_url"
-          placeholder="Link para visualizar o projeto"
-        />
-
-        <Input
-          label="Post Linkedin"
-          name="linkedin_post"
-          placeholder="Link do post sobre a solução do desafio"
-        />
-
-        <Input
-          label="Link de compartilhamento"
-          name="shared_url"
-          placeholder="Url ao compartilhar a chamada do desafio"
-        />
-
-        <RadioGroup
-          name="level"
-          label="Selecione a dificuldade"
-          options={[
-            { value: 'easy', label: 'Fácil' },
-            { value: 'medium', label: 'Médio' },
-            { value: 'hard', label: 'Difícil' }
-          ]}
-        />
-
-        <button
-          type="submit"
-          className={'button '.concat(styles.button__submit)}
+        <form
+          className={styles.form}
+          onSubmit={useFormMethods.handleSubmit(onSubmit)}
         >
-          <HiPaperAirplane />
-          Enviar
-        </button>
-      </form>
-    </FormProvider>
+          <h1>Formulário para enviar o desafio</h1>
+
+          <Input
+            type="url"
+            label="Repositório"
+            name="repository_url"
+            placeholder="Link do repositório do github"
+          />
+
+          <Input
+            label="Visualização"
+            name="solution_url"
+            placeholder="Link para visualizar o projeto"
+          />
+
+          <Input
+            label="Post Linkedin"
+            name="linkedin_post"
+            placeholder="Link do post sobre a solução do desafio"
+          />
+
+          <Input
+            label="Link de compartilhamento"
+            name="shared_url"
+            placeholder="Url ao compartilhar a chamada do desafio"
+          />
+
+          <RadioGroup
+            name="level"
+            label="Selecione a dificuldade"
+            options={[
+              { value: 'easy', label: 'Fácil' },
+              { value: 'medium', label: 'Médio' },
+              { value: 'hard', label: 'Difícil' }
+            ]}
+          />
+
+          <button
+            type="submit"
+            className={'button '.concat(styles.button__submit)}
+          >
+            <HiPaperAirplane />
+            Enviar
+          </button>
+        </form>
+      </FormProvider>
+    </div>
   )
 }
 

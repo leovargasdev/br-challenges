@@ -40,6 +40,16 @@
     font-weight: 300;
   }
 
+  @media(max-width: 1440px) {
+    padding: 24px 24px 12px;
+
+    h1 {
+      font-size: 2.5rem;
+      line-height: 3rem;
+      max-width: 500px;
+    }
+  }
+
 }
 
 .header__image {
