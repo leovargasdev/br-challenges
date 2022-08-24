@@ -14,6 +14,7 @@
   top: calc(var(--y, 0px) + 20px);
   left: calc(var(--x, 0px) + 20px);
   width: 224px;
+  display: none;
   visibility: hidden;
   padding: 16px;
   background-color: hsla(0, 0%, 100%, 0.1);
@@ -23,9 +24,12 @@
   transition: opacity 400ms ease, top 100ms, left 100ms;
   opacity: 0;
 
-  .container:hover & {
-    visibility: visible;
-    opacity: 1;
+  @media (min-width: 1024px) {
+    .container:hover & {
+      display: initial;
+      visibility: visible;
+      opacity: 1;
+    }
   }
 }
 
