@@ -30,7 +30,7 @@ export const LinkWithPreview = ({ node, children }: LinkWithPreviewProps) => {
   return mount ? (
     <div
       className={styles.container}
-      onPointerMove={event => {
+      onMouseMove={event => {
         const el = event.currentTarget.getBoundingClientRect()
         const x = event.clientX - el.left
         const y = event.clientY - el.top
