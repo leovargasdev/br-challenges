@@ -6,7 +6,7 @@ import styles from './styles.module.scss'
 interface RadioGroupProps {
   name: string
   label: string
-  options: Omit<RadioOption, 'name' | 'isChecked'>[]
+  options: Omit<RadioOption, 'name' | 'isChecked' | 'onClick'>[]
 }
 
 export const RadioGroup = ({ name, label, options }: RadioGroupProps) => {
