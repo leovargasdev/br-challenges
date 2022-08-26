@@ -1,41 +1,34 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { GoOctoface } from 'react-icons/go'
+import { GoInfo } from 'react-icons/go'
 import { useSession } from 'next-auth/react'
-import { HiCalendar, HiLink } from 'react-icons/hi'
 import { GetServerSideProps, NextPage } from 'next'
 
-import { formattedChallenge, getFullDate } from 'utils/format'
+import { formattedChallenge } from 'utils/format'
 import { ChallengeHeader } from 'components/Challenge'
 
 import { Challenge } from 'types'
-import { SHORT_DATE } from 'constants/date'
+import contributors from 'constants/contributors'
 import { createClientPrismic } from 'service/prismic'
 
 import styles from './styles.module.scss'
+import { SolutionCard } from 'components/SolutionCard'
+import { Tooltip } from 'components/Tooltip'
 
 type LevelProps = 'hard' | 'medium' | 'easy'
 
 interface SolutionProps {
   level: LevelProps
-  date: string
+  createdAt: string
 }
 
 const MOCK_SOLUTIONS: SolutionProps[] = [
-  { level: 'hard', date: '2022-08-20' },
-  { level: 'medium', date: '2022-08-20' },
-  { level: 'medium', date: '2022-08-22' },
-  { level: 'easy', date: '2022-08-21' },
-  { level: 'medium', date: '2022-08-10' },
-  { level: 'hard', date: '2022-08-15' },
-  { level: 'medium', date: '2022-08-01' }
+  { level: 'hard', createdAt: '2022-08-20' },
+  { level: 'medium', createdAt: '2022-08-20' },
+  { level: 'medium', createdAt: '2022-08-22' },
+  { level: 'easy', createdAt: '2022-08-21' },
+  { level: 'medium', createdAt: '2022-08-10' },
+  { level: 'hard', createdAt: '2022-08-15' },
+  { level: 'medium', createdAt: '2022-08-01' }
 ]
-
-const LEVELS = {
-  easy: 'Fácil',
-  medium: 'Médio',
-  hard: 'Difícil'
-}
 
 const ChallengeResultsPage: NextPage<Challenge> = challenge => {
   const { data } = useSession()
@@ -44,61 +37,37 @@ const ChallengeResultsPage: NextPage<Challenge> = challenge => {
     <>
       <ChallengeHeader {...challenge} />
 
-      <div className={styles.container}>
-        <h2>Listagem das soluções</h2>
+      <section className={styles.container}>
+        <div>
+          <h2>Listagem das soluções</h2>
 
-        <ul>
-          {MOCK_SOLUTIONS.map(solution => (
-            <li
-              key={solution.date}
-              className={styles.solution}
-              data-type={solution.level}
-            >
-              <span>
-                {data?.user?.image && (
-                  <div className={styles.user__avatar}>
-                    <Image
-                      src={data.user.image}
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                  </div>
-                )}
-                <div className={styles.user__info}>
-                  <strong>{data?.user.name}</strong>
-                  <p>Desenvolvedor frontend</p>
-                </div>
+          <ul className={styles.solutions}>
+            {MOCK_SOLUTIONS.map(solution => (
+              <SolutionCard
+                solution={solution}
+                participant={data?.user}
+                key={solution.createdAt}
+              />
+            ))}
+          </ul>
+        </div>
 
-                <div className={styles.solution__info}>
-                  <span>{LEVELS[solution.level]}</span>
-                  <time>
-                    <HiCalendar />
-                    {getFullDate(
-                      new Date(solution.date).toISOString(),
-                      SHORT_DATE
-                    )}
-                  </time>
-                </div>
-              </span>
+        <div>
+          <h2>
+            Apoiadores
+            <Tooltip icon={<GoInfo />}>
+              Lista das pessoas que contribuiram com algum valor para a
+              premiação do desafio.
+            </Tooltip>
+          </h2>
 
-              <div className={styles.solution__links}>
-                <Link href="/">
-                  <a className="button outline">
-                    <GoOctoface />
-                    Repositório
-                  </a>
-                </Link>
-                <Link href="/">
-                  <a className="button outline">
-                    <HiLink />
-                    Visualizar solução
-                  </a>
-                </Link>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+          <ul className={styles.contributors}>
+            {contributors.map(contributor => (
+              <li key={contributor}>{contributor}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </>
   )
 }
