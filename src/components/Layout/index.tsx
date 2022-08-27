@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router'
+
 import { LayoutHeader } from './Header'
 import { LayoutFooter } from './Footer'
 
@@ -8,6 +10,12 @@ interface LayoutProps {
 }
 
 export const Layout = ({ children }: LayoutProps) => {
+  const { asPath } = useRouter()
+
+  if (asPath === '/login') {
+    return children
+  }
+
   return (
     <div className={styles.layout}>
       <LayoutHeader />
