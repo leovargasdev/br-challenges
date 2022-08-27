@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
+import { PrismicRichText } from '@prismicio/react'
 import { HiOutlineClock, HiPencilAlt } from 'react-icons/hi'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 
@@ -9,12 +10,12 @@ import { ChallengeHeader } from 'components/Challenge'
 import { LinkWithPreview } from 'components/LinkWithPreview'
 
 import { Challenge } from 'types'
-import { FULL_DATE } from 'constants/date'
+import { CACHE_PAGE } from 'utils/constants'
+import { FULL_DATE } from 'utils/constants/date'
 import { formattedChallenge, getFullDate } from 'utils/format'
 import { createClientPrismic, collectionSlugs } from 'service/prismic'
 
 import styles from './styles.module.scss'
-import { PrismicRichText } from '@prismicio/react'
 
 const ChallengePage: NextPage<Challenge> = challenge => {
   const { status } = useSession()
@@ -89,7 +90,7 @@ export const getStaticProps: GetStaticProps = async props => {
 
   return {
     props: formattedChallenge(challenge),
-    revalidate: 60 * 5
+    revalidate: CACHE_PAGE
   }
 }
 

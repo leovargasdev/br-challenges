@@ -5,7 +5,7 @@ import { HiCalendar, HiLink } from 'react-icons/hi'
 
 import { Solution, User } from 'types'
 import { getFullDate } from 'utils/format'
-import { SHORT_DATE } from 'constants/date'
+import { SHORT_DATE } from 'utils/constants/date'
 
 import styles from './styles.module.scss'
 

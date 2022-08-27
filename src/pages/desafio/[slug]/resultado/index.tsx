@@ -6,7 +6,7 @@ import { formattedChallenge } from 'utils/format'
 import { ChallengeHeader } from 'components/Challenge'
 
 import { Challenge } from 'types'
-import contributors from 'constants/contributors'
+import contributors from 'utils/constants/contributors'
 import { createClientPrismic } from 'service/prismic'
 
 import styles from './styles.module.scss'

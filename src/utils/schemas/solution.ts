@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose'
 import { UserModel } from 'service/mongoose'
-import { CHALLENGE_LEVELS } from 'constants/index'
+import { CHALLENGE_LEVELS } from 'utils/constants'
 
 import { Solution } from 'types'
 

@@ -1,5 +1,5 @@
 import { Types } from 'mongoose'
-import { CHALLENGE_LEVELS } from 'constants/index'
+import { CHALLENGE_LEVELS } from 'utils/constants'
 
 export interface Solution {
   user_id: Types.ObjectId

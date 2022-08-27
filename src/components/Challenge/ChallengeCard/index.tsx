@@ -4,7 +4,7 @@ import { ImTrophy, ImBullhorn, ImTicket } from 'react-icons/im'
 import { HiOutlineClock, HiFire, HiCalendar } from 'react-icons/hi'
 
 import styles from './styles.module.scss'
-import { SHORT_DATE } from 'constants/date'
+import { SHORT_DATE } from 'utils/constants/date'
 import type { Challenge, TypeStatusChallenge } from 'types'
 import { getDaysRemaining, getFullDate } from 'utils/format/'
 

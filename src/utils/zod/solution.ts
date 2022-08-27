@@ -1,5 +1,5 @@
-import { CHALLENGE_LEVELS } from 'constants/index'
 import { z as zod } from 'zod'
+import { CHALLENGE_LEVELS } from 'utils/constants'
 
 export const zodSolutionSchema = zod.object({
   repository_url: zod
