@@ -1,50 +1,59 @@
 import Image from 'next/image'
-import { useState } from 'react'
-import { signOut } from 'next-auth/react'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import { User } from 'types/user'
 
 import styles from './styles.module.scss'
+import { FaSignOutAlt, FaUser, FaUserAstronaut } from 'react-icons/fa'
+import { signOut } from 'next-auth/react'
 
 interface AvatarMenuProps {
   user: User
 }
 
-export const AvatarMenu = ({ user }: AvatarMenuProps) => {
-  const [isActiveMenu, setIsActiveMenu] = useState<boolean>(false)
-
-  const handleCloseMenu = () => {
-    setTimeout(() => setIsActiveMenu(false), 300)
-  }
-
-  return (
-    <div className={styles.user} onBlur={handleCloseMenu}>
-      {user?.image && (
-        <button
-          className={styles.user__avatar}
-          type="button"
-          onClick={() => setIsActiveMenu(state => !state)}
-        >
-          <Image src={user?.image} layout="fill" objectFit="cover" />
-        </button>
+export const AvatarMenu = ({ user }: AvatarMenuProps) => (
+  <DropdownMenu.Root>
+    <DropdownMenu.Trigger className={styles.user__avatar}>
+      {user?.image ? (
+        <Image src={user.image} layout="fill" objectFit="cover" />
+      ) : (
+        <span>
+          <FaUserAstronaut />
+        </span>
       )}
+    </DropdownMenu.Trigger>
 
-      {isActiveMenu && (
-        <div className={styles.user__info}>
-          <strong>{user.name}</strong>
-          <span>{user.email}</span>
+    <DropdownMenu.Portal style={{ zIndex: 100 }}>
+      <DropdownMenu.Content
+        align="end"
+        sideOffset={5}
+        className={styles.content}
+      >
+        <DropdownMenu.Group>
+          <DropdownMenu.Label>
+            <strong>{user.name}</strong>
+          </DropdownMenu.Label>
+          <DropdownMenu.Label>
+            <strong>{user.email}</strong>
+          </DropdownMenu.Label>
+        </DropdownMenu.Group>
 
-          <hr />
+        <DropdownMenu.DropdownMenuSeparator className={styles.separator} />
 
-          <button
-            type="button"
-            onClick={() => signOut()}
-            className={styles.signOut}
-          >
-            SAIR
-          </button>
-        </div>
-      )}
-    </div>
-  )
-}
+        <DropdownMenu.Item className={styles.item}>
+          <span>
+            <FaUser />
+          </span>
+          Perfil
+        </DropdownMenu.Item>
+
+        <DropdownMenu.Item className={styles.item} onClick={() => signOut()}>
+          <span>
+            <FaSignOutAlt />
+          </span>
+          Sair
+        </DropdownMenu.Item>
+      </DropdownMenu.Content>
+    </DropdownMenu.Portal>
+  </DropdownMenu.Root>
+)
