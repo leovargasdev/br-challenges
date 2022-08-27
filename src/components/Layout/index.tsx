@@ -12,17 +12,13 @@ interface LayoutProps {
 export const Layout = ({ children }: LayoutProps) => {
   const { asPath } = useRouter()
 
-  if (asPath === '/login') {
-    return children
-  }
-
   return (
     <div className={styles.layout}>
-      <LayoutHeader />
+      {asPath !== '/login' && <LayoutHeader />}
 
       <main className={styles.main}>{children}</main>
 
-      <LayoutFooter />
+      {asPath !== '/login' && <LayoutFooter />}
     </div>
   )
 }
