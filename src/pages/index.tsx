@@ -1,13 +1,13 @@
-import { getSession } from 'next-auth/react'
-import { GetServerSideProps, NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 
 import { SEO } from 'components/SEO'
-import { ChallengeCard } from 'components/Challenge/'
+import { ChallengeCard } from 'components/Challenge'
 
 import { Challenge } from 'types'
+import { SMALL_CACHE_PAGE } from 'utils/constants'
 import { createClientPrismic } from 'service/prismic'
+import { getListChallenges, getParticipants } from 'utils/format'
 import { connectMongoose, SolutionModel } from 'service/mongoose'
-import { getListChallenges, getParticipants } from 'utils/format/challenge'
 
 import styles from 'styles/home.module.scss'
 
@@ -28,24 +28,13 @@ const HomePage: NextPage<PageProps> = ({ challenges }) => (
   </section>
 )
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req })
-
-  if (session === null) {
-    return {
-      props: {},
-      redirect: {
-        destination: '/login'
-      }
-    }
-  }
-
+export const getStaticProps: GetStaticProps = async ({ previewData }) => {
   try {
-    const prismic = createClientPrismic({ req })
+    const prismic = createClientPrismic({ previewData })
 
     const response = await prismic.getAllByType<any>('challenges')
 
-    const challenges = getListChallenges(response, session.user.challenges)
+    const challenges = getListChallenges(response, [])
 
     await connectMongoose()
 
@@ -59,13 +48,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
           challenges,
           participants
         })
-      }
+      },
+      revalidate: SMALL_CACHE_PAGE
     }
   } catch (err) {
     console.log(err)
   }
 
-  return { props: { challenges: [] } }
+  return { props: { challenges: [] }, revalidate: 10 }
 }
 
 export default HomePage

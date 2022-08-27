@@ -1,20 +1,13 @@
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 
-import { User } from 'types'
 import { Logo } from 'components/SVG'
 import { AvatarMenu } from 'components/AvatarMenu'
 
 import styles from './styles.module.scss'
 
 export const LayoutHeader = () => {
-  const { data, status } = useSession()
-
-  if (status !== 'authenticated') {
-    return <></>
-  }
-
-  const user = data?.user as User
+  const { status } = useSession()
 
   return (
     <nav className={styles.header}>
@@ -25,7 +18,13 @@ export const LayoutHeader = () => {
           </a>
         </Link>
 
-        <AvatarMenu user={user} />
+        {status === 'authenticated' ? (
+          <AvatarMenu />
+        ) : (
+          <Link href="/login">
+            <a>login</a>
+          </Link>
+        )}
       </div>
     </nav>
   )

@@ -1,12 +1,19 @@
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 import { PrismicNextImage } from '@prismicio/next'
 import { ImTrophy, ImBullhorn, ImTicket } from 'react-icons/im'
 import { HiOutlineClock, HiFire, HiCalendar } from 'react-icons/hi'
 
-import styles from './styles.module.scss'
 import { SHORT_DATE } from 'utils/constants/date'
 import type { Challenge, TypeStatusChallenge } from 'types'
-import { getDaysRemaining, getFullDate } from 'utils/format/'
+import {
+  getDaysRemaining,
+  getFullDate,
+  getStatusChallenge,
+  isChallengeClosed
+} from 'utils/format'
+
+import styles from './styles.module.scss'
 
 type IconStatus = Record<TypeStatusChallenge, React.ReactNode>
 
@@ -18,17 +25,21 @@ const icons: IconStatus = {
 }
 
 export const ChallengeCard = (challenge: Challenge) => {
-  const isClosed = ['finished', 'closed'].includes(challenge.status.type)
+  const { data } = useSession()
+
+  const status = getStatusChallenge({
+    ...challenge,
+    userChallenges: data?.user.challenges || []
+  })
+
+  const isClosed = isChallengeClosed(status.type)
 
   return (
-    <article className={`${styles.challenge} ${styles[challenge.status.type]}`}>
-      {challenge.status.type !== 'active' && (
-        <div
-          className={styles.challenge__status}
-          data-type={challenge.status.type}
-        >
-          <span>{icons[challenge.status.type]}</span>
-          <strong>{challenge.status.name}</strong>
+    <article className={`${styles.challenge} ${styles[status.type]}`}>
+      {status.type !== 'active' && (
+        <div className={styles.challenge__status} data-type={status.type}>
+          <span>{icons[status.type]}</span>
+          <strong>{status.name}</strong>
         </div>
       )}
 
@@ -75,16 +86,13 @@ export const ChallengeCard = (challenge: Challenge) => {
 
           {isClosed && (
             <Link href={`/desafio/${challenge.id}/resultado`}>
-              <a
-                className="button"
-                aria-disabled={challenge.status.type === 'closed'}
-              >
+              <a className="button" aria-disabled={status.type === 'closed'}>
                 Soluções
               </a>
             </Link>
           )}
 
-          {challenge.status.type === 'submitted' && (
+          {status.type === 'submitted' && (
             <Link href={`/desafio/${challenge.id}/participar`}>
               <a className="button">Editar solução</a>
             </Link>

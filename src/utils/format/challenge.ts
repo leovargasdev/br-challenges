@@ -13,11 +13,11 @@ interface GetStatusProps {
   userChallenges: string[]
 }
 
-export const isClosed = (type: TypeStatusChallenge): boolean => {
+export const isChallengeClosed = (type: TypeStatusChallenge): boolean => {
   return ['closed', 'finished'].includes(type)
 }
 
-const getStatusChallenge = ({
+export const getStatusChallenge = ({
   id,
   finished,
   deadline,
@@ -82,7 +82,9 @@ export const getListChallenges = (
 
   const challenges = data.reduce((acc: Acumulator, item) => {
     const challenge = formattedChallenge(item, userChallenges)
-    const typeOrder = isClosed(challenge.status.type) ? 'after' : 'before'
+    const typeOrder = isChallengeClosed(challenge.status.type)
+      ? 'after'
+      : 'before'
 
     acc[typeOrder].push(challenge)
 
