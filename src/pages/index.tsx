@@ -18,9 +18,9 @@ interface PageProps {
 const HomePage: NextPage<PageProps> = ({ challenges }) => (
   <section className={styles.home}>
     <SEO
-      tabName="Home"
-      title="Página inicial"
-      description="Essa eh a página inicial"
+      tabName="Listagem dos desafios"
+      title="Listagem dos desafios"
+      description="Navegue pela nossa lista de desafios e encontre um projeto interessante para condificar"
     />
     {challenges.map(challenge => (
       <ChallengeCard key={challenge.id} {...challenge} />

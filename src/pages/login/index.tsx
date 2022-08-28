@@ -11,7 +11,11 @@ import styles from './styles.module.scss'
 
 const LoginPage = () => (
   <div className={styles.container}>
-    <SEO tabName="Login" title="Acessar conta" />
+    <SEO
+      tabName="Login"
+      title="Entrar na plataforma"
+      description="Aprimore as suas habilidades ao codificar os nossos desafios"
+    />
 
     <Link href="/">
       <a>
@@ -25,7 +29,7 @@ const LoginPage = () => (
 
     <main className={styles.content}>
       <div className={styles.info}>
-        <h1>Seja bem-vindo, faça o login com alguma rede social</h1>
+        <h1>Seja bem-vindo, faça o login para acessar a sua conta.</h1>
 
         <hr />
 

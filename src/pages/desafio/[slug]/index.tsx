@@ -56,6 +56,14 @@ const ChallengePage: NextPage<Challenge> = challenge => {
             allowFullScreen
             src={`https://www.figma.com/embed?embed_host=astra&url=${challenge.prototype_url}`}
           />
+
+          <p>
+            Está com dúvidas sobre o desafio?{' '}
+            <a href="https://discord.gg/JPS2bY6GVy">
+              Junte-se à nossa comunidade no Discord
+            </a>{' '}
+            e faça perguntas no canal do desafio.
+          </p>
         </div>
 
         <Link href={challenge.participate_url}>

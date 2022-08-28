@@ -45,7 +45,7 @@ const SolutionChallengePage: NextPage<Solution> = solution => {
           className={styles.form}
           onSubmit={useFormMethods.handleSubmit(onSubmit)}
         >
-          <h1>Formulário para enviar o desafio</h1>
+          <h1>Formulário de envio</h1>
 
           <Input
             type="url"
@@ -61,16 +61,16 @@ const SolutionChallengePage: NextPage<Solution> = solution => {
           />
 
           <Input
-            label="Post Linkedin"
+            label="Post do linkedin"
             name="linkedin_post"
             placeholder="Link do post sobre a solução do desafio"
           />
 
-          <Input
+          {/* <Input
             label="Link de compartilhamento"
             name="shared_url"
             placeholder="Url ao compartilhar a chamada do desafio"
-          />
+          /> */}
 
           <RadioGroup
             name="level"

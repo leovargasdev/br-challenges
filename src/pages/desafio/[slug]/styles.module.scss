@@ -1,5 +1,5 @@
 .challenge {
-  margin-top: 48px;
+  margin: 48px 0;
 
   width: 100%;
   max-width: var(--width-medium);
@@ -87,6 +87,8 @@
     height: 450px;
     border: 0;
     border-radius: 8px;
+
+    margin-bottom: 24px;
   }
 
   @media(max-width: 650px) {

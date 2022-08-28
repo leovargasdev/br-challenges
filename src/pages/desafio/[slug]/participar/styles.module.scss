@@ -1,7 +1,7 @@
 .container {
   display: flex;
   justify-content: center;
-  padding-top: 48px;
+  margin: 24px 0;
   width: 100%;
 
   @media(max-width: 900px) {
