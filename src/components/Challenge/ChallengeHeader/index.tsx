@@ -1,24 +1,18 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { PrismicNextImage } from '@prismicio/next'
-import type { ImageFieldImage } from '@prismicio/types'
 import { HiDocumentText, HiUserGroup } from 'react-icons/hi'
 
-import { Author } from 'types/author'
+import { Challenge } from 'types'
 
 import styles from './styles.module.scss'
-
-interface ChallengeHeaderProps {
-  title: string
-  author: Author
-  image: ImageFieldImage
-}
 
 export const ChallengeHeader = ({
   title,
   author,
-  image
-}: ChallengeHeaderProps) => {
+  image,
+  status
+}: Challenge) => {
   const router = useRouter()
 
   const challengeSlug = router.query?.slug
@@ -31,6 +25,7 @@ export const ChallengeHeader = ({
       </div>
 
       <h3>{author.name}</h3>
+
       <h1>{title}</h1>
 
       <div className={styles.header__links}>
@@ -41,12 +36,14 @@ export const ChallengeHeader = ({
           </a>
         </Link>
 
-        <Link href={`/desafio/${challengeSlug}/resultado`}>
-          <a className="button outline" aria-hidden={!isResultsPage}>
-            <HiUserGroup />
-            Ver participantes
-          </a>
-        </Link>
+        {status.type === 'finished' && (
+          <Link href={`/desafio/${challengeSlug}/resultado`}>
+            <a className="button outline" aria-hidden={!isResultsPage}>
+              <HiUserGroup />
+              Ver participantes
+            </a>
+          </Link>
+        )}
       </div>
     </header>
   )

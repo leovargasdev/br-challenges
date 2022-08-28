@@ -1,7 +1,7 @@
 import Link from 'next/link'
+import { HiPencilAlt } from 'react-icons/hi'
 import { useSession } from 'next-auth/react'
 import { PrismicRichText } from '@prismicio/react'
-import { HiOutlineClock, HiPencilAlt } from 'react-icons/hi'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 
 import { SEO } from 'components/SEO'
@@ -11,8 +11,7 @@ import { LinkWithPreview } from 'components/LinkWithPreview'
 
 import { Challenge } from 'types'
 import { CACHE_PAGE } from 'utils/constants'
-import { FULL_DATE } from 'utils/constants/date'
-import { formattedChallenge, getFullDate } from 'utils/format'
+import { formattedChallenge, isChallengeClosed } from 'utils/format'
 import { createClientPrismic, collectionSlugs } from 'service/prismic'
 
 import styles from './styles.module.scss'
@@ -21,8 +20,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
   const { status } = useSession()
 
   const disabledButtonSolution =
-    status !== 'authenticated' ||
-    ['closed', 'finished'].includes(challenge.status.type)
+    status !== 'authenticated' || isChallengeClosed(challenge.status.type)
 
   return (
     <>
@@ -35,11 +33,6 @@ const ChallengePage: NextPage<Challenge> = challenge => {
       <ChallengeHeader {...challenge} />
 
       <div className={styles.challenge}>
-        {/* <time>
-          <HiOutlineClock />
-          {getFullDate(challenge.deadline, FULL_DATE)}
-        </time> */}
-
         <div className={styles.challenge__content}>
           <PrismicRichText
             field={challenge.content}

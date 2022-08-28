@@ -32,14 +32,6 @@
     background: var(--link);
   }
 
-  time {
-    display: flex;
-    align-items: center;
-    column-gap: 4px;
-    color: var(--text-dark);
-    font-weight: 300;
-  }
-
   @media(max-width: 1440px) {
     padding: 24px 24px 12px;
 
