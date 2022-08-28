@@ -19,7 +19,10 @@
   width: 100%;
   max-width: var(--width-normal);
 
-
+  > a {
+    padding: 10px 0;
+    max-width: 200px;
+  }
 }
 
 .header__logo svg {

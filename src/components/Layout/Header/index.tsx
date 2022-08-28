@@ -22,7 +22,7 @@ export const LayoutHeader = () => {
           <AvatarMenu />
         ) : (
           <Link href="/login">
-            <a>login</a>
+            <a className="button">acessar conta</a>
           </Link>
         )}
       </div>

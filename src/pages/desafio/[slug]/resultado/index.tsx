@@ -45,7 +45,10 @@ const ChallengeResultsPage: NextPage<Challenge> = challenge => {
             {MOCK_SOLUTIONS.map(solution => (
               <SolutionCard
                 solution={solution}
-                participant={data?.user}
+                participant={{
+                  image: 'https://avatars.githubusercontent.com/u/11177716?v=4',
+                  name: 'Leonardo Vargas'
+                }}
                 key={solution.createdAt}
               />
             ))}
@@ -77,7 +80,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   params
 }) => {
   const challengeSlug = String(params?.slug)
-  console.log(challengeSlug)
+
   const prismic = createClientPrismic({ req })
 
   const challenge = await prismic.getByUID<any>('challenges', challengeSlug)

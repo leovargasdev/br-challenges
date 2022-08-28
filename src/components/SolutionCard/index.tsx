@@ -18,7 +18,10 @@ interface SolutionProps {
 
 interface SolutionCardProps {
   solution: SolutionProps
-  participant: User | undefined
+  participant: {
+    name: string
+    image: string
+  }
 }
 
 const LEVELS = {
