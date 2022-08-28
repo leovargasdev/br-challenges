@@ -7,7 +7,6 @@ export interface Solution {
   repository_url: string
   solution_url: string
   linkedin_post: string
-  shared_url: string
   createdAt: Date
   level: typeof CHALLENGE_LEVELS[number]
   score: number

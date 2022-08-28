@@ -66,12 +66,6 @@ const SolutionChallengePage: NextPage<Solution> = solution => {
             placeholder="Link do post sobre a solução do desafio"
           />
 
-          {/* <Input
-            label="Link de compartilhamento"
-            name="shared_url"
-            placeholder="Url ao compartilhar a chamada do desafio"
-          /> */}
-
           <RadioGroup
             name="level"
             label="Selecione a dificuldade"
