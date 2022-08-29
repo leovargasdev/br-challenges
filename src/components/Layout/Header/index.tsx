@@ -23,7 +23,7 @@ export const LayoutHeader = () => {
         ) : (
           <Link href="/login">
             <a className={'button '.concat(styles.header__signIn)}>
-              acessar conta
+              Acessar conta
             </a>
           </Link>
         )}

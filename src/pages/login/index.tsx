@@ -39,7 +39,7 @@ const LoginPage = () => (
             Github
           </button>
 
-          <button type="button">
+          <button type="button" disabled>
             <FaGoogle />
             Google
           </button>

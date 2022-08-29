@@ -109,6 +109,8 @@
   }
 
   button:last-child {
+    opacity: 0.3;
+    pointer-events: none;
     border-color: #DB4437;
 
     &:hover {
