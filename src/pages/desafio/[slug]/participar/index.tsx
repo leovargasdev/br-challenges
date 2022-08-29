@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { getSession } from 'next-auth/react'
 import { HiPaperAirplane } from 'react-icons/hi'
@@ -7,16 +8,29 @@ import { useForm, FormProvider } from 'react-hook-form'
 
 import { SEO } from 'components/SEO'
 import { Input, RadioGroup } from 'components/Form'
+import { ChallengeHeader } from 'components/Challenge'
 
 import api from 'service/api'
-import type { Solution } from 'types'
+import type { Challenge, Solution } from 'types'
+import { solutionLevels } from 'utils/constants'
+import { formattedChallenge } from 'utils/format'
+import { createClientPrismic } from 'service/prismic'
 import { zodSolutionSchema, type SolutionForm } from 'utils/zod'
 import { connectMongoose, SolutionModel } from 'service/mongoose'
 
 import styles from './styles.module.scss'
 
-const SolutionChallengePage: NextPage<Solution> = solution => {
+interface PageProps {
+  solution: Solution
+  challenge: Challenge
+}
+
+const SolutionChallengePage: NextPage<PageProps> = ({
+  solution,
+  challenge
+}) => {
   const router = useRouter()
+  const [loading, setLoading] = useState<boolean>(false)
 
   const useFormMethods = useForm<SolutionForm>({
     mode: 'all',
@@ -25,6 +39,7 @@ const SolutionChallengePage: NextPage<Solution> = solution => {
   })
 
   const onSubmit = async (data: SolutionForm): Promise<void> => {
+    setLoading(true)
     const challenge_id = router.query.slug
 
     try {
@@ -33,59 +48,64 @@ const SolutionChallengePage: NextPage<Solution> = solution => {
       router.push('/')
     } catch (err) {
       console.log(err)
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
-    <div className={styles.container}>
-      <FormProvider {...useFormMethods}>
-        <SEO tabName="Participar do desafio" title="Participar do desafio" />
+    <>
+      <ChallengeHeader {...challenge} isSmall />
 
-        <form
-          className={styles.form}
-          onSubmit={useFormMethods.handleSubmit(onSubmit)}
-        >
-          <h1>Formulário de envio</h1>
+      <section className={styles.container}>
+        <FormProvider {...useFormMethods}>
+          <SEO tabName="Participar do desafio" title="Participar do desafio" />
 
-          <Input
-            type="url"
-            label="Repositório"
-            name="repository_url"
-            placeholder="Link do repositório do github"
-          />
-
-          <Input
-            label="Visualização"
-            name="solution_url"
-            placeholder="Link para visualizar o projeto"
-          />
-
-          <Input
-            label="Post do linkedin"
-            name="linkedin_post"
-            placeholder="Link do post sobre a solução do desafio"
-          />
-
-          <RadioGroup
-            name="level"
-            label="Selecione a dificuldade"
-            options={[
-              { value: 'easy', label: 'Fácil' },
-              { value: 'medium', label: 'Médio' },
-              { value: 'hard', label: 'Difícil' }
-            ]}
-          />
-
-          <button
-            type="submit"
-            className={'button '.concat(styles.button__submit)}
+          <form
+            className={styles.form}
+            onSubmit={useFormMethods.handleSubmit(onSubmit)}
           >
-            <HiPaperAirplane />
-            Enviar
-          </button>
-        </form>
-      </FormProvider>
-    </div>
+            <h2>Formulário de envio</h2>
+
+            <Input
+              type="url"
+              label="Repositório"
+              name="repository_url"
+              placeholder="Link do repositório do github"
+            />
+
+            <Input
+              label="Visualização"
+              name="solution_url"
+              placeholder="Link para visualizar o projeto"
+            />
+
+            <Input
+              label="Post do linkedin"
+              name="linkedin_post"
+              placeholder="Link do post sobre a solução do desafio"
+            />
+
+            <RadioGroup
+              name="level"
+              label="Selecione a dificuldade"
+              options={solutionLevels}
+            />
+
+            <button
+              type="submit"
+              className={`button ${styles.button__submit} ${
+                loading ? 'loading' : ''
+              }`}
+              disabled={loading}
+            >
+              <HiPaperAirplane />
+              Enviar
+            </button>
+          </form>
+        </FormProvider>
+      </section>
+    </>
   )
 }
 
@@ -109,17 +129,39 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const isSolution = challenges.includes(challenge_id)
 
-  if (!isSolution) {
-    return { props: {} }
+  try {
+    const prismic = createClientPrismic({ req })
+    const response = await prismic.getByUID<any>('challenges', challenge_id)
+
+    const challenge = formattedChallenge(response)
+
+    if (!isSolution) {
+      return {
+        props: { challenge }
+      }
+    }
+
+    await connectMongoose()
+    const queryMongo = { user_id, challenge_id }
+    const ignoreFields = { createdAt: 0, updatedAt: 0, _id: 0, user_id: 0 }
+    const solution = await SolutionModel.findOne(queryMongo, ignoreFields)
+
+    return {
+      props: {
+        solution: solution._doc,
+        challenge
+      }
+    }
+  } catch (err) {
+    console.log(err)
   }
 
-  await connectMongoose()
-  const queryMongo = { user_id, challenge_id }
-  const ignoreFields = { createdAt: 0, updatedAt: 0, _id: 0, user_id: 0 }
-  const solution = await SolutionModel.findOne(queryMongo, ignoreFields)
-
   return {
-    props: solution._doc
+    props: {},
+    redirect: {
+      permanent: true,
+      destination: '/'
+    }
   }
 }
 

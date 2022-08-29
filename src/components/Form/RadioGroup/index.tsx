@@ -1,5 +1,6 @@
 import { Radio, RadioOption, ErrorMessage } from 'components/Form'
 import { useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 
 import styles from './styles.module.scss'
 
@@ -10,7 +11,9 @@ interface RadioGroupProps {
 }
 
 export const RadioGroup = ({ name, label, options }: RadioGroupProps) => {
-  const [checked, serChecked] = useState<string>('')
+  const { getValues } = useFormContext()
+
+  const [checked, serChecked] = useState<string>(getValues(name) || '')
 
   const handleCheckedRadio = (value: string): void => {
     serChecked(value)

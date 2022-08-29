@@ -7,26 +7,32 @@ import { Challenge } from 'types'
 
 import styles from './styles.module.scss'
 
+interface ChallengeHeaderProps extends Challenge {
+  isSmall?: boolean
+}
+
 export const ChallengeHeader = ({
-  title,
-  author,
-  image,
-  status
-}: Challenge) => {
+  isSmall = false,
+  ...challenge
+}: ChallengeHeaderProps) => {
   const router = useRouter()
 
   const challengeSlug = router.query?.slug
   const isResultsPage = router.asPath.includes(`${challengeSlug}/resultado`)
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header} data-size={isSmall ? 'small' : 'default'}>
       <div className={styles.header__image}>
-        <PrismicNextImage field={image} layout="fill" objectFit="cover" />
+        <PrismicNextImage
+          field={challenge.image}
+          layout="fill"
+          objectFit="cover"
+        />
       </div>
 
-      <h3>{author.name}</h3>
+      <h3>{challenge.author.name}</h3>
 
-      <h1>{title}</h1>
+      <h1>{challenge.title}</h1>
 
       <div className={styles.header__links}>
         <Link href={`/desafio/${challengeSlug}`}>
@@ -36,7 +42,7 @@ export const ChallengeHeader = ({
           </a>
         </Link>
 
-        {status.type === 'finished' && (
+        {challenge.status.type === 'finished' && (
           <Link href={`/desafio/${challengeSlug}/resultado`}>
             <a className="button outline" aria-hidden={!isResultsPage}>
               <HiUserGroup />

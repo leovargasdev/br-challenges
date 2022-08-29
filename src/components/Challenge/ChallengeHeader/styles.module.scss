@@ -11,6 +11,10 @@
   position: relative;
   padding: 24px 0 12px;
 
+  &[data-size="small"] {
+    height: 340px;
+  }
+
   h1 {
     font-size: 3rem;
     line-height: 3.25rem;

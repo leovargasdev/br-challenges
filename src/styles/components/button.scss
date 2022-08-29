@@ -17,11 +17,11 @@
 
   transition: all 0.4s;
 
-  &[aria-disabled='true'] {
+  &[aria-disabled='true'], &:disabled {
     opacity: 0.7;
     user-select: none;
     pointer-events: none;
-    background: rgb(41 41 58);
+    background: rgb(63, 63, 105);
   }
 
   &:hover {
@@ -43,5 +43,36 @@
 
   &[aria-disabled='true'] {
     border-color: var(--link-dark);
+  }
+}
+
+.loading {
+  position: relative;
+  color: transparent!important;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+
+    border-radius: 50%;
+    border: 1px solid transparent;
+    border-left-color: #fff;
+
+    animation: rotation 1s linear infinite;
+    
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   }
 }

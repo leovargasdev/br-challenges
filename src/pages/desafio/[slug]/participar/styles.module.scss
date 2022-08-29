@@ -1,7 +1,7 @@
 .container {
   display: flex;
   justify-content: center;
-  margin: 24px 0;
+  margin: -100px 0 40px;
   width: 100%;
 
   @media(max-width: 900px) {
@@ -15,21 +15,21 @@
   align-items: stretch;
   row-gap: 16px;
 
-  padding: 40px;
+  padding: 48px 40px;
   border-radius: 6px 6px 16px 16px;
-  background: var(--background-light);
-  box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.08);
+  background: #191930;
+  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.2);
 
   width: 100%;
-  max-width: var(--width-medium);
+  max-width: 800px;
 
-  margin-top: 32px;
-
-  h1, .button__submit {
+  h2, .button__submit {
     align-self: center;
   }
 
-  h1 {
+  h2 {
+    opacity: 0.8;
+    font-size: 2.25rem;
     margin-bottom: 16px;
   }
 
