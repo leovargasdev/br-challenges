@@ -12,13 +12,18 @@ import { ChallengeHeader } from 'components/Challenge'
 
 import api from 'service/api'
 import type { Challenge, Solution } from 'types'
-import { solutionLevels } from 'utils/constants'
 import { formattedChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
 import { zodSolutionSchema, type SolutionForm } from 'utils/zod'
 import { connectMongoose, SolutionModel } from 'service/mongoose'
 
 import styles from './styles.module.scss'
+
+const solutionLevels = [
+  { value: 'easy', label: 'Fácil' },
+  { value: 'medium', label: 'Médio' },
+  { value: 'hard', label: 'Difícil' }
+]
 
 interface PageProps {
   solution: Solution

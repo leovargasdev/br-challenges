@@ -1,7 +1,7 @@
 import { Types } from 'mongoose'
-import { CHALLENGE_LEVELS } from 'utils/constants'
+import { LEVELS } from 'utils/constants'
 
-export type SolutionLevel = typeof CHALLENGE_LEVELS[number]
+export type SolutionLevel = keyof typeof LEVELS
 
 export interface Solution {
   user_id: Types.ObjectId

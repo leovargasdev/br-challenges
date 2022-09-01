@@ -4,7 +4,7 @@ import { PrismicNextImage } from '@prismicio/next'
 import { ImTrophy, ImBullhorn, ImTicket } from 'react-icons/im'
 import { HiOutlineClock, HiFire, HiCalendar } from 'react-icons/hi'
 
-import { SHORT_DATE } from 'utils/constants/date'
+import { SHORT_DATE } from 'utils/constants'
 import type { Challenge, TypeStatusChallenge } from 'types'
 import {
   getDaysRemaining,

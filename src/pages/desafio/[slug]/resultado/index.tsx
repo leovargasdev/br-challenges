@@ -5,27 +5,12 @@ import { Tooltip } from 'components/Tooltip'
 import { SolutionCard } from 'components/SolutionCard'
 import { ChallengeHeader } from 'components/Challenge'
 
-import { Challenge, SolutionLevel } from 'types'
+import { Challenge } from 'types'
 import { formattedChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
-import contributors from 'utils/constants/contributors'
+import { contributorsMock, solutionsMock } from 'utils/mock'
 
 import styles from './styles.module.scss'
-
-interface SolutionProps {
-  level: SolutionLevel
-  createdAt: string
-}
-
-const MOCK_SOLUTIONS: SolutionProps[] = [
-  { level: 'hard', createdAt: '2022-08-20' },
-  { level: 'medium', createdAt: '2022-08-20' },
-  { level: 'medium', createdAt: '2022-08-22' },
-  { level: 'easy', createdAt: '2022-08-21' },
-  { level: 'medium', createdAt: '2022-08-10' },
-  { level: 'hard', createdAt: '2022-08-15' },
-  { level: 'medium', createdAt: '2022-08-01' }
-]
 
 const ChallengeResultsPage: NextPage<Challenge> = challenge => (
   <>
@@ -36,7 +21,7 @@ const ChallengeResultsPage: NextPage<Challenge> = challenge => (
         <h2>Listagem das soluções</h2>
 
         <ul className={styles.solutions}>
-          {MOCK_SOLUTIONS.map(solution => (
+          {solutionsMock.map(solution => (
             <SolutionCard
               solution={solution}
               participant={{
@@ -59,7 +44,7 @@ const ChallengeResultsPage: NextPage<Challenge> = challenge => (
         </h2>
 
         <ul className={styles.contributors}>
-          {contributors.map(contributor => (
+          {contributorsMock.map(contributor => (
             <li key={contributor}>{contributor}</li>
           ))}
         </ul>

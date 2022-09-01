@@ -1,5 +1,7 @@
 import { z as zod } from 'zod'
-import { CHALLENGE_LEVELS } from 'utils/constants'
+
+// import { LEVELS } from 'utils/constants'
+// const levels = Object.keys(LEVELS)
 
 export const zodSolutionSchema = zod.object({
   repository_url: zod
@@ -14,7 +16,7 @@ export const zodSolutionSchema = zod.object({
       message: 'A url não segue o padrão de post do linkedin'
     })
     .or(zod.literal('')),
-  level: zod.enum(CHALLENGE_LEVELS, {
+  level: zod.enum(['easy', 'medium', 'hard'], {
     invalid_type_error: 'É preciso selecionar um nível de dificuldade'
   })
 })
