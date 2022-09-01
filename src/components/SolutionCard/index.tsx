@@ -1,68 +1,60 @@
-import Link from 'next/link'
 import Image from 'next/image'
 import { GoOctoface } from 'react-icons/go'
-import { HiCalendar, HiLink } from 'react-icons/hi'
+import { HiCalendar } from 'react-icons/hi'
+import { FaLinkedinIn } from 'react-icons/fa'
 
-import { Solution, User } from 'types'
+import { Solution, SolutionLevel, User } from 'types'
 import { getFullDate } from 'utils/format'
-import { SHORT_DATE } from 'utils/constants/date'
+import { SHORT_DATE, LEVELS } from 'utils/constants'
 
 import styles from './styles.module.scss'
 
-type LevelProps = 'hard' | 'medium' | 'easy'
-
-interface SolutionProps {
-  level: LevelProps
-  createdAt: string
-}
-
 interface SolutionCardProps {
-  solution: SolutionProps
-  participant: {
-    name: string
-    image: string
-  }
+  solution: any
+  participant: any
 }
 
-const LEVELS = {
-  easy: 'Fácil',
-  medium: 'Médio',
-  hard: 'Difícil'
-}
+const Participant = (participant: any) => (
+  <div className={styles.participant}>
+    {participant?.image && (
+      <div className={styles.participant__avatar}>
+        <Image src={participant.image} layout="fill" objectFit="cover" />
+      </div>
+    )}
+
+    <div>
+      <strong>{participant?.name}</strong>
+      <p>{participant.bio}</p>
+    </div>
+  </div>
+)
 
 export const SolutionCard = ({ solution, participant }: SolutionCardProps) => (
   <li className={styles.solution} data-type={solution.level}>
-    <div className={styles.participant}>
-      {participant?.image && (
-        <div className={styles.participant__avatar}>
-          <Image src={participant.image} layout="fill" objectFit="cover" />
-        </div>
-      )}
-      <div className={styles.participant__info}>
-        <strong>{participant?.name}</strong>
-        <p>Desenvolvedor frontend</p>
+    <div className={styles.solution__content}>
+      <Participant {...participant} bio="Super dev" />
+
+      <div className={styles.solution__info}>
+        <span>{LEVELS[solution.level as SolutionLevel]}</span>
+        <time dateTime={solution.createdAt}>
+          <HiCalendar />
+          {getFullDate(new Date(solution.createdAt).toISOString(), SHORT_DATE)}
+        </time>
       </div>
     </div>
 
-    <div className={styles.solution__info}>
-      <span>{LEVELS[solution.level]}</span>
-      <time>
-        <HiCalendar />
-        {getFullDate(new Date(solution.createdAt).toISOString(), SHORT_DATE)}
-      </time>
-    </div>
-
-    <Link href="/">
-      <a className="button outline">
+    <div className={styles.solution__links}>
+      <a href="/">Acessar Solução</a>
+      <a href="/" target="_blank" title="Link do repositório com a solução">
         <GoOctoface />
-        Repositório
       </a>
-    </Link>
-    <Link href="/">
-      <a className="button outline">
-        <HiLink />
-        Visualizar solução
+      <a
+        href="/"
+        target="_blank"
+        title="Link do post no linkedin sobre a solução"
+      >
+        <FaLinkedinIn />
       </a>
-    </Link>
+    </div>
   </li>
 )
