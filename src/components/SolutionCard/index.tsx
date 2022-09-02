@@ -18,7 +18,7 @@ const Participant = (participant: User) => (
 
     <div>
       <strong>{participant?.name}</strong>
-      <p>{participant.email}</p>
+      <p>{participant?.bio || '-'}</p>
     </div>
   </div>
 )
@@ -51,6 +51,7 @@ export const SolutionCard = (solution: Solution) => (
         target="_blank"
         title="Link do post no linkedin sobre a solução"
         rel="noreferrer"
+        aria-disabled={!solution.linkedin_url}
       >
         <FaLinkedinIn />
       </a>

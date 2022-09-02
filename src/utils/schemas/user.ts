@@ -13,7 +13,10 @@ export const UserSchema = new Schema<User>(
       required: true,
       lowercase: true
     },
-    bio: String,
+    bio: {
+      type: String,
+      default: ''
+    },
     image: String,
     role: {
       type: String,

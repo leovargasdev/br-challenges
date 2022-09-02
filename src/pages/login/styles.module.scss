@@ -98,23 +98,21 @@
     svg {
       width: 24px;
     }
-  }
 
-  button:first-child {
-    border-color: #4078c0;
-    
-    &:hover {
-      background: #4078c0;
+    &.github {
+      border-color: #4078c0;
+      
+      &:hover {
+        background: #4078c0;
+      }
     }
-  }
 
-  button:last-child {
-    opacity: 0.3;
-    pointer-events: none;
-    border-color: #DB4437;
+    &.google {
+      border-color: #DB4437;
 
-    &:hover {
-      background: #DB4437;
+      &:hover {
+        background: #DB4437;
+      }
     }
   }
 }

@@ -130,5 +130,11 @@
     &:hover {
       background: var(--link);
     }
+
+    &[aria-disabled="true"] {
+      opacity: 0.5;
+      border-color: var(--link-dark);
+      pointer-events: none;
+    }
   }
 }

@@ -34,12 +34,20 @@ const LoginPage = () => (
         <hr />
 
         <div className={styles.buttons}>
-          <button type="button" onClick={() => signIn('github')}>
+          <button
+            type="button"
+            className={styles.github}
+            onClick={() => signIn('github')}
+          >
             <GoOctoface />
             Github
           </button>
 
-          <button type="button" disabled>
+          <button
+            type="button"
+            className={styles.google}
+            onClick={() => signIn('google')}
+          >
             <FaGoogle />
             Google
           </button>
