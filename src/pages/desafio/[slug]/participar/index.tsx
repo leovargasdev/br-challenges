@@ -11,10 +11,10 @@ import { Input, RadioGroup } from 'components/Form'
 import { ChallengeHeader } from 'components/Challenge'
 
 import api from 'service/api'
-import type { Challenge, Solution } from 'types'
+import { Challenge, Solution } from 'types'
 import { formattedChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
-import { zodSolutionSchema, type SolutionForm } from 'utils/zod'
+import { zodSolutionSchema, SolutionForm } from 'utils/zod'
 import { connectMongoose, SolutionModel } from 'service/mongoose'
 
 import styles from './styles.module.scss'
@@ -80,14 +80,15 @@ const SolutionChallengePage: NextPage<PageProps> = ({
             />
 
             <Input
+              name="url"
+              type="url"
               label="Visualização"
-              name="solution_url"
               placeholder="Link para visualizar o projeto"
             />
 
             <Input
               label="Post do linkedin"
-              name="linkedin_post"
+              name="linkedin_url"
               placeholder="Link do post sobre a solução do desafio"
             />
 

@@ -1,4 +1,4 @@
-import { User } from 'types/user'
+import { User } from 'types'
 import { Schema } from 'mongoose'
 
 export const UserSchema = new Schema<User>(
@@ -13,14 +13,19 @@ export const UserSchema = new Schema<User>(
       required: true,
       lowercase: true
     },
+    bio: String,
     image: String,
     role: {
       type: String,
-      required: true
+      required: true,
+      default: 'participant'
     },
     pix_key: String,
-    username_discord: String,
-    challenges: [String]
+    challenges: {
+      required: true,
+      type: [String],
+      default: []
+    }
   },
   {
     timestamps: true

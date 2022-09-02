@@ -1,11 +1,14 @@
 import { Types } from 'mongoose'
+
+export type UserRole = 'admin' | 'participant'
+
 export interface User {
   _id: Types.ObjectId
   name: string
   email: string
+  bio: string
   image?: string
-  role: 'normal' | 'admin'
-  username_discord?: string
+  role: UserRole
   pix_key?: string
   challenges: string[]
 }

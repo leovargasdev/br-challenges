@@ -19,13 +19,10 @@ export default NextAuth({
         user
       )
 
-      if (isUser) {
-        console.log('usuário já cadastrado')
-        return true
+      if (!isUser) {
+        // novo usuário
+        await UserModel.create(user)
       }
-
-      await UserModel.create({ ...user, role: 'normal' })
-
       return true
     },
     async session({ session }) {

@@ -5,4 +5,4 @@ export type {
   TypeStatusChallenge
 } from './challenge'
 export type { Solution, SolutionLevel } from './solution'
-export type { User } from './user'
+export type { User, UserRole } from './user'

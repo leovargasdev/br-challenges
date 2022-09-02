@@ -5,31 +5,32 @@ import { Tooltip } from 'components/Tooltip'
 import { SolutionCard } from 'components/SolutionCard'
 import { ChallengeHeader } from 'components/Challenge'
 
-import { Challenge } from 'types'
-import { formattedChallenge } from 'utils/format'
+import { Challenge, Solution } from 'types'
+import { formattedChallenge, formattedSolution } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
-import { contributorsMock, solutionsMock } from 'utils/mock'
+import { contributorsMock } from 'utils/mock'
+import { connectMongoose, SolutionModel } from 'service/mongoose'
 
 import styles from './styles.module.scss'
 
-const ChallengeResultsPage: NextPage<Challenge> = challenge => (
+interface PageProps {
+  challenge: Challenge
+  solutions: Solution[]
+}
+
+const ChallengeResultsPage: NextPage<PageProps> = ({
+  challenge,
+  solutions
+}) => (
   <>
     <ChallengeHeader {...challenge} />
-
     <section className={styles.container}>
       <div>
         <h2>Listagem das soluções</h2>
 
         <ul className={styles.solutions}>
-          {solutionsMock.map(solution => (
-            <SolutionCard
-              solution={solution}
-              participant={{
-                image: 'https://avatars.githubusercontent.com/u/11177716?v=4',
-                name: 'Leonardo Vargas'
-              }}
-              key={solution.createdAt}
-            />
+          {solutions.map(solution => (
+            <SolutionCard {...solution} key={solution.repository_url} />
           ))}
         </ul>
       </div>
@@ -63,8 +64,27 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const challenge = await prismic.getByUID<any>('challenges', challengeSlug)
 
+  await connectMongoose()
+
+  const solutions: Solution[] = await SolutionModel.aggregate([
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'user_id',
+        foreignField: '_id',
+        as: 'user',
+        pipeline: [{ $project: { createdAt: 0, updatedAt: 0, _id: 0 } }]
+      }
+    },
+    { $unwind: '$user' },
+    { $project: { user_id: 0, _id: 0, createdAt: 0 } }
+  ]).match({ challenge_id: challengeSlug })
+
   return {
-    props: formattedChallenge(challenge)
+    props: {
+      challenge: formattedChallenge(challenge),
+      solutions: solutions.map(formattedSolution)
+    }
   }
 }
 
