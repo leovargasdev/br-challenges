@@ -1,15 +1,16 @@
 import { GoInfo } from 'react-icons/go'
 import { GetServerSideProps, NextPage } from 'next'
 
+import { SEO } from 'components/SEO'
 import { Tooltip } from 'components/Tooltip'
 import { SolutionCard } from 'components/SolutionCard'
 import { ChallengeHeader } from 'components/Challenge'
 
 import { Challenge, Solution } from 'types'
-import { formattedChallenge, formattedSolution } from 'utils/format'
-import { createClientPrismic } from 'service/prismic'
 import { contributorsMock } from 'utils/mock'
+import { createClientPrismic } from 'service/prismic'
 import { connectMongoose, SolutionModel } from 'service/mongoose'
+import { formattedChallenge, formattedSolution } from 'utils/format'
 
 import styles from './styles.module.scss'
 
@@ -18,11 +19,17 @@ interface PageProps {
   solutions: Solution[]
 }
 
-const ChallengeResultsPage: NextPage<PageProps> = ({
+const ChallengeParticipantsPage: NextPage<PageProps> = ({
   challenge,
   solutions
 }) => (
   <>
+    <SEO
+      tabName={`Participantes do desafio ${challenge.title}`}
+      title={`Participantes do desafio ${challenge.title}`}
+      description={`Veja as soluções do desafio ${challenge.title}`}
+    />
+
     <ChallengeHeader {...challenge} />
     <section className={styles.container}>
       <div>
@@ -62,7 +69,21 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const prismic = createClientPrismic({ req })
 
-  const challenge = await prismic.getByUID<any>('challenges', challengeSlug)
+  const prismicChallenge = await prismic.getByUID<any>(
+    'challenges',
+    challengeSlug
+  )
+  const challenge = formattedChallenge(prismicChallenge)
+
+  if (challenge.status.type !== 'finished') {
+    return {
+      props: {},
+      redirect: {
+        destination: '/desafio/'.concat(challengeSlug),
+        permanent: true
+      }
+    }
+  }
 
   await connectMongoose()
 
@@ -82,10 +103,10 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
-      challenge: formattedChallenge(challenge),
+      challenge,
       solutions: solutions.map(formattedSolution)
     }
   }
 }
 
-export default ChallengeResultsPage
+export default ChallengeParticipantsPage

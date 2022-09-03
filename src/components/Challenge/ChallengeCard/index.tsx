@@ -85,9 +85,9 @@ export const ChallengeCard = (challenge: Challenge) => {
           </Link>
 
           {isClosed && (
-            <Link href={`/desafio/${challenge.id}/resultado`}>
+            <Link href={`/desafio/${challenge.id}/participantes`}>
               <a className="button" aria-disabled={status.type === 'closed'}>
-                Soluções
+                Participantes
               </a>
             </Link>
           )}

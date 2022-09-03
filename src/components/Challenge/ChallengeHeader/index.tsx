@@ -43,7 +43,7 @@ export const ChallengeHeader = ({
         </Link>
 
         {challenge.status.type === 'finished' && (
-          <Link href={`/desafio/${challengeSlug}/resultado`}>
+          <Link href={`/desafio/${challengeSlug}/participantes`}>
             <a className="button outline" aria-hidden={!isResultsPage}>
               <HiUserGroup />
               Ver participantes
