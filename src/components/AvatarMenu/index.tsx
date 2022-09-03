@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Image from 'next/image'
 import { signOut, useSession } from 'next-auth/react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
@@ -44,11 +45,15 @@ export const AvatarMenu = () => {
 
           <DropdownMenu.DropdownMenuSeparator className={styles.separator} />
 
-          <DropdownMenu.Item className={styles.item}>
-            <span>
-              <FaUser />
-            </span>
-            Perfil
+          <DropdownMenu.Item>
+            <Link href="/usuario/perfil">
+              <a className={styles.item}>
+                <span>
+                  <FaUser />
+                </span>
+                Perfil
+              </a>
+            </Link>
           </DropdownMenu.Item>
 
           <DropdownMenu.Item className={styles.item} onClick={() => signOut()}>

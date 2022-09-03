@@ -65,7 +65,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
             className={'button '.concat(styles.challenge__solution)}
           >
             <HiPencilAlt />
-            Participar
+            Enviar solução
           </a>
         </Link>
 
