@@ -13,6 +13,7 @@ import { connectMongoose, SolutionModel } from 'service/mongoose'
 import { formattedChallenge, formattedSolution } from 'utils/format'
 
 import styles from './styles.module.scss'
+import { getSession } from 'next-auth/react'
 
 interface PageProps {
   challenge: Challenge
@@ -65,6 +66,9 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   params
 }) => {
+  const session = await getSession({ req })
+  const isAdmin = session?.user.role === 'admin'
+
   const challengeSlug = String(params?.slug)
 
   const prismic = createClientPrismic({ req })
@@ -75,7 +79,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   )
   const challenge = formattedChallenge(prismicChallenge)
 
-  if (challenge.status.type !== 'finished') {
+  if (challenge.status.type !== 'finished' && !isAdmin) {
     return {
       props: {},
       redirect: {
