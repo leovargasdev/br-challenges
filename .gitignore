@@ -33,4 +33,7 @@ yarn-error.log*
 # vercel
 .vercel
 
+# primis
 sm.json
+/.slicemachine
+/customtypes
