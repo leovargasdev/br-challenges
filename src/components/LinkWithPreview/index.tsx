@@ -38,7 +38,12 @@ export const LinkWithPreview = ({ node, children }: LinkWithPreviewProps) => {
         event.currentTarget.style.setProperty('--y', `${y}px`)
       }}
     >
-      <a className={styles.link} href={node.data.url}>
+      <a
+        className={styles.link}
+        href={node.data.url}
+        target="_blank"
+        rel="noreferrer"
+      >
         {children[0]}
       </a>
       {Boolean(imgUrl) && (
