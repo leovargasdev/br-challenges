@@ -25,8 +25,8 @@ const ChallengePage: NextPage<Challenge> = challenge => {
   return (
     <>
       <SEO
-        tabName={`Desafio - ${challenge.title}`}
-        title={`Desafio - ${challenge.title}`}
+        tabName={`Desafio - ${challenge.name}`}
+        title={`Desafio - ${challenge.name}`}
         description="Venha confirir esse desafio incrivel"
       />
 
@@ -36,11 +36,11 @@ const ChallengePage: NextPage<Challenge> = challenge => {
         <div className={styles.challenge__content}>
           <PrismicRichText
             field={challenge.content}
-            components={{
-              hyperlink: ({ node, children }) => (
-                <LinkWithPreview node={node}>{children}</LinkWithPreview>
-              )
-            }}
+            // components={{
+            //   hyperlink: ({ node, children }) => (
+            //     <LinkWithPreview node={node}>{children}</LinkWithPreview>
+            //   )
+            // }}
           />
 
           <h2>Protótipo do desafio</h2>
@@ -50,26 +50,44 @@ const ChallengePage: NextPage<Challenge> = challenge => {
             src={`https://www.figma.com/embed?embed_host=astra&url=${challenge.prototype_url}`}
           />
 
+          <h2>Como funciona a participação</h2>
+
           <p>
-            Está com dúvidas sobre o desafio?{' '}
-            <a href="https://discord.gg/JPS2bY6GVy">
-              Junte-se à nossa comunidade no Discord
-            </a>{' '}
-            e faça perguntas no canal do desafio.
+            A sua participação só será contabilizada após o envio da solução.
+            Enquanto o desafio não for encerrado você pode editar os dados do
+            seu envio quantas vezes quiser.
           </p>
+
+          <p>
+            Após o encerramento do desafio será disponibilizado uma página
+            contendo todas as soluções enviadas. As melhores soluções vão estar
+            classificadas como solução destaque e os usuários do br challenge
+            vão poder votar nelas, e as mais votadas de cada dificuldade vão
+            receber prêmios.
+          </p>
+
+          <p>Que os deuses do clean code estejam com você, boa sorte!</p>
+
+          <Link href={challenge.participate_url}>
+            <a
+              aria-disabled={disabledButtonSolution}
+              className={'button '.concat(styles.button__solution)}
+            >
+              <HiPencilAlt />
+              Enviar solução
+            </a>
+          </Link>
         </div>
 
-        <Link href={challenge.participate_url}>
-          <a
-            aria-disabled={disabledButtonSolution}
-            className={'button '.concat(styles.challenge__solution)}
-          >
-            <HiPencilAlt />
-            Enviar solução
-          </a>
-        </Link>
-
         <AuthorCard {...challenge.author} />
+
+        <p className={styles.footer__text}>
+          Está com dúvidas sobre o desafio?{' '}
+          <a href="https://discord.gg/JPS2bY6GVy">
+            Junte-se à nossa comunidade no Discord
+          </a>{' '}
+          e faça perguntas no canal do desafio.
+        </p>
       </div>
     </>
   )

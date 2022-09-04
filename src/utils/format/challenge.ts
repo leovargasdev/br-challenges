@@ -8,9 +8,9 @@ import {
 
 interface GetStatusProps {
   id: string
-  finished: boolean
   deadline: string
   userChallenges: string[]
+  status_prismic: TypeStatusChallenge
 }
 
 export const isChallengeClosed = (type: TypeStatusChallenge): boolean => {
@@ -19,11 +19,11 @@ export const isChallengeClosed = (type: TypeStatusChallenge): boolean => {
 
 export const getStatusChallenge = ({
   id,
-  finished,
   deadline,
-  userChallenges
+  userChallenges,
+  status_prismic
 }: GetStatusProps): StatusChallenge => {
-  if (finished) {
+  if (status_prismic === 'finished') {
     return { type: 'finished', name: 'Finalizado' }
   }
 
@@ -50,14 +50,14 @@ export const formattedChallenge = (
 
   return {
     id: challenge.uid,
-    title: challenge.data.title,
-    finished: challenge.data.finished,
+    name: challenge.data.name,
     content: challenge.data.content,
     deadline: challenge.data.deadline,
     image: challenge.data.image,
     prototype_url: challenge.data.prototype.url,
     participate_url: `/desafio/${challenge.uid}/participar`,
     author: challenge.data.author[0],
+    status_prismic: challenge.data.status_prismic,
     status
   }
 }

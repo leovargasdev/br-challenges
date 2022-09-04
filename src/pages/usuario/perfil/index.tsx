@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { getSession } from 'next-auth/react'
 import { GetServerSideProps, NextPage } from 'next'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -25,6 +26,7 @@ interface PageProps {
 }
 
 const ProfilePage: NextPage<PageProps> = ({ user, challenges }) => {
+  const router = useRouter()
   const toast = useToast()
   const useFormMethods = useForm<UserForm>({
     mode: 'all',
@@ -38,6 +40,7 @@ const ProfilePage: NextPage<PageProps> = ({ user, challenges }) => {
       toast.success('Sucesso', {
         description: 'Os dados foram atualizados com sucesso'
       })
+      router.push('/')
     } catch (err) {
       console.log(err)
       toast.error('deu ruim')
@@ -81,7 +84,7 @@ const ProfilePage: NextPage<PageProps> = ({ user, challenges }) => {
                     </a>
                   </Link>
 
-                  <button className="button">
+                  <button className="button" disabled>
                     <HiTrash />
                     Excluir solução
                   </button>
@@ -124,7 +127,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   const challenges = prismicChallenges.map(challenge => ({
     slug: challenge.uid,
-    name: challenge.data.title
+    name: challenge.data.name
   }))
 
   return {

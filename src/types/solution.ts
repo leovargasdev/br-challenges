@@ -13,9 +13,8 @@ export interface Solution {
   createdAt: string
   updatedAt: string
   level: SolutionLevel
-  score: number
-  likes: number
   published: boolean
+  best_rated: boolean
 
   user?: User
   linkedin_url?: string

@@ -1,65 +1,46 @@
 .challenge {
-  margin: 24px 0 48px;
-
   width: 100%;
   max-width: var(--width-medium);
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 4px;
-
-  h1 {
-    text-align: center;
-    font-size: 3rem;
-    line-height: 3.5rem;
-  }
-
-  @media(max-width: 900px) {
-    padding: 0 24px;
-    overflow: hidden;
-  }
-
-  @media(max-width: 650px) {
-    h1 {
-      font-size: 2.5rem;
-      line-height: 3rem;
-
-      margin-bottom: 4px;
-    }
-  }
+  margin: 24px 0 32px;
 }
 
 .challenge__content {
-  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
 
-  h2 {
-    margin: 24px 0 8px;
-  }
+  margin-bottom: 32px;
 
-  ul,
-  ol {
-    padding-left: 40px;
-  }
-
-  p + p {
-    margin-top: 16px;
-  }
-
-  p,
-  li {
-    font-size: 1.125rem;
-    line-height: 2rem;
-  }
-
-  strong,
-  h2 {
+  h2, h3 {
+    margin-top: 12px;
     color: var(--text-light);
   }
 
-  a {
-    font-weight: bold;
-    color: var(--link);
+  ul, ol {
+    width: 100%;
+    max-width: 780px;
+    padding-left: 40px;
+
+    li + li {
+      margin-top: 8px;
+    }
+  }
+
+  li, p {
+    color: var(--text);
+    font-size: 1.125rem;
+    line-height: 2rem;
+
+    a {
+      font-weight: bold;
+      color: var(--link);
+    }
+
+    strong {
+      font-weight: 600;
+      color: var(--text);
+    }
   }
 
   iframe {
@@ -67,8 +48,6 @@
     height: 450px;
     border: 0;
     border-radius: 8px;
-
-    margin-bottom: 24px;
   }
 
   @media(max-width: 650px) {
@@ -78,10 +57,28 @@
   }
 }
 
-.challenge__solution {
+.button__solution {
   column-gap: 8px;
-  margin-top: 32px;
+  margin-top: 12px;
 
   font-size: 1.25rem;
   line-height: 1.5rem;
+}
+
+.footer__text {
+  margin-top: 16px;
+
+  color: var(--text);
+  font-size: 1.125rem;
+  line-height: 2rem;
+
+  a {
+    font-weight: bold;
+    color: var(--link);
+  }
+
+  strong {
+    font-weight: 600;
+    color: var(--text);
+  }
 }

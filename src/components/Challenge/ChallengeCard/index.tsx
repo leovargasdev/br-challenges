@@ -21,7 +21,8 @@ const icons: IconStatus = {
   finished: <ImTrophy />,
   closed: <ImBullhorn />,
   submitted: <ImTicket />,
-  active: ''
+  active: '',
+  voting: ''
 }
 
 export const ChallengeCard = (challenge: Challenge) => {
@@ -31,7 +32,6 @@ export const ChallengeCard = (challenge: Challenge) => {
     ...challenge,
     userChallenges: data?.user.challenges || []
   })
-
   const isClosed = isChallengeClosed(status.type)
 
   return (
@@ -54,7 +54,7 @@ export const ChallengeCard = (challenge: Challenge) => {
       <div className={styles.challenge__content}>
         <small title="Autor do protótipo">{challenge.author.name}</small>
 
-        <h2>{challenge.title}</h2>
+        <h2>{challenge.name}</h2>
 
         <ul>
           <li>

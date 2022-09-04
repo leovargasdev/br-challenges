@@ -31,15 +31,11 @@ export const solutionSchema = new Schema<Solution>(
       enum: enumLevels
     },
     linkedin_url: String,
-    score: {
-      type: Number,
-      default: 0
-    },
-    likes: {
-      type: Number,
-      default: 0
-    },
     published: {
+      type: Boolean,
+      default: false
+    },
+    best_rated: {
       type: Boolean,
       default: false
     }

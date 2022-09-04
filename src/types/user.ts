@@ -9,6 +9,6 @@ export interface User {
   bio: string
   image?: string
   role: UserRole
-  pix_key?: string
   challenges: string[]
+  solutions_like: Types.ObjectId[]
 }

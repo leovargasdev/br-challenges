@@ -18,7 +18,7 @@ export const ChallengeHeader = ({
   const router = useRouter()
 
   const challengeSlug = router.query?.slug
-  const isResultsPage = router.asPath.includes(`${challengeSlug}/resultado`)
+  const isResultsPage = router.asPath.includes(`${challengeSlug}/participantes`)
 
   return (
     <header className={styles.header} data-size={isSmall ? 'small' : 'default'}>
@@ -32,7 +32,11 @@ export const ChallengeHeader = ({
 
       <h3>{challenge.author.name}</h3>
 
-      <h1>{challenge.title}</h1>
+      <h1>
+        <Link href={'/desafio/'.concat(challenge.id)}>
+          <a>{challenge.name}</a>
+        </Link>
+      </h1>
 
       <div className={styles.header__links}>
         <Link href={`/desafio/${challengeSlug}`}>

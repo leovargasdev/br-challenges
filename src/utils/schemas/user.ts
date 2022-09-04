@@ -23,10 +23,14 @@ export const UserSchema = new Schema<User>(
       required: true,
       default: 'participant'
     },
-    pix_key: String,
     challenges: {
       required: true,
       type: [String],
+      default: []
+    },
+    solutions_like: {
+      required: true,
+      type: [Schema.Types.ObjectId],
       default: []
     }
   },

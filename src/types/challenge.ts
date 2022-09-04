@@ -6,7 +6,12 @@ import type {
 
 import type { Author } from './author'
 
-export type TypeStatusChallenge = 'submitted' | 'closed' | 'finished' | 'active'
+export type TypeStatusChallenge =
+  | 'active'
+  | 'submitted'
+  | 'closed'
+  | 'voting'
+  | 'finished'
 
 export interface StatusChallenge {
   name: string
@@ -15,15 +20,15 @@ export interface StatusChallenge {
 
 export interface Challenge {
   id: string
-  title: string
+  name: string
   image: ImageFieldImage
-  finished: boolean
   deadline: string
   participate_url: string
   author: Author
   content: RichTextField
   prototype_url: string
   status: StatusChallenge
+  status_prismic: TypeStatusChallenge
   participants?: number
 }
 
@@ -31,12 +36,11 @@ export interface ChallengePrismic {
   uid: string
   data: {
     name: string
-    title: string
-    finished: boolean
     content: RichTextField
     deadline: string
     image: ImageFieldImage
     prototype: FilledLinkToWebField
     author: Author[]
+    status_prismic: TypeStatusChallenge
   }
 }
