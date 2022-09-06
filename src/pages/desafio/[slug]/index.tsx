@@ -27,7 +27,8 @@ const ChallengePage: NextPage<Challenge> = challenge => {
       <SEO
         tabName={`Desafio - ${challenge.name}`}
         title={`Desafio - ${challenge.name}`}
-        description="Venha confirir esse desafio incrivel"
+        description="desafio"
+        image={challenge.image.url}
       />
 
       <ChallengeHeader {...challenge} />
@@ -36,11 +37,11 @@ const ChallengePage: NextPage<Challenge> = challenge => {
         <div className={styles.challenge__content}>
           <PrismicRichText
             field={challenge.content}
-            // components={{
-            //   hyperlink: ({ node, children }) => (
-            //     <LinkWithPreview node={node}>{children}</LinkWithPreview>
-            //   )
-            // }}
+            components={{
+              hyperlink: ({ node, children }) => (
+                <LinkWithPreview node={node}>{children}</LinkWithPreview>
+              )
+            }}
           />
 
           <h2>Protótipo do desafio</h2>

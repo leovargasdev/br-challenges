@@ -3,6 +3,10 @@
   max-width: var(--width-medium);
 
   margin: 24px 0 32px;
+
+  @media(max-width: 900px) {
+    padding: 0 20px;
+  }
 }
 
 .challenge__content {

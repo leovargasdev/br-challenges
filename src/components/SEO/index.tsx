@@ -4,10 +4,11 @@ import { useRouter } from 'next/router'
 interface SEOProps {
   tabName: string
   title: string
-  description?: string
+  description: string
+  image?: string | null
 }
 
-export const SEO = ({ tabName, title, description = '' }: SEOProps) => {
+export const SEO = ({ tabName, title, description, image = '' }: SEOProps) => {
   const { asPath } = useRouter()
 
   const titleTab = `${tabName} • BRChallenges`
@@ -20,10 +21,24 @@ export const SEO = ({ tabName, title, description = '' }: SEOProps) => {
 
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:url" content={`https://brchallenges.com${asPath}`} />
+      <meta
+        property="og:url"
+        content={`https://www.brchallenges.com${asPath}`}
+      />
 
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description} />
+
+      {image && (
+        <>
+          <meta property="og:image" content={image} />
+          <meta property="og:image:width" content="1200" />
+
+          <meta name="twitter:image" content={image} />
+          <meta name="twitter:image:alt" content={title} />
+          <meta name="twitter:card" content="summary_large_image" />
+        </>
+      )}
     </Head>
   )
 }

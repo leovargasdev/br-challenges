@@ -64,7 +64,11 @@ const SolutionChallengePage: NextPage<PageProps> = ({
 
       <section className={styles.container}>
         <FormProvider {...useFormMethods}>
-          <SEO tabName="Participar do desafio" title="Participar do desafio" />
+          <SEO
+            tabName="Enviar solução"
+            title="Enviar solução"
+            description="Formulário para participar do desafio"
+          />
 
           <form
             className={styles.form}
