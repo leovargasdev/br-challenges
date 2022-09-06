@@ -13,8 +13,12 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
           <meta property="og:type" content="website" />
           <meta property="og:locale" content="pt_BR" />
-          <meta property="og:site_name" content="Portal de desafios" />
+          <meta property="og:site_name" content="BR Challenges" />
           <meta name="author" content="Leonardo Luis de Vargas" />
+          <meta
+            name="keywords"
+            content="Frontend, desenvolvimento, programador, desafios de programação, portal de desafios, desafios, desafio para programar, programação, brasil, desafios em português, br, ptbr, desenvolvimento de software"
+          />
 
           <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap"

@@ -27,7 +27,9 @@ const ChallengePage: NextPage<Challenge> = challenge => {
       <SEO
         tabName={`Desafio - ${challenge.name}`}
         title={`Desafio - ${challenge.name}`}
-        description="desafio"
+        description={
+          challenge.description || `Acesse o desafio ${challenge.name}`
+        }
         image={challenge.image.url}
       />
 
@@ -109,7 +111,10 @@ export const getStaticProps: GetStaticProps = async props => {
   const challenge = await prismic.getByUID<any>('challenges', challengeSlug)
 
   return {
-    props: formattedChallenge(challenge),
+    props: {
+      ...formattedChallenge(challenge),
+      description: challenge.data.content[0].text
+    },
     revalidate: CACHE_PAGE
   }
 }

@@ -30,6 +30,7 @@ export interface Challenge {
   status: StatusChallenge
   status_prismic: TypeStatusChallenge
   participants?: number
+  description?: string
 }
 
 export interface ChallengePrismic {
