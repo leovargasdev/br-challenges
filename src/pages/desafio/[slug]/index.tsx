@@ -65,9 +65,34 @@ const ChallengePage: NextPage<Challenge> = challenge => {
             Após o encerramento do desafio será disponibilizado uma página
             contendo todas as soluções enviadas. As melhores soluções vão estar
             classificadas como solução destaque e os usuários do br challenge
-            vão poder votar nelas, e as mais votadas de cada dificuldade vão
-            receber prêmios.
+            vão poder votar nelas.
           </p>
+
+          <p>
+            As soluções mais votadas de cada dificuldade vão receber os
+            seguintes prêmios:
+          </p>
+
+          <ul>
+            <li>1º lugar: R$ 50,00</li>
+            <li>
+              2º e 3º lugar: Vips no canal da twitch do{' '}
+              <a
+                href="https://www.twitch.tv/leovargasdev"
+                target="_blank"
+                rel="noreferrer"
+              >
+                @leovargasdev
+              </a>
+            </li>
+          </ul>
+          {/*
+          <p>PS: Você pode contribuir com a premiação</p>
+
+          <li>
+            Transferência via chave pix <i>leu1607@hotmail.com</i>
+          </li>
+          <li>Donates e subgifts</li> */}
 
           <p>Que os deuses do clean code estejam com você, boa sorte!</p>
 
