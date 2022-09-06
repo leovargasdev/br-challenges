@@ -37,7 +37,7 @@ export interface ChallengePrismic {
   uid: string
   data: {
     name: string
-    content: RichTextField
+    content: any
     deadline: string
     image: ImageFieldImage
     prototype: FilledLinkToWebField

@@ -111,10 +111,7 @@ export const getStaticProps: GetStaticProps = async props => {
   const challenge = await prismic.getByUID<any>('challenges', challengeSlug)
 
   return {
-    props: {
-      ...formattedChallenge(challenge),
-      description: challenge.data.content[0].text
-    },
+    props: formattedChallenge(challenge),
     revalidate: CACHE_PAGE
   }
 }

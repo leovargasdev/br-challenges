@@ -52,6 +52,7 @@ export const formattedChallenge = (
     id: challenge.uid,
     name: challenge.data.name,
     content: challenge.data.content,
+    description: challenge.data.content[0].text,
     deadline: challenge.data.deadline,
     image: challenge.data.image,
     prototype_url: challenge.data.prototype.url,
