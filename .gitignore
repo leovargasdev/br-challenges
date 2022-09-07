@@ -36,5 +36,4 @@ yarn-error.log*
 # primis
 sm.json
 /slices
-/.slicemachine
 /customtypes

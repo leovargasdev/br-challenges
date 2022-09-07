@@ -1,0 +1,68 @@
+{
+  "id": "mock-doc-id",
+  "url": null,
+  "type": "challenges",
+  "href": null,
+  "tags": [],
+  "first_publication_date": "1970-01-01T00:00:01+0000",
+  "last_publication_date": "1970-01-01T00:00:01+0000",
+  "slugs": [],
+  "linked_documents": [],
+  "lang": "en-us",
+  "alternate_languages": [],
+  "data": {
+    "name": "order",
+    "image": {
+      "dimensions": {
+        "width": 900,
+        "height": 500
+      },
+      "alt": null,
+      "copyright": null,
+      "url": "https://images.unsplash.com/photo-1579931794097-0ad001e51edb"
+    },
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Veniam labore esse incididunt voluptate et aliquip deserunt aute Lorem Lorem tempor aute.",
+        "spans": []
+      }
+    ],
+    "prototype": {
+      "link_type": "Web",
+      "url": "http://google.com"
+    },
+    "youtube": {
+      "embed_url": "https://twitter.com/timbenniks/status/1304146886832594944",
+      "author_name": "Tim Benniks",
+      "author_url": "https://twitter.com/timbenniks",
+      "html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">I’ve been diving deep on <a href=\"https://twitter.com/prismicio?ref_src=twsrc%5Etfw\">@prismicio</a> <a href=\"https://twitter.com/hashtag/slicemachine?src=hash&amp;ref_src=twsrc%5Etfw\">#slicemachine</a> today. I made all my own components and I used custom slices. It works like a charm with <a href=\"https://twitter.com/nuxt_js?ref_src=twsrc%5Etfw\">@nuxt_js</a>. Also\": I’m coding with this view. <a href=\"https://t.co/F0I8X9gz39\">pic.twitter.com/F0I8X9gz39</a></p>&mdash; Tim Benniks (@timbenniks) <a href=\"https://twitter.com/timbenniks/status/1304146886832594944?ref_src=twsrc%5Etfw\">September 10, 2020</a></blockquote>\n<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n",
+      "width": 550,
+      "height": null,
+      "type": "rich",
+      "cache_age": "3153600000",
+      "provider_name": "Twitter",
+      "provider_url": "http://www.twitter.com/",
+      "version": "1.0"
+    },
+    "deadline": "2013-12-08",
+    "status_prismic": "voting",
+    "author": [
+      {
+        "name": "progress",
+        "description": "recognize",
+        "links": "difference",
+        "image": {
+          "dimensions": {
+            "width": 900,
+            "height": 500
+          },
+          "alt": null,
+          "copyright": null,
+          "url": "https://images.unsplash.com/photo-1560457079-9a6532ccb118"
+        }
+      }
+    ],
+    "slices": []
+  }
+}

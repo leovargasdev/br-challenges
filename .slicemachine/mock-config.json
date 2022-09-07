@@ -1,0 +1,20 @@
+{
+  "_cts": {
+    "challenges": {
+      "content": {
+        "config": {
+          "patternType": "PARAGRAPH",
+          "blocks": 1
+        }
+      }
+    }
+  },
+  "slices": {
+    "Authors": {
+      "default": {
+        "primary": {},
+        "items": {}
+      }
+    }
+  }
+}
