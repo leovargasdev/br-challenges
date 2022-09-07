@@ -11,7 +11,7 @@ export default class MyDocument extends Document {
           <link rel="icon" href="/favicon.ico" />
 
           <meta charSet="utf-8" />
-          <meta name="type" property="og:type" content="website" />
+          <meta property="og:type" content="website" />
           <meta property="og:locale" content="pt_BR" />
           <meta property="og:site_name" content="BR Challenges" />
           <meta name="author" content="Leonardo Luis de Vargas" />
