@@ -86,13 +86,6 @@ const ChallengePage: NextPage<Challenge> = challenge => {
               </a>
             </li>
           </ul>
-          {/*
-          <p>PS: Você pode contribuir com a premiação</p>
-
-          <li>
-            Transferência via chave pix <i>leu1607@hotmail.com</i>
-          </li>
-          <li>Donates e subgifts</li> */}
 
           <p>Que os deuses do clean code estejam com você, boa sorte!</p>
 
@@ -107,7 +100,9 @@ const ChallengePage: NextPage<Challenge> = challenge => {
           </Link>
         </div>
 
-        <AuthorCard {...challenge.author} />
+        {challenge.authors.map(author => (
+          <AuthorCard {...author} key={author.name} />
+        ))}
 
         <p className={styles.footer__text}>
           Está com dúvidas sobre o desafio?{' '}
@@ -120,6 +115,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
     </>
   )
 }
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = await collectionSlugs('/desafio', 'challenges')
 

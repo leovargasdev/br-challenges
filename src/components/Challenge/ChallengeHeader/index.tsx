@@ -30,7 +30,7 @@ export const ChallengeHeader = ({
         />
       </div>
 
-      <h3>{challenge.author.name}</h3>
+      <h3>{challenge.authors[0].name}</h3>
 
       <h1>
         <Link href={'/desafio/'.concat(challenge.id)}>

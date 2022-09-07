@@ -24,7 +24,7 @@ export interface Challenge {
   image: ImageFieldImage
   deadline: string
   participate_url: string
-  author: Author
+  authors: Author[]
   content: RichTextField
   prototype_url: string
   status: StatusChallenge
@@ -41,7 +41,7 @@ export interface ChallengePrismic {
     deadline: string
     image: ImageFieldImage
     prototype: FilledLinkToWebField
-    author: Author[]
     status_prismic: TypeStatusChallenge
+    slices: any[]
   }
 }

@@ -52,7 +52,7 @@ export const ChallengeCard = (challenge: Challenge) => {
       </div>
 
       <div className={styles.challenge__content}>
-        <small title="Autor do protótipo">{challenge.author.name}</small>
+        <small title="Autor do protótipo">{challenge.authors[0].name}</small>
 
         <h2>{challenge.name}</h2>
 

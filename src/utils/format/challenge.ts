@@ -48,6 +48,11 @@ export const formattedChallenge = (
     id: challenge.uid
   })
 
+  const authors = challenge.data.slices.map(slice => ({
+    ...slice.primary,
+    links: slice.items
+  }))
+
   return {
     id: challenge.uid,
     name: challenge.data.name,
@@ -57,7 +62,7 @@ export const formattedChallenge = (
     image: challenge.data.image,
     prototype_url: challenge.data.prototype.url,
     participate_url: `/desafio/${challenge.uid}/participar`,
-    author: challenge.data.author[0],
+    authors,
     status_prismic: challenge.data.status_prismic,
     status
   }
