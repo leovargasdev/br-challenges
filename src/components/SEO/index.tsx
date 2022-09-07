@@ -22,6 +22,7 @@ export const SEO = ({ tabName, title, description, image = '' }: SEOProps) => {
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta
+        name="url"
         property="og:url"
         content={`https://www.brchallenges.com${asPath}`}
       />
@@ -31,12 +32,11 @@ export const SEO = ({ tabName, title, description, image = '' }: SEOProps) => {
 
       {image && (
         <>
-          <meta property="og:image" content={image} />
+          <meta name="image" property="og:image" content={image} />
           <meta property="og:image:width" content="1200" />
 
-          <meta name="twitter:image" content={image} />
-          <meta name="twitter:image:alt" content={title} />
-          <meta name="twitter:card" content="summary_large_image" />
+          <meta property="twitter:image" content={image} />
+          <meta property="twitter:card" content="summary_large_image" />
         </>
       )}
     </Head>
