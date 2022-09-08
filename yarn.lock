@@ -1221,7 +1221,7 @@
 
 "@prismicio/client@^6.7.0":
   version "6.7.0"
-  resolved "https://registry.yarnpkg.com/@prismicio/client/-/client-6.7.0.tgz#08c45b370476bada7978badf27df286aa8163278"
+  resolved "https://registry.npmmirror.com/@prismicio/client/-/client-6.7.0.tgz#08c45b370476bada7978badf27df286aa8163278"
   integrity sha512-ErBVCpBdjUWX0Bf22eogxnM+ljfZN0uoEOONiWs7y8scDA4fcc0ydXSTbpp+W/A3MCgDUI2J07DkxRrp2c5/Zw==
   dependencies:
     "@prismicio/helpers" "^2.3.3"
@@ -1274,7 +1274,7 @@
 
 "@prismicio/react@^2.5.0":
   version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@prismicio/react/-/react-2.5.0.tgz#2fa27467e153db8d761b72eeec648ac4e7ed910b"
+  resolved "https://registry.npmmirror.com/@prismicio/react/-/react-2.5.0.tgz#2fa27467e153db8d761b72eeec648ac4e7ed910b"
   integrity sha512-1EYdvoU2bpVEkmVDDVyTUK22C580tTWR96HJ9PMUex0oGeJLBAMKiRinyachN42r1uCH5nRAH54A90ZtBjjZhw==
   dependencies:
     "@prismicio/helpers" "^2.3.1"
@@ -1306,7 +1306,7 @@
 
 "@prismicio/slice-simulator-react@^0.2.2":
   version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@prismicio/slice-simulator-react/-/slice-simulator-react-0.2.2.tgz#e12602def4c23c324a0a9f39c0ec3dbbd06a2681"
+  resolved "https://registry.npmmirror.com/@prismicio/slice-simulator-react/-/slice-simulator-react-0.2.2.tgz#e12602def4c23c324a0a9f39c0ec3dbbd06a2681"
   integrity sha512-GfAP4nR01OhsahrNOhc58L0sVDcieU5AWEuuiRN55txQjKgaAl5GVtn0V6Pz4albnY4KKvLlQIffcgy2W+L9TQ==
   dependencies:
     "@prismicio/slice-simulator-core" "^0.2.1"
@@ -6587,7 +6587,7 @@ slash@3.0.0, slash@^3.0.0:
 
 slice-machine-ui@^0.4.2:
   version "0.4.2"
-  resolved "https://registry.yarnpkg.com/slice-machine-ui/-/slice-machine-ui-0.4.2.tgz#8e8c23145b9b5c28207a90125ef85f54d86862b6"
+  resolved "https://registry.npmmirror.com/slice-machine-ui/-/slice-machine-ui-0.4.2.tgz#8e8c23145b9b5c28207a90125ef85f54d86862b6"
   integrity sha512-jnGsh41vJIrFrg2GakIkMJG0TTbsPb5r0IAGpdifEH52ivt14kFQn93qOh8NEwZfICvKV7aCEENVzbUDUmyfrg==
   dependencies:
     "@babel/register" "^7.17.7"

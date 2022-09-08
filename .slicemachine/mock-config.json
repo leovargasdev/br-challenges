@@ -10,6 +10,7 @@
     }
   },
   "slices": {
+    "Author": {},
     "Authors": {
       "default": {
         "primary": {},
