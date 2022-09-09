@@ -1,12 +1,7 @@
 .challenge {
-  width: 100%;
-  max-width: var(--width-medium);
-
+  --paddingX: 20px;
+  width: min(var(--width-medium), 100% - var(--paddingX));
   margin: 24px 0 32px;
-
-  @media(max-width: 900px) {
-    padding: 0 20px;
-  }
 }
 
 .challenge__content {
@@ -16,12 +11,14 @@
 
   margin-bottom: 32px;
 
-  h2, h3 {
+  h2,
+  h3 {
     margin-top: 12px;
     color: var(--text-light);
   }
 
-  ul, ol {
+  ul,
+  ol {
     width: 100%;
     max-width: 780px;
     padding-left: 40px;
@@ -31,7 +28,8 @@
     }
   }
 
-  li, p {
+  li,
+  p {
     color: var(--text);
     font-size: 1.125rem;
     line-height: 2rem;
@@ -54,7 +52,7 @@
     border-radius: 8px;
   }
 
-  @media(max-width: 650px) {
+  @media (max-width: 650px) {
     iframe {
       height: 400px;
     }
