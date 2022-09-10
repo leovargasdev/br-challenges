@@ -5,7 +5,7 @@
   display: grid;
   grid-template-columns: repeat(
     auto-fit,
-    minmax(min(100%, var(--minWidth)), 600px)
+    minmax(min(100%, var(--minWidth)), 1fr)
   );
   gap: 32px;
 

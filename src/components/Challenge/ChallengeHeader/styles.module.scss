@@ -67,13 +67,22 @@
 
 .header__links {
   display: flex;
-  justify-content: space-between;
+  column-gap: 20px;
+  justify-content: flex-end;
   
   width: 100%;
   max-width: var(--width-normal);
   margin-top: auto;
 
-  a {
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    row-gap: 8px;
+    width: 200px;
+  }
+
+  a, button {
     font-size: 0.875rem;
     
     padding: 10px 0;
@@ -81,6 +90,10 @@
 
     &[aria-hidden="false"] {
       visibility: hidden;
+    }
+
+    &:disabled {
+      opacity: 0.4;
     }
   }
 }

@@ -89,7 +89,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
 
           <p>Que os deuses do clean code estejam com você, boa sorte!</p>
 
-          <Link href={challenge.participate_url}>
+          {/* <Link href={challenge.participate_url}>
             <a
               aria-disabled={disabledButtonSolution}
               className={'button '.concat(styles.button__solution)}
@@ -97,7 +97,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
               <HiPencilAlt />
               Enviar solução
             </a>
-          </Link>
+          </Link> */}
         </div>
 
         {challenge.authors.map(author => (
