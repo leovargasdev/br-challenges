@@ -7,7 +7,8 @@ module.exports = {
     'standard',
     'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
+    'prettier'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -19,11 +20,10 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json']
   },
-  plugins: ['react', 'prettier', '@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
     'multiline-ternary': 'off',
     camelcase: 'off',
-    'prettier/prettier': 'error',
     'space-before-function-paren': 'off',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
