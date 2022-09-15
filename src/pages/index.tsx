@@ -4,10 +4,9 @@ import { SEO } from 'components/SEO'
 import { ChallengeCard } from 'components/Challenge'
 
 import { Challenge } from 'types'
-import { SMALL_CACHE_PAGE } from 'utils/constants'
 import { createClientPrismic } from 'service/prismic'
 import { getListChallenges, getParticipants } from 'utils/format'
-import { connectMongoose, SolutionModel } from 'service/mongoose'
+import { ChallengeModel, connectMongoose } from 'service/mongoose'
 
 import styles from 'styles/home.module.scss'
 
@@ -38,9 +37,7 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
 
     await connectMongoose()
 
-    const participants = await SolutionModel.aggregate([
-      { $group: { _id: '$challenge_id', count: { $sum: 1 } } }
-    ])
+    const participants = await ChallengeModel.find()
 
     return {
       props: {
@@ -49,7 +46,7 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
           participants
         })
       },
-      revalidate: SMALL_CACHE_PAGE
+      revalidate: 10
     }
   } catch (err) {
     console.log(err)

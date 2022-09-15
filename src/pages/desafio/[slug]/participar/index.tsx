@@ -8,7 +8,7 @@ import { useForm, FormProvider } from 'react-hook-form'
 
 import { SEO } from 'components/SEO'
 import { Input, RadioGroup } from 'components/Form'
-import { ChallengeHeader } from 'components/Challenge'
+import { ChallengeHeaderSmall } from 'components/Challenge'
 
 import api from 'service/api'
 import { Challenge, Solution } from 'types'
@@ -60,7 +60,7 @@ const SolutionChallengePage: NextPage<PageProps> = ({
 
   return (
     <>
-      <ChallengeHeader {...challenge} isSmall />
+      <ChallengeHeaderSmall {...challenge} />
 
       <section className={styles.container}>
         <FormProvider {...useFormMethods}>
@@ -136,6 +136,15 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const challenge_id = query.slug as string
   const { _id: user_id, challenges } = session.user
+
+  if (!challenges.includes(challenge_id)) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/desafio/'.concat(challenge_id)
+      }
+    }
+  }
 
   const isSolution = challenges.includes(challenge_id)
 

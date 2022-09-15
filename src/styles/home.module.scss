@@ -1,12 +1,8 @@
 .home {
   padding-top: 48px;
 
-  --minWidth: 410px;
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(100%, var(--minWidth)), 1fr)
-  );
+  grid-template-columns: 1fr 1fr;
   gap: 32px;
 
   width: 100%;

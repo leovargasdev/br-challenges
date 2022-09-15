@@ -1,38 +1,43 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import { PrismicNextImage } from '@prismicio/next'
 import { HiCheck, HiDocumentText, HiPlus, HiUserGroup } from 'react-icons/hi'
 
+import api from 'service/api'
 import { Challenge } from 'types'
 
 import styles from './styles.module.scss'
-import { useSession } from 'next-auth/react'
-import api from 'service/api'
 
 interface ChallengeHeaderProps extends Challenge {
-  isSmall?: boolean
+  isParticipate: boolean
+  setParticipate: () => void
 }
 
 export const ChallengeHeader = ({
-  isSmall = false,
+  isParticipate,
+  setParticipate,
   ...challenge
 }: ChallengeHeaderProps) => {
   const router = useRouter()
-  const { status } = useSession()
+  const { status, data } = useSession()
 
-  const challengeSlug = router.query?.slug
+  const challengeSlug = router.query?.slug as string
   const isResultsPage = router.asPath.includes(`${challengeSlug}/participantes`)
 
   const toParticipateChallenge = async () => {
-    if (status === 'authenticated') {
-      await api.post(`/challenge/${challenge.id}/participate`)
-    } else {
+    if (status !== 'authenticated') {
       router.push('/login')
+    }
+
+    if (!isParticipate) {
+      await api.post(`/challenge/${challenge.id}/participate`)
+      setParticipate()
     }
   }
 
   return (
-    <header className={styles.header} data-size={isSmall ? 'small' : 'default'}>
+    <header className={styles.header} data-size="default">
       <div className={styles.header__image}>
         <PrismicNextImage
           field={challenge.image}
@@ -58,28 +63,31 @@ export const ChallengeHeader = ({
         </Link>
 
         <div>
-          <button
-            type="button"
-            className="button outline"
-            onClick={toParticipateChallenge}
-          >
-            <HiPlus />
-            Participar
-          </button>
+          {isParticipate ? (
+            <span className="button">
+              <HiCheck />
+              Participando
+            </span>
+          ) : (
+            <button
+              type="button"
+              className="button outline"
+              onClick={toParticipateChallenge}
+            >
+              <HiPlus />
+              Participar
+            </button>
+          )}
 
-          {/* <button type="button" className="button">
-            <HiCheck />
-            Participando
-          </button> */}
-
-          {/* {challenge.status.type === 'finished' && ( */}
-          <Link href={`/desafio/${challengeSlug}/participantes`}>
-            <a className="button outline" aria-hidden={!isResultsPage}>
-              <HiUserGroup />
-              Ver participantes
-            </a>
-          </Link>
-          {/* )} */}
+          {challenge.status.type === 'finished' ||
+            (data?.user.role === 'admin' && (
+              <Link href={`/desafio/${challengeSlug}/participantes`}>
+                <a className="button outline" aria-hidden={!isResultsPage}>
+                  <HiUserGroup />
+                  Ver participantes
+                </a>
+              </Link>
+            ))}
         </div>
       </div>
     </header>

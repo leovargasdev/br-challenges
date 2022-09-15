@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { HiPencilAlt } from 'react-icons/hi'
 import { useSession } from 'next-auth/react'
 import { PrismicRichText } from '@prismicio/react'
@@ -7,7 +8,6 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { SEO } from 'components/SEO'
 import { AuthorCard } from 'components/AuthorCard'
 import { ChallengeHeader } from 'components/Challenge'
-import { LinkWithPreview } from 'components/LinkWithPreview'
 
 import { Challenge } from 'types'
 import { CACHE_PAGE } from 'utils/constants'
@@ -17,10 +17,14 @@ import { createClientPrismic, collectionSlugs } from 'service/prismic'
 import styles from './styles.module.scss'
 
 const ChallengePage: NextPage<Challenge> = challenge => {
-  const { status } = useSession()
+  const { status, data } = useSession()
+  const [isParticipate, setIsParticipate] = useState<boolean>(false)
 
-  const disabledButtonSolution =
-    status !== 'authenticated' || isChallengeClosed(challenge.status.type)
+  const isClosed = isChallengeClosed(challenge.status.type)
+
+  useEffect(() => {
+    setIsParticipate(!!data?.user.challenges.includes(challenge.id))
+  }, [data?.user])
 
   return (
     <>
@@ -33,18 +37,15 @@ const ChallengePage: NextPage<Challenge> = challenge => {
         image={challenge.image.url}
       />
 
-      <ChallengeHeader {...challenge} />
+      <ChallengeHeader
+        {...challenge}
+        isParticipate={isParticipate}
+        setParticipate={() => setIsParticipate(true)}
+      />
 
       <div className={styles.challenge}>
         <div className={styles.challenge__content}>
-          <PrismicRichText
-            field={challenge.content}
-            components={{
-              hyperlink: ({ node, children }) => (
-                <LinkWithPreview node={node}>{children}</LinkWithPreview>
-              )
-            }}
-          />
+          <PrismicRichText field={challenge.content} />
 
           <h2>Protótipo do desafio</h2>
 
@@ -89,15 +90,17 @@ const ChallengePage: NextPage<Challenge> = challenge => {
 
           <p>Que os deuses do clean code estejam com você, boa sorte!</p>
 
-          {/* <Link href={challenge.participate_url}>
-            <a
-              aria-disabled={disabledButtonSolution}
-              className={'button '.concat(styles.button__solution)}
-            >
-              <HiPencilAlt />
-              Enviar solução
-            </a>
-          </Link> */}
+          {status === 'authenticated' && (
+            <Link href={challenge.participate_url}>
+              <a
+                aria-disabled={isClosed || !isParticipate}
+                className={'button '.concat(styles.button__solution)}
+              >
+                <HiPencilAlt />
+                Enviar solução
+              </a>
+            </Link>
+          )}
         </div>
 
         {challenge.authors.map(author => (

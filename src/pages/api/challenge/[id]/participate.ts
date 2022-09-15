@@ -26,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const isParticipate = challenges.includes(challenge_id)
 
     if (isParticipate) {
-      return res.status(204)
+      return res.status(204).json({ message: 'O usuário já está participando' })
     }
 
     await UserModel.updateOne(
