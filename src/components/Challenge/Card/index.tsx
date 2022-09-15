@@ -93,7 +93,7 @@ export const ChallengeCard = (challenge: Challenge) => {
           )}
 
           {status.type === 'submitted' && (
-            <Link href={`/desafio/${challenge.id}/participar`}>
+            <Link href={challenge.participate_url}>
               <a className="button">Editar solução</a>
             </Link>
           )}

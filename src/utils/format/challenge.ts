@@ -61,7 +61,7 @@ export const formattedChallenge = (
     deadline: challenge.data.deadline,
     image: challenge.data.image,
     prototype_url: challenge.data.prototype.url,
-    participate_url: `/desafio/${challenge.uid}/participar`,
+    participate_url: `/desafio/${challenge.uid}/solucao`,
     authors,
     status_prismic: challenge.data.status_prismic,
     status

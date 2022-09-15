@@ -22,8 +22,7 @@ export const ChallengeHeader = ({
   const router = useRouter()
   const { status, data } = useSession()
 
-  const challengeSlug = router.query?.slug as string
-  const isResultsPage = router.asPath.includes(`${challengeSlug}/participantes`)
+  const isResultsPage = router.asPath.includes(`${challenge.id}/participantes`)
 
   const toParticipateChallenge = async () => {
     if (status !== 'authenticated') {
@@ -55,7 +54,7 @@ export const ChallengeHeader = ({
       </h1>
 
       <div className={styles.header__links}>
-        <Link href={`/desafio/${challengeSlug}`}>
+        <Link href={'/desafio/'.concat(challenge.id)}>
           <a className="button outline" aria-hidden={isResultsPage}>
             <HiDocumentText />
             Detalhes
@@ -81,7 +80,7 @@ export const ChallengeHeader = ({
 
           {challenge.status.type === 'finished' ||
             (data?.user.role === 'admin' && (
-              <Link href={`/desafio/${challengeSlug}/participantes`}>
+              <Link href={`/desafio/${challenge.id}/participantes`}>
                 <a className="button outline" aria-hidden={!isResultsPage}>
                   <HiUserGroup />
                   Ver participantes

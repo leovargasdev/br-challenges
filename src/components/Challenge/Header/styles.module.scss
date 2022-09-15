@@ -67,8 +67,8 @@
 
 .header__links {
   display: flex;
+  align-items: flex-end;
   column-gap: 20px;
-  justify-content: flex-end;
   
   width: 100%;
   max-width: var(--width-normal);
@@ -77,9 +77,10 @@
   div {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
     row-gap: 8px;
+    
     width: 200px;
+    margin-left: auto;
   }
 
   a, button, span {
