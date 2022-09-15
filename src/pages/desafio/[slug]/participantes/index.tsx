@@ -4,7 +4,7 @@ import { GetServerSideProps, NextPage } from 'next'
 import { SEO } from 'components/SEO'
 import { Tooltip } from 'components/Tooltip'
 import { SolutionCard } from 'components/SolutionCard'
-import { ChallengeHeader } from 'components/Challenge'
+import { ChallengeHeaderSmall } from 'components/Challenge'
 
 import { Challenge, Solution } from 'types'
 import { contributorsMock } from 'utils/mock'
@@ -31,7 +31,7 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
       description={`Veja as soluções do desafio ${challenge.name}`}
     />
 
-    <ChallengeHeader {...challenge} />
+    <ChallengeHeaderSmall {...challenge} />
     <section className={styles.container}>
       <div>
         <h2>Listagem das soluções</h2>
