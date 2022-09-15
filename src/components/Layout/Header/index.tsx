@@ -22,7 +22,7 @@ export const LayoutHeader = () => {
           <AvatarMenu />
         ) : (
           <Link href="/login">
-            <a className={'button '.concat(styles.header__signIn)}>
+            <a className={styles.header__signIn.concat(' button')}>
               Acessar conta
             </a>
           </Link>

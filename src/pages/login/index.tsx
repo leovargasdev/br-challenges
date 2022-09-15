@@ -18,7 +18,7 @@ const LoginPage = () => (
     />
 
     <Link href="/">
-      <a>
+      <a className={styles.logo}>
         <Logo />
       </a>
     </Link>

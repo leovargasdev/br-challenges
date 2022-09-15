@@ -16,6 +16,7 @@
   @media(max-width: 900px) {
     padding: 48px 64px 0;
     gap: 48px 0;
+    grid-template-columns: 1fr;
   }
 
   @media(max-width: 650px) {

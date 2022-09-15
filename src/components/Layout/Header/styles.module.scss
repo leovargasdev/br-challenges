@@ -32,4 +32,8 @@
 .header__signIn {
   padding: 10px 0;
   max-width: 200px;
+
+  @media(max-width: 650px) {
+    max-width: 150px;
+  }
 }
