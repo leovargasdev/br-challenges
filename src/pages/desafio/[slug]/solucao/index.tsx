@@ -45,11 +45,9 @@ const SolutionChallengePage: NextPage<PageProps> = ({
 
   const onSubmit = async (data: SolutionForm): Promise<void> => {
     setLoading(true)
-    const challenge_id = router.query.slug
 
     try {
-      await api.post(`challenge/${challenge_id}/solution`, data)
-
+      await api.post(`challenge/${challenge.id}/solution`, data)
       router.push('/')
     } catch (err) {
       console.log(err)
@@ -60,16 +58,16 @@ const SolutionChallengePage: NextPage<PageProps> = ({
 
   return (
     <>
+      <SEO
+        tabName="Enviar solução"
+        title="Enviar solução"
+        description="Formulário para participar do desafio"
+      />
+
       <ChallengeHeaderSmall {...challenge} />
 
       <section className={styles.container}>
         <FormProvider {...useFormMethods}>
-          <SEO
-            tabName="Enviar solução"
-            title="Enviar solução"
-            description="Formulário para participar do desafio"
-          />
-
           <form
             className={styles.form}
             onSubmit={useFormMethods.handleSubmit(onSubmit)}
@@ -119,10 +117,8 @@ const SolutionChallengePage: NextPage<PageProps> = ({
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  query
-}) => {
+export const getServerSideProps: GetServerSideProps = async props => {
+  const { req, query } = props
   const session = await getSession({ req })
 
   if (session === null) {
@@ -137,49 +133,36 @@ export const getServerSideProps: GetServerSideProps = async ({
   const challenge_id = query.slug as string
   const { _id: user_id, challenges } = session.user
 
-  if (!challenges.includes(challenge_id)) {
-    return {
-      props: {},
-      redirect: {
-        destination: '/desafio/'.concat(challenge_id)
-      }
-    }
-  }
+  const isParticipant = challenges.includes(challenge_id)
 
-  const isSolution = challenges.includes(challenge_id)
+  if (isParticipant) {
+    try {
+      const prismic = createClientPrismic({ req })
+      const response = await prismic.getByUID<any>('challenges', challenge_id)
 
-  try {
-    const prismic = createClientPrismic({ req })
-    const response = await prismic.getByUID<any>('challenges', challenge_id)
+      const challenge = formattedChallenge(response)
 
-    const challenge = formattedChallenge(response)
+      await connectMongoose()
+      const queryMongo = { user_id, challenge_id }
+      const ignoreFields = { createdAt: 0, updatedAt: 0, _id: 0, user_id: 0 }
+      const solution = await SolutionModel.findOne(queryMongo, ignoreFields)
 
-    if (!isSolution) {
       return {
-        props: { challenge }
+        props: {
+          solution: solution?._doc || {},
+          challenge
+        }
       }
+    } catch (err) {
+      console.log(err)
     }
-
-    await connectMongoose()
-    const queryMongo = { user_id, challenge_id }
-    const ignoreFields = { createdAt: 0, updatedAt: 0, _id: 0, user_id: 0 }
-    const solution = await SolutionModel.findOne(queryMongo, ignoreFields)
-
-    return {
-      props: {
-        solution: solution._doc,
-        challenge
-      }
-    }
-  } catch (err) {
-    console.log(err)
   }
 
   return {
     props: {},
     redirect: {
-      permanent: true,
-      destination: '/'
+      destination: '/desafio/'.concat(challenge_id),
+      permanent: false
     }
   }
 }
