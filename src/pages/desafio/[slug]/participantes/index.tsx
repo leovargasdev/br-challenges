@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { GoInfo } from 'react-icons/go'
+import { getSession } from 'next-auth/react'
 import { GetServerSideProps, NextPage } from 'next'
 
 import { SEO } from 'components/SEO'
@@ -9,58 +11,98 @@ import { ChallengeHeaderSmall } from 'components/Challenge'
 import { Challenge, Solution } from 'types'
 import { contributorsMock } from 'utils/mock'
 import { createClientPrismic } from 'service/prismic'
-import { connectMongoose, SolutionModel } from 'service/mongoose'
+import { connectMongoose, LikeModel, SolutionModel } from 'service/mongoose'
 import { formattedChallenge, formattedSolution } from 'utils/format'
 
 import styles from './styles.module.scss'
-import { getSession } from 'next-auth/react'
 
 interface PageProps {
+  solutionUserLike: string
   challenge: Challenge
   solutions: Solution[]
 }
 
+interface LikeProps {
+  [key: string]: number
+}
+
 const ChallengeParticipantsPage: NextPage<PageProps> = ({
   challenge,
-  solutions
-}) => (
-  <>
-    <SEO
-      tabName={`Participantes do desafio ${challenge.name}`}
-      title={`Participantes do desafio ${challenge.name}`}
-      description={`Veja as soluções do desafio ${challenge.name}`}
-    />
+  solutions,
+  solutionUserLike
+}) => {
+  const [likes, setLikes] = useState<LikeProps>(
+    solutions.reduce((acc, solution) => {
+      return { ...acc, [solution._id]: solution.likes }
+    }, {})
+  )
 
-    <ChallengeHeaderSmall {...challenge} />
-    <section className={styles.container}>
-      <div>
-        <h2>Listagem das soluções</h2>
+  const [solutionLike, setSolutionLike] = useState<string>(solutionUserLike)
 
-        <ul className={styles.solutions}>
-          {solutions.map(solution => (
-            <SolutionCard {...solution} key={solution.repository_url} />
-          ))}
-        </ul>
-      </div>
+  const handleChangeLike = (currentLike: string, newLike: string): void => {
+    if (currentLike !== newLike) {
+      setLikes(state => {
+        const updatedLikes = { ...state }
 
-      <div>
-        <h2>
-          Apoiadores
-          <Tooltip icon={<GoInfo />}>
-            Lista das pessoas que contribuiram com algum valor para a premiação
-            do desafio.
-          </Tooltip>
-        </h2>
+        if (updatedLikes[currentLike]) {
+          updatedLikes[currentLike] -= 1
+        }
 
-        <ul className={styles.contributors}>
-          {contributorsMock.map(contributor => (
-            <li key={contributor}>{contributor}</li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  </>
-)
+        updatedLikes[newLike] += 1
+
+        setSolutionLike(newLike)
+
+        return updatedLikes
+      })
+    }
+  }
+
+  return (
+    <>
+      <SEO
+        tabName={`Participantes do desafio ${challenge.name}`}
+        title={`Participantes do desafio ${challenge.name}`}
+        description={`Veja as soluções do desafio ${challenge.name}`}
+      />
+
+      <ChallengeHeaderSmall {...challenge} />
+
+      <section className={styles.container}>
+        <div>
+          <h2>Listagem das soluções</h2>
+
+          <ul className={styles.solutions}>
+            {solutions.map(solution => (
+              <SolutionCard
+                {...solution}
+                key={solution._id}
+                likes={likes[solution._id]}
+                solutionLike={solutionLike}
+                handleChangeLike={handleChangeLike}
+              />
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2>
+            Apoiadores
+            <Tooltip icon={<GoInfo />}>
+              Lista das pessoas que contribuiram com algum valor para a
+              premiação do desafio.
+            </Tooltip>
+          </h2>
+
+          <ul className={styles.contributors}>
+            {contributorsMock.map(contributor => (
+              <li key={contributor}>{contributor}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </>
+  )
+}
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
@@ -91,6 +133,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   await connectMongoose()
 
+  const mockChallenge = 'recriando-o-site-de-jogos-da-blizzard'
+
   const solutions: Solution[] = await SolutionModel.aggregate([
     {
       $lookup: {
@@ -102,12 +146,26 @@ export const getServerSideProps: GetServerSideProps = async ({
       }
     },
     { $unwind: '$user' },
-    { $project: { user_id: 0, _id: 0, createdAt: 0 } }
-  ]).match({ challenge_id: challengeSlug })
+    { $project: { user_id: 0, createdAt: 0 } }
+  ]).match({ challenge_id: mockChallenge })
+
+  let solutionUserLike = ''
+
+  if (session) {
+    const isUserLike = await LikeModel.findOne({
+      user_id: session?.user._id,
+      challenge_id: mockChallenge
+    })
+
+    if (isUserLike) {
+      solutionUserLike = isUserLike.solution_id.toString()
+    }
+  }
 
   return {
     props: {
       challenge,
+      solutionUserLike,
       solutions: solutions.map(formattedSolution)
     }
   }

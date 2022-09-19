@@ -15,6 +15,10 @@
 
     margin-bottom: 24px;
   }
+
+  @media(max-width: 1300px) {
+    padding: 0 24px;
+  }
 }
 
 .solutions {

@@ -9,5 +9,6 @@ const getUpdatedAtSolution = (value: string): string => {
 
 export const formattedSolution = (solution: Solution): Solution => ({
   ...solution,
+  _id: solution._id.toString(),
   updatedAt: getUpdatedAtSolution(solution.updatedAt)
 })
