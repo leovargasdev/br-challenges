@@ -1,5 +1,10 @@
 import { model, connect, models } from 'mongoose'
-import { UserSchema, solutionSchema, challengeSchema } from 'utils/schemas'
+import {
+  UserSchema,
+  solutionSchema,
+  challengeSchema,
+  likeSchema
+} from 'utils/schemas'
 
 const MONGODB_URI = process.env.MONGODB_URI || ''
 const MONGODB_DB = process.env.MONGODB_DB || ''
@@ -12,8 +17,10 @@ const SolutionModel = models.Solution || model('Solution', solutionSchema)
 
 const ChallengeModel = models.Challenge || model('Challenge', challengeSchema)
 
+const LikeModel = models.Like || model('Like', likeSchema)
+
 async function connectMongoose() {
   await connect(urlMongo)
 }
 
-export { connectMongoose, UserModel, SolutionModel, ChallengeModel }
+export { connectMongoose, UserModel, SolutionModel, ChallengeModel, LikeModel }

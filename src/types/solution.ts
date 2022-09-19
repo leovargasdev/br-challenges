@@ -5,7 +5,9 @@ import { User } from './user'
 
 export type SolutionLevel = keyof typeof LEVELS
 
+export type SolutionStatus = 'published' | 'featured' | 'unpublish'
 export interface Solution {
+  _id: string
   user_id: Types.ObjectId
   challenge_id: string
   repository_url: string
@@ -14,7 +16,8 @@ export interface Solution {
   updatedAt: string
   level: SolutionLevel
   published: boolean
-  best_rated: boolean
+  likes: number
+  status: SolutionStatus
 
   user?: User
   linkedin_url?: string

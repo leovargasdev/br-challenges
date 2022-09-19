@@ -35,9 +35,15 @@ export const solutionSchema = new Schema<Solution>(
       type: Boolean,
       default: false
     },
-    best_rated: {
-      type: Boolean,
-      default: false
+    likes: {
+      type: Number,
+      default: 0
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: ['published', 'featured', 'unpublish'],
+      default: 'unpublish'
     }
   },
   { timestamps: true }
