@@ -5,22 +5,22 @@ import { PrismicNextImage } from '@prismicio/next'
 import { HiCheck, HiDocumentText, HiPlus, HiUserGroup } from 'react-icons/hi'
 
 import api from 'service/api'
-import { Challenge } from 'types'
+import { useChallenge } from 'hook/useChallenge'
 
 import styles from './styles.module.scss'
 
-interface ChallengeHeaderProps extends Challenge {
+interface ChallengeHeaderProps {
   isParticipate: boolean
   setParticipate: () => void
 }
 
 export const ChallengeHeader = ({
   isParticipate,
-  setParticipate,
-  ...challenge
+  setParticipate
 }: ChallengeHeaderProps) => {
   const router = useRouter()
   const { status, data } = useSession()
+  const challenge = useChallenge()
 
   const isResultsPage = router.asPath.includes(`${challenge.id}/participantes`)
 

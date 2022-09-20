@@ -11,3 +11,9 @@ export const LEVELS = {
   medium: 'Médio',
   hard: 'Difícil'
 }
+
+export const LEVELS_OPTIONS = [
+  { value: 'easy', label: 'Fácil' },
+  { value: 'medium', label: 'Médio' },
+  { value: 'hard', label: 'Difícil' }
+]

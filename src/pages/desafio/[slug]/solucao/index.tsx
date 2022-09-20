@@ -12,18 +12,14 @@ import { ChallengeHeaderSmall } from 'components/Challenge'
 
 import api from 'service/api'
 import { Challenge, Solution } from 'types'
+import { LEVELS_OPTIONS } from 'utils/constants'
 import { formattedChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
+import { ChallengeProvider } from 'hook/useChallenge'
 import { zodSolutionSchema, SolutionForm } from 'utils/zod'
 import { connectMongoose, SolutionModel } from 'service/mongoose'
 
 import styles from './styles.module.scss'
-
-const solutionLevels = [
-  { value: 'easy', label: 'Fácil' },
-  { value: 'medium', label: 'Médio' },
-  { value: 'hard', label: 'Difícil' }
-]
 
 interface PageProps {
   solution: Solution
@@ -57,14 +53,14 @@ const SolutionChallengePage: NextPage<PageProps> = ({
   }
 
   return (
-    <>
+    <ChallengeProvider challenge={challenge}>
       <SEO
         tabName="Enviar solução"
         title="Enviar solução"
         description="Formulário para participar do desafio"
       />
 
-      <ChallengeHeaderSmall {...challenge} />
+      <ChallengeHeaderSmall />
 
       <section className={styles.container}>
         <FormProvider {...useFormMethods}>
@@ -97,7 +93,7 @@ const SolutionChallengePage: NextPage<PageProps> = ({
             <RadioGroup
               name="level"
               label="Selecione a dificuldade"
-              options={solutionLevels}
+              options={LEVELS_OPTIONS}
             />
 
             <button
@@ -113,7 +109,7 @@ const SolutionChallengePage: NextPage<PageProps> = ({
           </form>
         </FormProvider>
       </section>
-    </>
+    </ChallengeProvider>
   )
 }
 

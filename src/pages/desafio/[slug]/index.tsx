@@ -11,6 +11,7 @@ import { ChallengeHeader } from 'components/Challenge'
 
 import { Challenge } from 'types'
 import { CACHE_PAGE } from 'utils/constants'
+import { ChallengeProvider } from 'hook/useChallenge'
 import { formattedChallenge, isChallengeClosed } from 'utils/format'
 import { createClientPrismic, collectionSlugs } from 'service/prismic'
 
@@ -27,7 +28,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
   }, [data?.user])
 
   return (
-    <>
+    <ChallengeProvider challenge={challenge}>
       <SEO
         tabName={`Desafio - ${challenge.name}`}
         title={`Desafio - ${challenge.name}`}
@@ -38,7 +39,6 @@ const ChallengePage: NextPage<Challenge> = challenge => {
       />
 
       <ChallengeHeader
-        {...challenge}
         isParticipate={isParticipate}
         setParticipate={() => setIsParticipate(true)}
       />
@@ -115,7 +115,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
           e faça perguntas no canal do desafio.
         </p>
       </div>
-    </>
+    </ChallengeProvider>
   )
 }
 

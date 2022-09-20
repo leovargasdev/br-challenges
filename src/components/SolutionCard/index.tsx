@@ -8,6 +8,7 @@ import { Solution, User } from 'types'
 import { LEVELS } from 'utils/constants'
 
 import styles from './styles.module.scss'
+import { useChallenge } from 'hook/useChallenge'
 
 const Participant = (participant: User) => (
   <div className={styles.participant}>
@@ -27,16 +28,18 @@ const Participant = (participant: User) => (
 interface SolutionCardProps {
   solution: Solution
   solutionLike: string
-  isVoting: boolean
   onLike: (solutionId: string) => void
 }
 
 export const SolutionCard = ({
   solution,
   onLike,
-  isVoting,
   solutionLike
 }: SolutionCardProps) => {
+  const { status_prismic } = useChallenge()
+
+  const isVoting = status_prismic === 'voting'
+
   const handleLikeSolution = async () => {
     if (solutionLike !== solution._id && isVoting) {
       const data = {

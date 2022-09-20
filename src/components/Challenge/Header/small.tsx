@@ -1,26 +1,29 @@
 import Link from 'next/link'
 import { PrismicNextImage } from '@prismicio/next'
 
-import { Challenge } from 'types'
-
 import styles from './styles.module.scss'
+import { useChallenge } from 'hook/useChallenge'
 
-export const ChallengeHeaderSmall = (challenge: Challenge) => (
-  <header className={styles.header} data-size="small">
-    <div className={styles.header__image}>
-      <PrismicNextImage
-        field={challenge.image}
-        layout="fill"
-        objectFit="cover"
-      />
-    </div>
+export const ChallengeHeaderSmall = () => {
+  const challenge = useChallenge()
 
-    <h3>{challenge.authors[0].name}</h3>
+  return (
+    <header className={styles.header} data-size="small">
+      <div className={styles.header__image}>
+        <PrismicNextImage
+          field={challenge.image}
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
 
-    <h1>
-      <Link href={'/desafio/'.concat(challenge.id)}>
-        <a>{challenge.name}</a>
-      </Link>
-    </h1>
-  </header>
-)
+      <h3>{challenge.authors[0].name}</h3>
+
+      <h1>
+        <Link href={'/desafio/'.concat(challenge.id)}>
+          <a>{challenge.name}</a>
+        </Link>
+      </h1>
+    </header>
+  )
+}

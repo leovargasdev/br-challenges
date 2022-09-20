@@ -10,6 +10,7 @@ import { ChallengeHeaderSmall } from 'components/Challenge'
 
 import { Challenge, Solution } from 'types'
 import { contributorsMock } from 'utils/mock'
+import { ChallengeProvider } from 'hook/useChallenge'
 import { createClientPrismic } from 'service/prismic'
 import { formattedChallenge, formattedSolution } from 'utils/format'
 import { connectMongoose, LikeModel, SolutionModel } from 'service/mongoose'
@@ -34,14 +35,14 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
   }
 
   return (
-    <>
+    <ChallengeProvider challenge={challenge}>
       <SEO
         tabName={`Participantes do desafio ${challenge.name}`}
         title={`Participantes do desafio ${challenge.name}`}
         description={`Veja as soluções do desafio ${challenge.name}`}
       />
 
-      <ChallengeHeaderSmall {...challenge} />
+      <ChallengeHeaderSmall />
 
       <section className={styles.container}>
         <div>
@@ -54,7 +55,6 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
                 solution={solution}
                 solutionLike={solutionLike}
                 onLike={handleLikeSolution}
-                isVoting={challenge.status_prismic === 'voting'}
               />
             ))}
           </ul>
@@ -76,7 +76,7 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
           </ul>
         </div>
       </section>
-    </>
+    </ChallengeProvider>
   )
 }
 
