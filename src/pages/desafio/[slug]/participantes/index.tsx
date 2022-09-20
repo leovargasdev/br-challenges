@@ -11,50 +11,26 @@ import { ChallengeHeaderSmall } from 'components/Challenge'
 import { Challenge, Solution } from 'types'
 import { contributorsMock } from 'utils/mock'
 import { createClientPrismic } from 'service/prismic'
-import { connectMongoose, LikeModel, SolutionModel } from 'service/mongoose'
 import { formattedChallenge, formattedSolution } from 'utils/format'
+import { connectMongoose, LikeModel, SolutionModel } from 'service/mongoose'
 
 import styles from './styles.module.scss'
 
 interface PageProps {
-  solutionUserLike: string
+  userLike: string
   challenge: Challenge
   solutions: Solution[]
-}
-
-interface LikeProps {
-  [key: string]: number
 }
 
 const ChallengeParticipantsPage: NextPage<PageProps> = ({
   challenge,
   solutions,
-  solutionUserLike
+  userLike
 }) => {
-  const [likes, setLikes] = useState<LikeProps>(
-    solutions.reduce((acc, solution) => {
-      return { ...acc, [solution._id]: solution.likes }
-    }, {})
-  )
+  const [solutionLike, setSolutionLike] = useState<string>(userLike)
 
-  const [solutionLike, setSolutionLike] = useState<string>(solutionUserLike)
-
-  const handleChangeLike = (currentLike: string, newLike: string): void => {
-    if (currentLike !== newLike) {
-      setLikes(state => {
-        const updatedLikes = { ...state }
-
-        if (updatedLikes[currentLike]) {
-          updatedLikes[currentLike] -= 1
-        }
-
-        updatedLikes[newLike] += 1
-
-        setSolutionLike(newLike)
-
-        return updatedLikes
-      })
-    }
+  const handleLikeSolution = (solutionId: string): void => {
+    setSolutionLike(solutionId)
   }
 
   return (
@@ -74,11 +50,11 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
           <ul className={styles.solutions}>
             {solutions.map(solution => (
               <SolutionCard
-                {...solution}
                 key={solution._id}
-                likes={likes[solution._id]}
+                solution={solution}
                 solutionLike={solutionLike}
-                handleChangeLike={handleChangeLike}
+                onLike={handleLikeSolution}
+                isVoting={challenge.status_prismic === 'voting'}
               />
             ))}
           </ul>

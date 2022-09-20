@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import { GoOctoface } from 'react-icons/go'
-import { HiCalendar, HiHeart, HiOutlineHeart } from 'react-icons/hi'
 import { FaLinkedinIn } from 'react-icons/fa'
+import { HiCalendar, HiHeart, HiOutlineHeart } from 'react-icons/hi'
 
+import api from 'service/api'
 import { Solution, User } from 'types'
 import { LEVELS } from 'utils/constants'
 
 import styles from './styles.module.scss'
-import api from 'service/api'
 
 const Participant = (participant: User) => (
   <div className={styles.participant}>
@@ -24,18 +24,21 @@ const Participant = (participant: User) => (
   </div>
 )
 
-interface SolutionCardProps extends Solution {
+interface SolutionCardProps {
+  solution: Solution
   solutionLike: string
-  handleChangeLike: (v1: string, v2: string) => void
+  isVoting: boolean
+  onLike: (solutionId: string) => void
 }
 
 export const SolutionCard = ({
-  solutionLike,
-  handleChangeLike,
-  ...solution
+  solution,
+  onLike,
+  isVoting,
+  solutionLike
 }: SolutionCardProps) => {
   const handleLikeSolution = async () => {
-    if (solutionLike !== solution._id) {
+    if (solutionLike !== solution._id && isVoting) {
       const data = {
         solution_id: solution._id,
         challenge_id: solution.challenge_id
@@ -43,7 +46,7 @@ export const SolutionCard = ({
 
       await api.post('/like', data)
 
-      handleChangeLike(solutionLike, solution._id)
+      onLike(solution._id)
     }
   }
 
@@ -51,8 +54,9 @@ export const SolutionCard = ({
     <li className={styles.solution} data-type={solution.level}>
       <button
         type="button"
-        className={styles.button__link}
         onClick={handleLikeSolution}
+        disabled={!isVoting}
+        className={styles.button__link}
         aria-pressed={solutionLike === solution._id}
       >
         {solutionLike === solution._id ? (
@@ -60,7 +64,7 @@ export const SolutionCard = ({
         ) : (
           <HiOutlineHeart size={18} />
         )}
-        {solution.likes}
+        {!isVoting && solution.likes}
       </button>
       <div className={styles.solution__content}>
         {solution.user && <Participant {...solution.user} />}

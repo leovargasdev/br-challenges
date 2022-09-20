@@ -74,6 +74,11 @@
       color: var(--link);
     }
   }
+
+  &:disabled {
+    opacity: 0.8;
+    pointer-events: none;
+  }
 }
 
 .solution__content {
