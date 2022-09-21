@@ -4,6 +4,7 @@ import { enableAutoPreviews } from '@prismicio/next'
 import { createClient, getRepositoryName } from '@prismicio/client'
 
 const prismicURL = process.env.PRISMIC_URL || ''
+const accessToken = process.env.PRISMIC_TOKEN || ''
 
 export const repositoryName = getRepositoryName(prismicURL)
 
@@ -13,9 +14,7 @@ interface PrismicConfg {
 }
 
 export const createClientPrismic = (config: PrismicConfg = {}) => {
-  const client = createClient(prismicURL, {
-    accessToken: process.env.PRISMIC_TOKEN
-  })
+  const client = createClient(prismicURL, { accessToken })
 
   enableAutoPreviews({ client, ...config })
 
