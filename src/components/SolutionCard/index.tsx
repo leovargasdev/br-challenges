@@ -55,29 +55,23 @@ export const SolutionCard = ({
 
   return (
     <li className={styles.solution} data-type={solution.level}>
-      <button
-        type="button"
-        onClick={handleLikeSolution}
-        disabled={!isVoting}
-        className={styles.button__link}
-        aria-pressed={solutionLike === solution._id}
-      >
-        {solutionLike === solution._id ? (
-          <HiHeart size={18} />
-        ) : (
-          <HiOutlineHeart size={18} />
-        )}
-        {!isVoting && solution.likes}
-      </button>
+      <span className={styles.level}>{LEVELS[solution.level]}</span>
+
       <div className={styles.solution__content}>
         {solution.user && <Participant {...solution.user} />}
 
-        {/* <div className={styles.solution__info}>
-          <span>{LEVELS[solution.level]}</span>
-          <time dateTime={solution.updatedAt}>
-            <HiCalendar /> {solution.updatedAt}
-          </time>
-        </div> */}
+        <button
+          type="button"
+          onClick={handleLikeSolution}
+          className={styles.button__like}
+          aria-pressed={solutionLike === solution._id}
+        >
+          {solutionLike === solution._id ? (
+            <HiHeart size={32} />
+          ) : (
+            <HiOutlineHeart size={32} />
+          )}
+        </button>
       </div>
 
       <div className={styles.solution__links}>

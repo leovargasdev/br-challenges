@@ -125,7 +125,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     { $project: { user_id: 0, createdAt: 0 } }
   ]).match({ challenge_id: mockChallenge })
 
-  let solutionUserLike = ''
+  let userLike = ''
 
   if (session) {
     const isUserLike = await LikeModel.findOne({
@@ -134,14 +134,14 @@ export const getServerSideProps: GetServerSideProps = async ({
     })
 
     if (isUserLike) {
-      solutionUserLike = isUserLike.solution_id.toString()
+      userLike = isUserLike.solution_id.toString()
     }
   }
 
   return {
     props: {
       challenge,
-      solutionUserLike,
+      userLike,
       solutions: solutions.map(formattedSolution)
     }
   }

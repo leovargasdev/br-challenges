@@ -1,61 +1,36 @@
-// hard: #FF5B00 medium: #00FFAB easy: #FAEA48
 .solution {
+  overflow: hidden;
   position: relative;
-  padding: 22px 32px;
+  padding: 24px 32px;
   border-radius: 0 6px 6px 0;
   background: var(--background-light);
   box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.2);
 
-  border-left: 3px solid transparent;
-
-  &[data-type="easy"] {
-    border-color: var(--green);
-
-    .solution__info span {
+  &[data-type="easy"] .level {
       background: var(--green);
-    }
   }
 
-  &[data-type="medium"] {
-    border-color: #1194e2;
-
-    .solution__info span {
-      background: #1194e2;
-    }
+  &[data-type="medium"] .level {
+    background: #1194e2;
   }
 
-  &[data-type="hard"] {
-    border-color: var(--red);
+  &[data-type="hard"] .level {
+    background: var(--red);
+  }
 
-    .solution__info span {
-      background: var(--red);
-    }
+  &:hover .level {
+    transform: rotate(180deg) translateX(0);
   }
 }
 
-.button__link {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-
+.button__like {
   border: 0;
   background: transparent;
-
-  display: flex;
-  align-items: center;
-  column-gap: 6px;
-
-  font-size: 0.875rem;
-  font-weight: bold;
-
-  padding: 4px 10px;
-  border-radius: 4px;
-  border: 1px solid var(--link-dark);
 
   transition: all 0.4s;
   
   svg {
-    color: var(--link-dark);
+    color: var(--text);
     transition: all 0.4s;
   }
 
@@ -74,19 +49,42 @@
       color: var(--link);
     }
   }
-
-  &:disabled {
-    opacity: 0.8;
-    pointer-events: none;
-  }
 }
 
 .solution__content {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-right: 5px;
 
-  // background: blue;
+  transition: 0.2s all;
+}
+
+.level {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  
+  font-size: 0.625rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-align: center;
+  font-family: var(--font-bold);
+
+  user-select: none;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg) translateX(16px);
+
+  padding: 0 4px;
+
+  transition: 0.2s all;
+  
+  &:hover {
+    cursor: default;
+  }
 }
 
 .participant {
@@ -154,6 +152,8 @@
 
   display: flex;
   column-gap: 8px;
+
+  transition: 0.2s all;
 
   a {
     display: flex;
