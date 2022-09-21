@@ -1,0 +1,28 @@
+.button__like {
+  border: 0;
+  margin-right: 5px;
+  background: transparent;
+
+  transition: all 0.4s;
+  
+  svg {
+    color: var(--text);
+    transition: all 0.4s;
+  }
+
+  &:hover {
+    border-color: var(--link);
+
+    svg {
+      color: var(--link);
+    }
+  }
+
+  &[aria-pressed="true"]{
+    border-color: var(--link);
+
+    svg {
+      color: var(--link);
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.participant {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+
+  strong {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 0.875rem;
+    line-height: 1rem;
+    font-weight: 300;
+    padding-bottom: 4px;
+  }
+}
+
+.participant__avatar {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}

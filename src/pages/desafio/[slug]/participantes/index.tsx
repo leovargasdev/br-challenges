@@ -130,7 +130,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   if (session) {
     const isUserLike = await LikeModel.findOne({
       user_id: session?.user._id,
-      challenge_id: mockChallenge
+      challenge_id: challengeSlug
     })
 
     if (isUserLike) {

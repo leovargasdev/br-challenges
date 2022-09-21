@@ -6,58 +6,9 @@
   background: var(--background-light);
   box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.2);
 
-  &[data-type="easy"] .level {
-      background: var(--green);
-  }
-
-  &[data-type="medium"] .level {
-    background: #1194e2;
-  }
-
-  &[data-type="hard"] .level {
-    background: var(--red);
-  }
-
   &:hover .level {
     transform: rotate(180deg) translateX(0);
   }
-}
-
-.button__like {
-  border: 0;
-  background: transparent;
-
-  transition: all 0.4s;
-  
-  svg {
-    color: var(--text);
-    transition: all 0.4s;
-  }
-
-  &:hover {
-    border-color: var(--link);
-
-    svg {
-      color: var(--link);
-    }
-  }
-
-  &[aria-pressed="true"]{
-    border-color: var(--link);
-
-    svg {
-      color: var(--link);
-    }
-  }
-}
-
-.solution__content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: 5px;
-
-  transition: 0.2s all;
 }
 
 .level {
@@ -82,77 +33,34 @@
 
   transition: 0.2s all;
   
+  &[data-type="easy"] {
+    background: var(--green);
+  }
+
+  &[data-type="medium"] {
+    background: #1194e2;
+  }
+
+  &[data-type="hard"] {
+    background: var(--red);
+  }
+
   &:hover {
     cursor: default;
   }
 }
 
-.participant {
+.solution__content {
   display: flex;
-  column-gap: 10px;
   align-items: center;
-
-  .participant__avatar {
-    width: 60px;
-    height: 60px;
-    position: relative;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  strong {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    font-weight: 500;
-  }
-
-  p {
-    font-size: 0.875rem;
-    line-height: 1rem;
-    font-weight: 300;
-    padding-bottom: 4px;
-  }
-}
-
-.solution__info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  row-gap: 4px;
-
-  // background: blanchedalmond;
-
-  span {
-    width: 110px;
-
-    font-size: 0.75rem;
-    font-weight: 700;
-    font-family: var(--font-bold);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    text-align: center;
-
-    padding: 4px 0;
-    border-radius: 4px;
-  }
-
-  time {
-    display: flex;
-    align-items: center;
-    column-gap: 4px;
-
-    font-weight: 300;
-    font-size: 0.875rem;
-    text-transform: capitalize;
-  }
+  justify-content: space-between;
 }
 
 .solution__links {
-  margin-top: 16px;
-
   display: flex;
   column-gap: 8px;
 
+  margin-top: 16px;
   transition: 0.2s all;
 
   a {
