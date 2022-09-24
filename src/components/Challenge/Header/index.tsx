@@ -35,6 +35,9 @@ export const ChallengeHeader = ({
     }
   }
 
+  const isVisibleParticipants =
+    challenge.status_prismic !== 'active' || data?.user.role === 'admin'
+
   return (
     <header className={styles.header} data-size="default">
       <div className={styles.header__image}>
@@ -78,15 +81,14 @@ export const ChallengeHeader = ({
             </button>
           )}
 
-          {challenge.status.type === 'finished' ||
-            (data?.user.role === 'admin' && (
-              <Link href={`/desafio/${challenge.id}/participantes`}>
-                <a className="button outline" aria-hidden={!isResultsPage}>
-                  <HiUserGroup />
-                  Ver participantes
-                </a>
-              </Link>
-            ))}
+          {isVisibleParticipants && (
+            <Link href={`/desafio/${challenge.id}/participantes`}>
+              <a className="button outline" aria-hidden={!isResultsPage}>
+                <HiUserGroup />
+                Ver participantes
+              </a>
+            </Link>
+          )}
         </div>
       </div>
     </header>

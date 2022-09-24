@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { PrismicNextImage } from '@prismicio/next'
-import { ImTrophy, ImBullhorn, ImTicket } from 'react-icons/im'
 import { HiOutlineClock, HiFire, HiCalendar } from 'react-icons/hi'
 
+import icons from './icons'
+import { Challenge } from 'types'
 import { SHORT_DATE } from 'utils/constants'
-import type { Challenge, TypeStatusChallenge } from 'types'
 import {
   getDaysRemaining,
   getFullDate,
@@ -15,16 +15,6 @@ import {
 
 import styles from './styles.module.scss'
 
-type IconStatus = Record<TypeStatusChallenge, React.ReactNode>
-
-const icons: IconStatus = {
-  finished: <ImTrophy />,
-  closed: <ImBullhorn />,
-  submitted: <ImTicket />,
-  active: '',
-  voting: ''
-}
-
 export const ChallengeCard = (challenge: Challenge) => {
   const { data } = useSession()
 
@@ -32,6 +22,7 @@ export const ChallengeCard = (challenge: Challenge) => {
     ...challenge,
     userChallenges: data?.user.challenges || []
   })
+
   const isClosed = isChallengeClosed(status.type)
 
   return (
@@ -93,8 +84,8 @@ export const ChallengeCard = (challenge: Challenge) => {
           )}
 
           {status.type === 'submitted' && (
-            <Link href={challenge.participate_url}>
-              <a className="button">Sua solução</a>
+            <Link href={`/desafio/${challenge.id}/solucao`}>
+              <a className="button">Minha solução</a>
             </Link>
           )}
         </div>

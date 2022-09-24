@@ -23,14 +23,13 @@ export interface Challenge {
   name: string
   image: ImageFieldImage
   deadline: string
-  participate_url: string
   authors: Author[]
   content: RichTextField
   prototype_url: string
-  status: StatusChallenge
+  description: string
+  status?: StatusChallenge
   status_prismic: TypeStatusChallenge
   participants?: number
-  description?: string
 }
 
 export interface ChallengePrismic {
@@ -44,4 +43,9 @@ export interface ChallengePrismic {
     status_prismic: TypeStatusChallenge
     slices: any[]
   }
+}
+
+export interface ChallengeMongo {
+  participants: number
+  challenge_id: string
 }

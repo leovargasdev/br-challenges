@@ -58,6 +58,10 @@
     background: #158f22;
   }
 
+  &[data-type='voting'] span {
+    background: #FFA630;
+  }
+
   strong {
     flex: 1;
     padding-right: 40px;

@@ -3,7 +3,8 @@ import {
   Challenge,
   ChallengePrismic,
   StatusChallenge,
-  TypeStatusChallenge
+  TypeStatusChallenge,
+  ChallengeMongo
 } from 'types'
 
 interface GetStatusProps {
@@ -14,7 +15,7 @@ interface GetStatusProps {
 }
 
 export const isChallengeClosed = (type: TypeStatusChallenge): boolean => {
-  return ['closed', 'finished'].includes(type)
+  return ['closed', 'finished', 'voting'].includes(type)
 }
 
 export const getStatusChallenge = ({
@@ -25,6 +26,10 @@ export const getStatusChallenge = ({
 }: GetStatusProps): StatusChallenge => {
   if (status_prismic === 'finished') {
     return { type: 'finished', name: 'Finalizado' }
+  }
+
+  if (status_prismic === 'voting') {
+    return { type: 'voting', name: 'Em votação' }
   }
 
   if (isPast(new Date(deadline))) {
@@ -38,16 +43,7 @@ export const getStatusChallenge = ({
   return { type: 'active', name: '' }
 }
 
-export const formattedChallenge = (
-  challenge: ChallengePrismic,
-  userChallenges: string[] = []
-): Challenge => {
-  const status = getStatusChallenge({
-    ...challenge.data,
-    userChallenges,
-    id: challenge.uid
-  })
-
+export const formattedChallenge = (challenge: ChallengePrismic): Challenge => {
   const authors = challenge.data.slices.map(slice => ({
     ...slice.primary,
     links: slice.items
@@ -61,10 +57,8 @@ export const formattedChallenge = (
     deadline: challenge.data.deadline,
     image: challenge.data.image,
     prototype_url: challenge.data.prototype.url,
-    participate_url: `/desafio/${challenge.uid}/solucao`,
     authors,
-    status_prismic: challenge.data.status_prismic,
-    status
+    status_prismic: challenge.data.status_prismic
   }
 }
 
@@ -73,10 +67,7 @@ interface Acumulator {
   before: Challenge[]
 }
 
-export const getListChallenges = (
-  data: ChallengePrismic[],
-  userChallenges: string[]
-): Challenge[] => {
+export const getListChallenges = (data: ChallengePrismic[]): Challenge[] => {
   // Ordenando
   data.sort((c1, c2) => {
     const d1 = parseISO(c1.data.deadline)
@@ -87,10 +78,8 @@ export const getListChallenges = (
   const initalReduce = { after: [], before: [] }
 
   const challenges = data.reduce((acc: Acumulator, item) => {
-    const challenge = formattedChallenge(item, userChallenges)
-    const typeOrder = isChallengeClosed(challenge.status.type)
-      ? 'after'
-      : 'before'
+    const challenge = formattedChallenge(item)
+    const typeOrder = challenge.status_prismic === 'active' ? 'before' : 'after'
 
     acc[typeOrder].push(challenge)
 
@@ -102,19 +91,21 @@ export const getListChallenges = (
 
 interface GetParticipants {
   challenges: Challenge[]
-  participants: {
-    challenge_id: string
-    participants: number
-  }[]
+  participants: ChallengeMongo[]
 }
 
 export const getParticipants = ({
   challenges,
   participants
 }: GetParticipants) => {
-  return challenges.map(challenge => ({
-    ...challenge,
-    participants:
-      participants.find(p => p.challenge_id === challenge.id)?.participants || 0
-  }))
+  return challenges.map(challenge => {
+    const participantsIndex = participants.findIndex(
+      p => p.challenge_id === challenge.id
+    )
+
+    return {
+      ...challenge,
+      participants: participants[participantsIndex]?.participants || 0
+    }
+  })
 }

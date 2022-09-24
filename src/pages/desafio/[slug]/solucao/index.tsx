@@ -12,14 +12,15 @@ import { ChallengeHeaderSmall } from 'components/Challenge'
 
 import api from 'service/api'
 import { Challenge, Solution } from 'types'
-import { LEVELS_OPTIONS } from 'utils/constants'
 import { formattedChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
 import { ChallengeProvider } from 'hook/useChallenge'
 import { zodSolutionSchema, SolutionForm } from 'utils/zod'
 import { connectMongoose, SolutionModel } from 'service/mongoose'
+import { LEVELS_OPTIONS, DEFAULT_SOLUTION } from 'utils/constants'
 
 import styles from './styles.module.scss'
+import { useToast } from 'contexts/Toast'
 
 interface PageProps {
   solution: Solution
@@ -30,6 +31,7 @@ const SolutionChallengePage: NextPage<PageProps> = ({
   solution,
   challenge
 }) => {
+  const toast = useToast()
   const router = useRouter()
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -43,10 +45,23 @@ const SolutionChallengePage: NextPage<PageProps> = ({
     setLoading(true)
 
     try {
-      await api.post(`challenge/${challenge.id}/solution`, data)
+      const endpoint = `challenge/${challenge.id}/solution`
+      const response = await api.post(endpoint, data)
+
+      const descriptionType =
+        response.data.type === 'create' ? 'salva' : 'atualizada'
+
+      toast.success('Sucesso', {
+        description: `Solução ${descriptionType} com sucesso`
+      })
+
       router.push('/')
     } catch (err) {
       console.log(err)
+
+      toast.error('Ops! Tivemos um problema', {
+        description: 'Falha ao salvar o sua solução'
+      })
     } finally {
       setLoading(false)
     }
@@ -68,7 +83,7 @@ const SolutionChallengePage: NextPage<PageProps> = ({
             className={styles.form}
             onSubmit={useFormMethods.handleSubmit(onSubmit)}
           >
-            <h2>Formulário de envio</h2>
+            <h2>Formulário da Solução</h2>
 
             <Input
               type="url"
@@ -115,15 +130,11 @@ const SolutionChallengePage: NextPage<PageProps> = ({
 
 export const getServerSideProps: GetServerSideProps = async props => {
   const { req, query } = props
+
   const session = await getSession({ req })
 
   if (session === null) {
-    return {
-      props: {},
-      redirect: {
-        destination: '/login'
-      }
-    }
+    return { props: {}, redirect: { destination: '/login' } }
   }
 
   const challenge_id = query.slug as string
@@ -145,8 +156,8 @@ export const getServerSideProps: GetServerSideProps = async props => {
 
       return {
         props: {
-          solution: solution?._doc || {},
-          challenge
+          challenge,
+          solution: solution?._doc || DEFAULT_SOLUTION
         }
       }
     } catch (err) {

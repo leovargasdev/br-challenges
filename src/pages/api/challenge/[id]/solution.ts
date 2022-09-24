@@ -19,32 +19,29 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(401).send('Unauthorized')
     }
 
-    const { _id: user_id, challenges } = session.user
+    const user_id = session.user._id
 
     await connectMongoose()
     const challenge_id = req.query.id as string
     const solution = zodSolutionSchema.parse(req.body)
 
-    const isUpdateSolution = challenges.includes(challenge_id)
+    console.log({ ...solution, challenge_id })
 
-    if (isUpdateSolution) {
-      await SolutionModel.updateOne({ user_id, challenge_id }, solution)
-
-      return res.status(200).json({ updated: true })
-    }
-
-    await UserModel.updateOne(
-      { _id: user_id },
-      { $push: { challenges: challenge_id } }
+    const isSolution = await SolutionModel.findOneAndUpdate(
+      { user_id, challenge_id },
+      solution
     )
 
-    await SolutionModel.create({
-      user_id,
-      challenge_id,
-      ...solution
-    })
+    // Primeiro envio
+    if (!isSolution) {
+      await SolutionModel.create({
+        user_id,
+        challenge_id,
+        ...solution
+      })
+    }
 
-    return res.status(201).json({ created: true })
+    return res.status(200).json({ type: isSolution ? 'update' : 'create' })
   } catch (error) {
     if (error instanceof ZodError) {
       return res.status(422).json(error.flatten().fieldErrors)

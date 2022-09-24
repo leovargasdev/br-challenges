@@ -21,6 +21,7 @@ const HomePage: NextPage<PageProps> = ({ challenges }) => (
       title="Listagem dos desafios"
       description="Navegue pela nossa lista de desafios e encontre um projeto interessante para condificar"
     />
+
     {challenges.map(challenge => (
       <ChallengeCard key={challenge.id} {...challenge} />
     ))}
@@ -33,7 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
 
     const response = await prismic.getAllByType<any>('challenges')
 
-    const challenges = getListChallenges(response, [])
+    const challenges = getListChallenges(response)
 
     await connectMongoose()
 
@@ -41,10 +42,7 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
 
     return {
       props: {
-        challenges: getParticipants({
-          challenges,
-          participants
-        })
+        challenges: getParticipants({ challenges, participants })
       },
       revalidate: 10
     }

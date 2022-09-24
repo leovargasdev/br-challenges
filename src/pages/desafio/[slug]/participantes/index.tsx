@@ -87,29 +87,27 @@ export const getServerSideProps: GetServerSideProps = async ({
   const session = await getSession({ req })
   const isAdmin = session?.user.role === 'admin'
 
-  const challengeSlug = String(params?.slug)
+  const challenge_id = String(params?.slug)
 
   const prismic = createClientPrismic({ req })
 
   const prismicChallenge = await prismic.getByUID<any>(
     'challenges',
-    challengeSlug
+    challenge_id
   )
   const challenge = formattedChallenge(prismicChallenge)
 
-  if (challenge.status.type !== 'finished' && !isAdmin) {
+  if (challenge.status_prismic === 'active' && !isAdmin) {
     return {
       props: {},
       redirect: {
-        destination: '/desafio/'.concat(challengeSlug),
+        destination: '/desafio/'.concat(challenge_id),
         permanent: true
       }
     }
   }
 
   await connectMongoose()
-
-  const mockChallenge = 'recriando-o-site-de-jogos-da-blizzard'
 
   const solutions: Solution[] = await SolutionModel.aggregate([
     {
@@ -123,14 +121,14 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
     { $unwind: '$user' },
     { $project: { user_id: 0, createdAt: 0 } }
-  ]).match({ challenge_id: mockChallenge })
+  ]).match({ challenge_id })
 
   let userLike = ''
 
   if (session) {
     const isUserLike = await LikeModel.findOne({
       user_id: session?.user._id,
-      challenge_id: challengeSlug
+      challenge_id
     })
 
     if (isUserLike) {

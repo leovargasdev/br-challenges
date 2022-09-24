@@ -21,7 +21,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
   const { status, data } = useSession()
   const [isParticipate, setIsParticipate] = useState<boolean>(false)
 
-  const isClosed = isChallengeClosed(challenge.status.type)
+  const isClosed = isChallengeClosed(challenge.status_prismic)
 
   useEffect(() => {
     setIsParticipate(!!data?.user.challenges.includes(challenge.id))
@@ -91,7 +91,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
           <p>Que os deuses do clean code estejam com você, boa sorte!</p>
 
           {status === 'authenticated' && (
-            <Link href={challenge.participate_url}>
+            <Link href={`/desafio/${challenge.id}/solucao`}>
               <a
                 aria-disabled={isClosed || !isParticipate}
                 className={'button '.concat(styles.button__solution)}
