@@ -31,6 +31,10 @@ export const solutionSchema = new Schema<Solution>(
       enum: enumLevels
     },
     linkedin_url: String,
+    tags: {
+      type: [String],
+      default: []
+    },
     likes: {
       type: Number,
       default: 0

@@ -18,6 +18,7 @@ export interface Solution {
   published: boolean
   likes: number
   status: SolutionStatus
+  tags: string[]
 
   user?: User
   linkedin_url?: string
