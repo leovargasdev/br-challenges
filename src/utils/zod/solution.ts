@@ -10,7 +10,7 @@ export const zodSolutionSchema = zod.object({
   url: zod.string().min(1, { message: 'A url de visualização é obrigatória' }),
   linkedin_url: zod
     .string()
-    .startsWith('https://www.linkedin.com/posts/', {
+    .startsWith('https://www.linkedin.com/', {
       message: 'A url não segue o padrão de post do linkedin'
     })
     .or(zod.literal('')),
