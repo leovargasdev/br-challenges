@@ -17,3 +17,10 @@ export const LEVELS_OPTIONS = [
   { value: 'medium', label: 'Médio' },
   { value: 'hard', label: 'Difícil' }
 ]
+
+export const DEFAULT_SOLUTION = {
+  repository_url: '',
+  linkedin_url: '',
+  url: '',
+  level: ''
+}
