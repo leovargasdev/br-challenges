@@ -105,7 +105,7 @@ const SolutionChallengePage: NextPage<PageProps> = ({
             />
 
             <Input
-              label="Post do linkedin"
+              label="Post do linkedin (opcional)"
               name="linkedin_url"
               placeholder="Link do post sobre a solução do desafio"
             />

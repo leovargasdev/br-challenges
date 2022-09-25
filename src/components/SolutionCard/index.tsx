@@ -28,11 +28,13 @@ export const SolutionCard = ({
       <div className={styles.solution__content}>
         {solution.user && <Participant {...solution.user} />}
 
-        <LikeButton
-          onLike={onLike}
-          solutionId={solution._id}
-          solutionLike={solutionLike}
-        />
+        {solution.status === 'featured' && (
+          <LikeButton
+            onLike={onLike}
+            solutionId={solution._id}
+            solutionLike={solutionLike}
+          />
+        )}
       </div>
 
       <div className={styles.solution__links}>

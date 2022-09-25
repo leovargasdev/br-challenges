@@ -49,14 +49,17 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
           <h2>Listagem das soluções</h2>
 
           <ul className={styles.solutions}>
-            {solutions.map(solution => (
-              <SolutionCard
-                key={solution._id}
-                solution={solution}
-                solutionLike={solutionLike}
-                onLike={handleLikeSolution}
-              />
-            ))}
+            {solutions.map(
+              solution =>
+                solution.status !== 'unpublish' && (
+                  <SolutionCard
+                    key={solution._id}
+                    solution={solution}
+                    solutionLike={solutionLike}
+                    onLike={handleLikeSolution}
+                  />
+                )
+            )}
           </ul>
         </div>
 
@@ -140,7 +143,9 @@ export const getServerSideProps: GetServerSideProps = async ({
     props: {
       challenge,
       userLike,
-      solutions: solutions.map(formattedSolution)
+      solutions: solutions
+        .map(formattedSolution)
+        .sort((a, b) => a.status.localeCompare(b.status))
     }
   }
 }
