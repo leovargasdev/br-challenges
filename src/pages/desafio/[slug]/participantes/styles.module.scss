@@ -4,7 +4,7 @@
   
   display: grid;
   grid-template-columns: 1fr 300px;
-  column-gap: 20px;
+  column-gap: 48px;
 
   margin: 48px 0 64px;
 
@@ -13,12 +13,24 @@
     align-items: center;
     column-gap: 6px;
 
+    font-weight: 500;
+    letter-spacing: 1px;
     margin-bottom: 24px;
+    padding-bottom: 8px;
+
+    border-bottom: 1px solid var(--white);
   }
 
   @media(max-width: 1300px) {
     padding: 0 24px;
   }
+}
+
+.listSolutions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  row-gap: 64px;
 }
 
 .solutions {
@@ -34,10 +46,10 @@
 
   li {
     color: var(--text);
-    font-size: 0.875rem;
+    font-size: 1rem;
 
     & + li {
-      margin-top: 6px;
+      margin-top: 10px;
     }
   }
 }

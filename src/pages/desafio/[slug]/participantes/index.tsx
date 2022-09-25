@@ -9,19 +9,41 @@ import { SolutionCard } from 'components/SolutionCard'
 import { ChallengeHeaderSmall } from 'components/Challenge'
 
 import { Challenge, Solution } from 'types'
-import { contributorsMock } from 'utils/mock'
 import { ChallengeProvider } from 'hook/useChallenge'
 import { createClientPrismic } from 'service/prismic'
 import { formattedChallenge, formattedSolution } from 'utils/format'
 import { connectMongoose, LikeModel, SolutionModel } from 'service/mongoose'
 
 import styles from './styles.module.scss'
+import { contributorsMock } from 'utils/mock'
+
+interface ListSolutions {
+  featured: Solution[]
+  published: Solution[]
+}
 
 interface PageProps {
   userLike: string
   challenge: Challenge
-  solutions: Solution[]
+  solutions: ListSolutions
 }
+
+type SolutionType = 'featured' | 'published'
+
+const typesSolutions = [
+  {
+    name: 'Soluções em destaque',
+    type: 'featured',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sint aliquam commodi, aperiam sit, culpa nisi ab est ducimus'
+  },
+  {
+    name: 'Outras soluções',
+    type: 'published',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sint aliquam commodi, aperiam sit, culpa nisi ab est ducimus'
+  }
+]
 
 const ChallengeParticipantsPage: NextPage<PageProps> = ({
   challenge,
@@ -44,23 +66,31 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
 
       <ChallengeHeaderSmall />
 
-      <section className={styles.container}>
-        <div>
-          <h2>Listagem das soluções</h2>
+      <div className={styles.container}>
+        <div className={styles.listSolutions}>
+          {typesSolutions.map(sectionSolutions => (
+            <section key={sectionSolutions.type}>
+              <h2>
+                {sectionSolutions.name}
+                <Tooltip icon={<GoInfo />}>
+                  {sectionSolutions.description}
+                </Tooltip>
+              </h2>
 
-          <ul className={styles.solutions}>
-            {solutions.map(
-              solution =>
-                solution.status !== 'unpublish' && (
-                  <SolutionCard
-                    key={solution._id}
-                    solution={solution}
-                    solutionLike={solutionLike}
-                    onLike={handleLikeSolution}
-                  />
-                )
-            )}
-          </ul>
+              <ul className={styles.solutions}>
+                {solutions[sectionSolutions.type as SolutionType].map(
+                  solution => (
+                    <SolutionCard
+                      key={solution._id}
+                      solution={solution}
+                      solutionLike={solutionLike}
+                      onLike={handleLikeSolution}
+                    />
+                  )
+                )}
+              </ul>
+            </section>
+          ))}
         </div>
 
         <div>
@@ -78,7 +108,7 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
             ))}
           </ul>
         </div>
-      </section>
+      </div>
     </ChallengeProvider>
   )
 }
@@ -139,13 +169,26 @@ export const getServerSideProps: GetServerSideProps = async ({
     }
   }
 
+  const result = solutions.reduce(
+    (acc, solution) => {
+      const solutionType = solution.status
+
+      if (solutionType === 'unpublish') {
+        return acc
+      }
+
+      acc[solutionType].push(formattedSolution(solution))
+
+      return acc
+    },
+    { featured: [], published: [] } as ListSolutions
+  )
+
   return {
     props: {
       challenge,
       userLike,
-      solutions: solutions
-        .map(formattedSolution)
-        .sort((a, b) => a.status.localeCompare(b.status))
+      solutions: result
     }
   }
 }

@@ -11,6 +11,19 @@
   }
 }
 
+.likes {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+
+  padding: 2px 8px;
+  border-radius: 4px;
+
+  font-weight: 600;
+  font-size: 1.25rem;
+  font-family: var(--font-bold);
+}
+
 .level {
   position: absolute;
   top: 0;

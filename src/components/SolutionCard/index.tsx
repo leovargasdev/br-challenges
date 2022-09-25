@@ -7,6 +7,8 @@ import { Participant } from './Participant'
 import { LEVELS } from 'utils/constants'
 
 import styles from './styles.module.scss'
+import { HiHeart } from 'react-icons/hi'
+import { useChallenge } from 'hook/useChallenge'
 
 interface SolutionCardProps {
   solution: Solution
@@ -19,6 +21,12 @@ export const SolutionCard = ({
   onLike,
   solutionLike
 }: SolutionCardProps) => {
+  const { status_prismic } = useChallenge()
+
+  const isFeatured = solution.status === 'featured'
+  const enableLikesInSolution = isFeatured && status_prismic === 'voting'
+  const showLikes = isFeatured && status_prismic === 'finished'
+
   return (
     <li className={styles.solution}>
       <span className={styles.level} data-type={solution.level}>
@@ -28,12 +36,19 @@ export const SolutionCard = ({
       <div className={styles.solution__content}>
         {solution.user && <Participant {...solution.user} />}
 
-        {solution.status === 'featured' && (
+        {enableLikesInSolution && (
           <LikeButton
             onLike={onLike}
             solutionId={solution._id}
             solutionLike={solutionLike}
           />
+        )}
+
+        {showLikes && (
+          <span className={styles.likes}>
+            <HiHeart size={20} />
+            {solution.likes}
+          </span>
         )}
       </div>
 
