@@ -12,7 +12,7 @@ import { ChallengeHeaderSmall } from 'components/Challenge'
 
 import api from 'service/api'
 import { Challenge, Solution } from 'types'
-import { formattedChallenge } from 'utils/format'
+import { formattedChallenge, getStatusChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
 import { ChallengeProvider } from 'hook/useChallenge'
 import { zodSolutionSchema, SolutionForm } from 'utils/zod'
@@ -40,6 +40,9 @@ const SolutionChallengePage: NextPage<PageProps> = ({
     resolver: zodResolver(zodSolutionSchema),
     defaultValues: solution
   })
+
+  const status = getStatusChallenge({ ...challenge, userChallenges: [] })
+  const disabledInputs = ['closed', 'voting'].includes(status.type)
 
   const onSubmit = async (data: SolutionForm): Promise<void> => {
     setLoading(true)
@@ -90,6 +93,7 @@ const SolutionChallengePage: NextPage<PageProps> = ({
               label="Repositório"
               name="repository_url"
               placeholder="Link do repositório do github"
+              disabled={disabledInputs}
             />
 
             <Input
@@ -97,6 +101,7 @@ const SolutionChallengePage: NextPage<PageProps> = ({
               type="url"
               label="Visualização"
               placeholder="Link para visualizar o projeto"
+              disabled={disabledInputs}
             />
 
             <Input

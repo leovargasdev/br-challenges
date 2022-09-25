@@ -3,9 +3,9 @@ import { PrismicPreview } from '@prismicio/next'
 import { SessionProvider } from 'next-auth/react'
 
 import { Layout } from 'components/Layout'
+import { ToastProvider } from 'contexts/Toast'
 
 import 'styles/globals.scss'
-import { ToastProvider } from 'contexts/Toast'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (

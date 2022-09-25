@@ -11,8 +11,8 @@ import { ChallengeHeader } from 'components/Challenge'
 
 import { Challenge } from 'types'
 import { CACHE_PAGE } from 'utils/constants'
+import { formattedChallenge } from 'utils/format'
 import { ChallengeProvider } from 'hook/useChallenge'
-import { formattedChallenge, isChallengeClosed } from 'utils/format'
 import { createClientPrismic, collectionSlugs } from 'service/prismic'
 
 import styles from './styles.module.scss'
@@ -20,8 +20,6 @@ import styles from './styles.module.scss'
 const ChallengePage: NextPage<Challenge> = challenge => {
   const { status, data } = useSession()
   const [isParticipate, setIsParticipate] = useState<boolean>(false)
-
-  const isClosed = isChallengeClosed(challenge.status_prismic)
 
   useEffect(() => {
     setIsParticipate(!!data?.user.challenges.includes(challenge.id))
@@ -93,7 +91,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
           {status === 'authenticated' && (
             <Link href={`/desafio/${challenge.id}/solucao`}>
               <a
-                aria-disabled={isClosed || !isParticipate}
+                aria-disabled={!isParticipate}
                 className={'button '.concat(styles.button__solution)}
               >
                 <HiPencilAlt />
