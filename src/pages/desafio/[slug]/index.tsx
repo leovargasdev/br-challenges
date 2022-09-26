@@ -92,6 +92,11 @@ const ChallengePage: NextPage<Challenge> = challenge => {
             <Link href={`/desafio/${challenge.id}/solucao`}>
               <a
                 aria-disabled={!isParticipate}
+                title={
+                  isParticipate
+                    ? 'Clique aqui para enviar a solução'
+                    : 'Vá até o topo da página e clique em participar para habilitar o botão'
+                }
                 className={'button '.concat(styles.button__solution)}
               >
                 <HiPencilAlt />
