@@ -14,8 +14,20 @@ export const getFullDate = (value: string, formatString: string): string => {
 export const getDaysRemaining = (value: string): string => {
   const today = new Date()
   const dateTest = new Date(value)
-  return formatDistanceStrict(today, dateTest, {
+
+  const result = formatDistanceStrict(today, dateTest, {
     unit: 'day',
     ...dateFnsOptions
   })
+
+  if (result === '0 dias') {
+    const hours = 24 - new Date().getHours()
+    console.log(new Date().getHours())
+
+    return hours + ' horas'
+  }
+
+  console.log(result)
+
+  return result
 }
