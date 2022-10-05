@@ -8,7 +8,7 @@ import { Tooltip } from 'components/Tooltip'
 import { SolutionCard } from 'components/SolutionCard'
 import { ChallengeHeaderSmall } from 'components/Challenge'
 
-import { Challenge, Solution } from 'types'
+import type { Challenge, Like, Solution, SolutionLevel } from 'types'
 import { ChallengeProvider } from 'hook/useChallenge'
 import { createClientPrismic } from 'service/prismic'
 import { formattedChallenge, formattedSolution } from 'utils/format'
@@ -23,7 +23,11 @@ interface ListSolutions {
 }
 
 interface PageProps {
-  userLike: string
+  userLikes: {
+    easy: string
+    medium: string
+    hard: string
+  }
   challenge: Challenge
   solutions: ListSolutions
 }
@@ -48,12 +52,15 @@ const typesSolutions = [
 const ChallengeParticipantsPage: NextPage<PageProps> = ({
   challenge,
   solutions,
-  userLike
+  userLikes
 }) => {
-  const [solutionLike, setSolutionLike] = useState<string>(userLike)
+  const [solutionsLike, setSolutionsLike] = useState(userLikes)
 
-  const handleLikeSolution = (solutionId: string): void => {
-    setSolutionLike(solutionId)
+  const handleLikeSolution = (
+    solutionId: string,
+    level: SolutionLevel
+  ): void => {
+    setSolutionsLike(state => ({ ...state, [level]: solutionId }))
   }
 
   return (
@@ -83,8 +90,8 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
                     <SolutionCard
                       key={solution._id}
                       solution={solution}
-                      solutionLike={solutionLike}
                       onLike={handleLikeSolution}
+                      isLike={solutionsLike[solution.level] === solution._id}
                     />
                   )
                 )}
@@ -156,16 +163,22 @@ export const getServerSideProps: GetServerSideProps = async ({
     { $project: { user_id: 0, createdAt: 0 } }
   ]).match({ challenge_id })
 
-  let userLike = ''
+  const userLikes = {
+    easy: '',
+    medium: '',
+    hard: ''
+  }
 
   if (session) {
-    const isUserLike = await LikeModel.findOne({
-      user_id: session?.user._id,
+    const isUserLikes: Like[] = await LikeModel.find({
+      user_id: session.user._id,
       challenge_id
     })
 
-    if (isUserLike) {
-      userLike = isUserLike.solution_id.toString()
+    if (isUserLikes) {
+      isUserLikes.forEach(like => {
+        userLikes[like.level] = like.solution_id.toString()
+      })
     }
   }
 
@@ -187,7 +200,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   return {
     props: {
       challenge,
-      userLike,
+      userLikes,
       solutions: result
     }
   }

@@ -1,25 +1,25 @@
+import { HiHeart } from 'react-icons/hi'
 import { GoOctoface } from 'react-icons/go'
 import { FaLinkedinIn } from 'react-icons/fa'
 
-import { Solution } from 'types'
+import type { Solution, SolutionLevel } from 'types'
 import { LikeButton } from './LikeButton'
 import { Participant } from './Participant'
 import { LEVELS } from 'utils/constants'
 
 import styles from './styles.module.scss'
-import { HiHeart } from 'react-icons/hi'
 import { useChallenge } from 'hook/useChallenge'
 
 interface SolutionCardProps {
   solution: Solution
-  solutionLike: string
-  onLike: (solutionId: string) => void
+  isLike: boolean
+  onLike: (solutionId: string, level: SolutionLevel) => void
 }
 
 export const SolutionCard = ({
   solution,
   onLike,
-  solutionLike
+  isLike
 }: SolutionCardProps) => {
   const { status_prismic } = useChallenge()
 
@@ -34,13 +34,15 @@ export const SolutionCard = ({
       </span>
 
       <div className={styles.solution__content}>
+        <span>{solution._id}</span>
         {solution.user && <Participant {...solution.user} />}
 
         {enableLikesInSolution && (
           <LikeButton
             onLike={onLike}
+            level={solution.level}
             solutionId={solution._id}
-            solutionLike={solutionLike}
+            isLike={isLike}
           />
         )}
 
