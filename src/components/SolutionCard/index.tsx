@@ -34,7 +34,6 @@ export const SolutionCard = ({
       </span>
 
       <div className={styles.solution__content}>
-        <span>{solution._id}</span>
         {solution.user && <Participant {...solution.user} />}
 
         {enableLikesInSolution && (
