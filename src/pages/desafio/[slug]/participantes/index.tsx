@@ -51,6 +51,7 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
         tabName={`Participantes do desafio ${challenge.name}`}
         title={`Participantes do desafio ${challenge.name}`}
         description={`Veja as soluções do desafio ${challenge.name}`}
+        image={challenge.image.url}
       />
 
       <ChallengeHeaderSmall />
