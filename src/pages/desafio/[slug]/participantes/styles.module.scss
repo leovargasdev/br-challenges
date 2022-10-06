@@ -2,9 +2,9 @@
   width: 100%;
   max-width: var(--width-normal);
   
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  column-gap: 48px;
+  // display: grid;
+  // grid-template-columns: 1fr 300px;
+  // column-gap: 48px;
 
   margin: 48px 0 64px;
 
@@ -39,6 +39,10 @@
   gap: 16px;
 
   list-style: none;
+
+  @media(max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .contributors {

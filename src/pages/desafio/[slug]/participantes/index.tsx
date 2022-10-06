@@ -8,14 +8,13 @@ import { Tooltip } from 'components/Tooltip'
 import { SolutionCard } from 'components/SolutionCard'
 import { ChallengeHeaderSmall } from 'components/Challenge'
 
-import type { Challenge, Like, Solution, SolutionLevel } from 'types'
 import { ChallengeProvider } from 'hook/useChallenge'
 import { createClientPrismic } from 'service/prismic'
 import { formattedChallenge, formattedSolution } from 'utils/format'
+import type { Challenge, Like, Solution, SolutionLevel } from 'types'
 import { connectMongoose, LikeModel, SolutionModel } from 'service/mongoose'
 
 import styles from './styles.module.scss'
-import { contributorsMock } from 'utils/mock'
 
 interface ListSolutions {
   featured: Solution[]
@@ -31,23 +30,6 @@ interface PageProps {
   challenge: Challenge
   solutions: ListSolutions
 }
-
-type SolutionType = 'featured' | 'published'
-
-const typesSolutions = [
-  {
-    name: 'Soluções em destaque',
-    type: 'featured',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sint aliquam commodi, aperiam sit, culpa nisi ab est ducimus'
-  },
-  {
-    name: 'Outras soluções',
-    type: 'published',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sint aliquam commodi, aperiam sit, culpa nisi ab est ducimus'
-  }
-]
 
 const ChallengeParticipantsPage: NextPage<PageProps> = ({
   challenge,
@@ -75,32 +57,54 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
 
       <div className={styles.container}>
         <div className={styles.listSolutions}>
-          {typesSolutions.map(sectionSolutions => (
-            <section key={sectionSolutions.type}>
+          <section>
+            <h2>
+              Soluções em destaque
+              <Tooltip icon={<GoInfo />}>
+                Soluções que estão aptas a participar da premiação do desafio,
+                por terem entregue até a data solicitada e atendido os critérios
+                de aceite. No período de votação do desafio, as soluções dessa
+                lista podem receber likes dos usuários da plataforma.
+              </Tooltip>
+            </h2>
+
+            <ul className={styles.solutions}>
+              {solutions.featured.map(solution => (
+                <SolutionCard
+                  key={solution._id}
+                  solution={solution}
+                  onLike={handleLikeSolution}
+                  isLike={solutionsLike[solution.level] === solution._id}
+                />
+              ))}
+            </ul>
+          </section>
+
+          {!!solutions.published.length && (
+            <section>
               <h2>
-                {sectionSolutions.name}
+                Outras soluções
                 <Tooltip icon={<GoInfo />}>
-                  {sectionSolutions.description}
+                  Lista das demais soluções, são envios que foram entregues fora
+                  da data solicitada ou foram desclassificados por algum motivo.
                 </Tooltip>
               </h2>
 
               <ul className={styles.solutions}>
-                {solutions[sectionSolutions.type as SolutionType].map(
-                  solution => (
-                    <SolutionCard
-                      key={solution._id}
-                      solution={solution}
-                      onLike={handleLikeSolution}
-                      isLike={solutionsLike[solution.level] === solution._id}
-                    />
-                  )
-                )}
+                {solutions.published.map(solution => (
+                  <SolutionCard
+                    key={solution._id}
+                    solution={solution}
+                    onLike={handleLikeSolution}
+                    isLike={solutionsLike[solution.level] === solution._id}
+                  />
+                ))}
               </ul>
             </section>
-          ))}
+          )}
         </div>
 
-        <div>
+        {/* <div>
           <h2>
             Apoiadores
             <Tooltip icon={<GoInfo />}>
@@ -114,7 +118,7 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
               <li key={contributor}>{contributor}</li>
             ))}
           </ul>
-        </div>
+        </div> */}
       </div>
     </ChallengeProvider>
   )
