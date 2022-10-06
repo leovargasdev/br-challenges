@@ -46,7 +46,7 @@ export const SolutionCard = ({
         )}
 
         {showLikes && (
-          <span className={styles.likes}>
+          <span className={styles.likes} aria-label="Quantidade de votos">
             <HiHeart size={20} />
             {solution.likes}
           </span>

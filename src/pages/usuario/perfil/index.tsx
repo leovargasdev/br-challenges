@@ -77,10 +77,10 @@ const ProfilePage: NextPage<PageProps> = ({ user, challenges }) => {
               <li key={challenge.slug} className={styles.challenge}>
                 <strong>{challenge.name}</strong>
                 <div>
-                  <Link href={`/desafio/${challenge.slug}/participar`}>
+                  <Link href={`/desafio/${challenge.slug}/solucao`}>
                     <a className="button outline">
                       <HiPencil />
-                      Editar solução
+                      Minha solução
                     </a>
                   </Link>
 

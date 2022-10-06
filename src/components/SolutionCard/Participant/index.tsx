@@ -13,7 +13,7 @@ export const Participant = (participant: User) => (
 
     <div>
       <strong>{participant?.name}</strong>
-      <p>{participant?.bio || 'Sem informação'}</p>
+      <p>{participant?.bio || '-'}</p>
     </div>
   </div>
 )
