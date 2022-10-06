@@ -6,6 +6,8 @@ import type { SolutionLevel } from 'types'
 import { useChallenge } from 'hook/useChallenge'
 
 import styles from './styles.module.scss'
+import { useSession } from 'next-auth/react'
+import { useToast } from 'contexts/Toast'
 
 interface LikeButtonProps {
   solutionId: string
@@ -20,12 +22,24 @@ export const LikeButton = ({
   solutionId,
   level
 }: LikeButtonProps) => {
+  const toast = useToast()
   const router = useRouter()
+  const { status } = useSession()
   const { status_prismic } = useChallenge()
 
   const isVoting = status_prismic === 'voting'
 
   const handleLikeSolution = async () => {
+    if (status !== 'authenticated') {
+      toast.error('Ops! Tivemos um problema', {
+        description:
+          'Você precisa estar autenticado na plataforma para efetuar essa ação.',
+        duration: 5000
+      })
+
+      return
+    }
+
     const slugChallenge = router.query.slug
 
     if (!isLike && isVoting) {
@@ -47,6 +61,7 @@ export const LikeButton = ({
       onClick={handleLikeSolution}
       className={styles.button__like}
       aria-pressed={isLike}
+      aria-label="Votar nessa solução"
     >
       {isLike ? <HiHeart size={32} /> : <HiOutlineHeart size={32} />}
     </button>
