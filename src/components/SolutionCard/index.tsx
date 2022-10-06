@@ -1,25 +1,25 @@
+import { HiHeart } from 'react-icons/hi'
 import { GoOctoface } from 'react-icons/go'
 import { FaLinkedinIn } from 'react-icons/fa'
 
-import { Solution } from 'types'
+import type { Solution, SolutionLevel } from 'types'
 import { LikeButton } from './LikeButton'
 import { Participant } from './Participant'
 import { LEVELS } from 'utils/constants'
 
 import styles from './styles.module.scss'
-import { HiHeart } from 'react-icons/hi'
 import { useChallenge } from 'hook/useChallenge'
 
 interface SolutionCardProps {
   solution: Solution
-  solutionLike: string
-  onLike: (solutionId: string) => void
+  isLike: boolean
+  onLike: (solutionId: string, level: SolutionLevel) => void
 }
 
 export const SolutionCard = ({
   solution,
   onLike,
-  solutionLike
+  isLike
 }: SolutionCardProps) => {
   const { status_prismic } = useChallenge()
 
@@ -39,8 +39,9 @@ export const SolutionCard = ({
         {enableLikesInSolution && (
           <LikeButton
             onLike={onLike}
+            level={solution.level}
             solutionId={solution._id}
-            solutionLike={solutionLike}
+            isLike={isLike}
           />
         )}
 
@@ -53,12 +54,15 @@ export const SolutionCard = ({
       </div>
 
       <div className={styles.solution__links}>
-        <a href={solution.url}>Acessar Solução</a>
+        <a href={solution.url} target="_blank" rel="noreferrer">
+          Acessar Solução
+        </a>
         <a
           target="_blank"
           rel="noreferrer"
           href={solution.repository_url}
           title="Link do repositório com a solução"
+          aria-label="Link do repositório com a solução"
         >
           <GoOctoface />
         </a>
@@ -68,6 +72,7 @@ export const SolutionCard = ({
           href={solution.linkedin_url}
           aria-disabled={!solution.linkedin_url}
           title="Link do post no linkedin sobre a solução"
+          aria-label="Link do post no linkedin sobre a solução"
         >
           <FaLinkedinIn />
         </a>

@@ -7,3 +7,4 @@ export type {
 } from './challenge'
 export type { Solution, SolutionLevel, SolutionStatus } from './solution'
 export type { User, UserRole } from './user'
+export type { Like } from './like'

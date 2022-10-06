@@ -17,18 +17,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(401).send('Unauthorized')
     }
 
-    const { solution_id, challenge_id } = req.body
+    const { solution_id, challenge_id, level } = req.body
     const user_id = session.user._id
 
     await connectMongoose()
 
     const isLike = await LikeModel.findOneAndUpdate(
-      { user_id, challenge_id },
+      { user_id, challenge_id, level },
       { solution_id }
     )
 
     if (!isLike) {
-      await LikeModel.create({ user_id, challenge_id, solution_id })
+      await LikeModel.create({ user_id, challenge_id, solution_id, level })
 
       await SolutionModel.updateOne(
         { _id: solution_id },

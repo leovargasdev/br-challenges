@@ -8,14 +8,13 @@ import { Tooltip } from 'components/Tooltip'
 import { SolutionCard } from 'components/SolutionCard'
 import { ChallengeHeaderSmall } from 'components/Challenge'
 
-import { Challenge, Solution } from 'types'
 import { ChallengeProvider } from 'hook/useChallenge'
 import { createClientPrismic } from 'service/prismic'
 import { formattedChallenge, formattedSolution } from 'utils/format'
+import type { Challenge, Like, Solution, SolutionLevel } from 'types'
 import { connectMongoose, LikeModel, SolutionModel } from 'service/mongoose'
 
 import styles from './styles.module.scss'
-import { contributorsMock } from 'utils/mock'
 
 interface ListSolutions {
   featured: Solution[]
@@ -23,37 +22,27 @@ interface ListSolutions {
 }
 
 interface PageProps {
-  userLike: string
+  userLikes: {
+    easy: string
+    medium: string
+    hard: string
+  }
   challenge: Challenge
   solutions: ListSolutions
 }
 
-type SolutionType = 'featured' | 'published'
-
-const typesSolutions = [
-  {
-    name: 'Soluções em destaque',
-    type: 'featured',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sint aliquam commodi, aperiam sit, culpa nisi ab est ducimus'
-  },
-  {
-    name: 'Outras soluções',
-    type: 'published',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sint aliquam commodi, aperiam sit, culpa nisi ab est ducimus'
-  }
-]
-
 const ChallengeParticipantsPage: NextPage<PageProps> = ({
   challenge,
   solutions,
-  userLike
+  userLikes
 }) => {
-  const [solutionLike, setSolutionLike] = useState<string>(userLike)
+  const [solutionsLike, setSolutionsLike] = useState(userLikes)
 
-  const handleLikeSolution = (solutionId: string): void => {
-    setSolutionLike(solutionId)
+  const handleLikeSolution = (
+    solutionId: string,
+    level: SolutionLevel
+  ): void => {
+    setSolutionsLike(state => ({ ...state, [level]: solutionId }))
   }
 
   return (
@@ -68,32 +57,54 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
 
       <div className={styles.container}>
         <div className={styles.listSolutions}>
-          {typesSolutions.map(sectionSolutions => (
-            <section key={sectionSolutions.type}>
+          <section>
+            <h2>
+              Soluções em destaque
+              <Tooltip icon={<GoInfo />}>
+                Soluções que estão aptas a participar da premiação do desafio,
+                por terem entregue até a data solicitada e atendido os critérios
+                de aceite. No período de votação do desafio, as soluções dessa
+                lista podem receber likes dos usuários da plataforma.
+              </Tooltip>
+            </h2>
+
+            <ul className={styles.solutions}>
+              {solutions.featured.map(solution => (
+                <SolutionCard
+                  key={solution._id}
+                  solution={solution}
+                  onLike={handleLikeSolution}
+                  isLike={solutionsLike[solution.level] === solution._id}
+                />
+              ))}
+            </ul>
+          </section>
+
+          {!!solutions.published.length && (
+            <section>
               <h2>
-                {sectionSolutions.name}
+                Outras soluções
                 <Tooltip icon={<GoInfo />}>
-                  {sectionSolutions.description}
+                  Lista das demais soluções, são envios que foram entregues fora
+                  da data solicitada ou foram desclassificados por algum motivo.
                 </Tooltip>
               </h2>
 
               <ul className={styles.solutions}>
-                {solutions[sectionSolutions.type as SolutionType].map(
-                  solution => (
-                    <SolutionCard
-                      key={solution._id}
-                      solution={solution}
-                      solutionLike={solutionLike}
-                      onLike={handleLikeSolution}
-                    />
-                  )
-                )}
+                {solutions.published.map(solution => (
+                  <SolutionCard
+                    key={solution._id}
+                    solution={solution}
+                    onLike={handleLikeSolution}
+                    isLike={solutionsLike[solution.level] === solution._id}
+                  />
+                ))}
               </ul>
             </section>
-          ))}
+          )}
         </div>
 
-        <div>
+        {/* <div>
           <h2>
             Apoiadores
             <Tooltip icon={<GoInfo />}>
@@ -107,7 +118,7 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
               <li key={contributor}>{contributor}</li>
             ))}
           </ul>
-        </div>
+        </div> */}
       </div>
     </ChallengeProvider>
   )
@@ -156,16 +167,22 @@ export const getServerSideProps: GetServerSideProps = async ({
     { $project: { user_id: 0, createdAt: 0 } }
   ]).match({ challenge_id })
 
-  let userLike = ''
+  const userLikes = {
+    easy: '',
+    medium: '',
+    hard: ''
+  }
 
   if (session) {
-    const isUserLike = await LikeModel.findOne({
-      user_id: session?.user._id,
+    const isUserLikes: Like[] = await LikeModel.find({
+      user_id: session.user._id,
       challenge_id
     })
 
-    if (isUserLike) {
-      userLike = isUserLike.solution_id.toString()
+    if (isUserLikes) {
+      isUserLikes.forEach(like => {
+        userLikes[like.level] = like.solution_id.toString()
+      })
     }
   }
 
@@ -187,7 +204,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   return {
     props: {
       challenge,
-      userLike,
+      userLikes,
       solutions: result
     }
   }
