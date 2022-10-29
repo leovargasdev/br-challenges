@@ -25,7 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const challenge_id = req.query.id as string
     const solution = zodSolutionSchema.parse(req.body)
 
-    console.log({ ...solution, challenge_id })
+    // console.log({ ...solution, challenge_id })
 
     const isSolution = await SolutionModel.findOneAndUpdate(
       { user_id, challenge_id },

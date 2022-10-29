@@ -2,10 +2,6 @@
   width: 100%;
   max-width: var(--width-normal);
   
-  // display: grid;
-  // grid-template-columns: 1fr 300px;
-  // column-gap: 48px;
-
   margin: 48px 0 64px;
 
   h2 {
@@ -33,11 +29,18 @@
   row-gap: 64px;
 }
 
-.solutions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px 48px;
+.levels {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 24px;
+}
 
+.solutions {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+
+  width: 100%;
   list-style: none;
 
   @media(max-width: 768px) {
