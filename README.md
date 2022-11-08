@@ -46,3 +46,4 @@ $ yarn next
 ```
 
 **PS: Configurar as variáveis ambientes do arquivo `env.example`.**
+
