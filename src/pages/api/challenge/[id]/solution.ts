@@ -3,7 +3,7 @@ import { getSession } from 'next-auth/react'
 import type { NextApiResponse, NextApiRequest } from 'next'
 
 import { zodSolutionSchema } from 'utils/zod'
-import { connectMongoose, SolutionModel, UserModel } from 'service/mongoose'
+import { connectMongoose, SolutionModel } from 'service/mongoose'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
@@ -24,8 +24,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     await connectMongoose()
     const challenge_id = req.query.id as string
     const solution = zodSolutionSchema.parse(req.body)
-
-    // console.log({ ...solution, challenge_id })
 
     const isSolution = await SolutionModel.findOneAndUpdate(
       { user_id, challenge_id },

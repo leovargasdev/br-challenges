@@ -22,12 +22,9 @@ export const getDaysRemaining = (value: string): string => {
 
   if (result === '0 dias') {
     const hours = 24 - new Date().getHours()
-    console.log(new Date().getHours())
 
     return hours + ' horas'
   }
-
-  console.log(result)
 
   return result
 }
