@@ -1,5 +1,9 @@
-User-agent: Googlebot
-Disallow: /nogooglebot/
-
+# *
 User-agent: *
 Allow: /
+
+# Host
+Host: https://www.brchallenges.com/
+
+# Sitemaps
+Sitemap: https://www.brchallenges.com/sitemap.xml
