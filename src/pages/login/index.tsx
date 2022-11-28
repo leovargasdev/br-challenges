@@ -16,7 +16,7 @@ const LoginPage = () => (
       <SEO
         tabName="Login"
         title="Entrar na plataforma"
-        description="Aprimore as suas habilidades ao codificar os nossos desafios"
+        description="Procurando projetos frontend para programar? Aprimore as suas habilidades ao codificar os nossos desafios."
       />
 
       <Link href="/">

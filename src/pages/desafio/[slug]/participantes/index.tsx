@@ -46,7 +46,7 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
       <SEO
         tabName={`Participantes do desafio ${challenge.name}`}
         title={`Participantes do desafio ${challenge.name}`}
-        description={`Veja as soluções do desafio ${challenge.name}`}
+        description={`Confira a lista das soluções do desafio ${challenge.name} do brchallenges`}
         image={challenge.image.url}
       />
 

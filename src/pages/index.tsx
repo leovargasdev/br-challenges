@@ -18,7 +18,7 @@ const HomePage: NextPage<PageProps> = ({ challenges }) => (
   <section className={styles.home}>
     <SEO
       tabName="Página inicial"
-      title="Listagem dos desafios"
+      title="Listagem dos desafios do brchallenges"
       description="Navegue pela nossa lista de desafios e encontre um projeto interessante para condificar"
     />
 

@@ -29,10 +29,8 @@ const ChallengePage: NextPage<Challenge> = challenge => {
     <ChallengeProvider challenge={challenge}>
       <SEO
         tabName={`Desafio - ${challenge.name}`}
-        title={`Desafio ${challenge.name} do BRChallenges`}
-        description={
-          challenge.description || `Acesse o desafio ${challenge.name}`
-        }
+        title={`Desafio ${challenge.name} do brchallenges`}
+        description={challenge.description}
         image={challenge.image.url}
       />
 
