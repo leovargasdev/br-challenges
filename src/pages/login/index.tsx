@@ -1,61 +1,73 @@
-import Link from 'next/link'
-import Image from 'next/image'
 import { GetServerSideProps } from 'next'
-import { GoOctoface } from 'react-icons/go'
-import { FaGoogle } from 'react-icons/fa'
 import { signIn, getSession } from 'next-auth/react'
+import chroma from 'chroma-js'
 
 import { SEO } from 'components/SEO'
-import { Logo } from 'components/SVG'
+import { GoogleIcon } from 'components/SVG/Google'
+import { GitHubIcon } from 'components/SVG/GitHub'
+
 import styles from './styles.module.scss'
 
-const LoginPage = () => (
-  <div className={styles.container}>
-    <SEO
-      tabName="Login"
-      title="Entrar na plataforma"
-      description="Aprimore as suas habilidades ao codificar os nossos desafios"
-    />
+const glowStart = '#6e56cf'
+const glowEnd = '#d6409f'
 
-    <Link href="/">
-      <a className={styles.logo}>
-        <Logo />
-      </a>
-    </Link>
+const LoginPage = () => {
+  const onPointerMove = (event: React.PointerEvent<HTMLButtonElement>) => {
+    const button = event.currentTarget
+    const rect = button.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
 
-    <div className={styles.image}>
-      <Image src="/banner-login.jpg" layout="fill" objectFit="cover" />
+    button.style.setProperty('--x', `${x}px`)
+    button.style.setProperty('--y', `${y}px`)
+
+    /* const glowStart = button.style.getPropertyValue('--glow-start').trim() */
+    /* const glowEnd = button.style.getPropertyValue('--glow-end').trim() */
+    console.log({ glowStart, glowEnd })
+    button.style.setProperty(
+      '--glow',
+      chroma.mix(glowStart, glowEnd, x / rect.width).hex()
+    )
+  }
+
+  return (
+    <div className={styles.container}>
+      <SEO
+        tabName="Login"
+        title="Entrar na plataforma"
+        description="Aprimore as suas habilidades ao codificar os nossos desafios"
+      />
+
+      {/* <div className={styles.gradient} /> */}
+
+      <main className={styles.main}>
+        {/* <h1>Bem vindo(a) de volta!</h1> */}
+        <h1>
+          Eleve suas habilidades de Front-End com desafios e concorra à prêmios.
+        </h1>
+        {/* <p>Faça login para fazer os desafios e participar dos eventos.</p> */}
+        <p>Faça login e comece agora.</p>
+
+        <button
+          className={styles.button}
+          onClick={() => signIn('google')}
+          onPointerMove={onPointerMove}
+        >
+          <GoogleIcon />
+          <span>Entrar com Google</span>
+        </button>
+        <button
+          className={styles.button}
+          onClick={() => signIn('github')}
+          onPointerMove={onPointerMove}
+        >
+          <GitHubIcon />
+          <span>Entrar com GitHub</span>
+        </button>
+      </main>
     </div>
-
-    <main className={styles.content}>
-      <div className={styles.info}>
-        <h1>Seja bem-vindo, faça o login para acessar a sua conta.</h1>
-
-        <hr />
-
-        <div className={styles.buttons}>
-          <button
-            type="button"
-            className={styles.github}
-            onClick={() => signIn('github')}
-          >
-            <GoOctoface />
-            Github
-          </button>
-
-          <button
-            type="button"
-            className={styles.google}
-            onClick={() => signIn('google')}
-          >
-            <FaGoogle />
-            Google
-          </button>
-        </div>
-      </div>
-    </main>
-  </div>
-)
+  )
+}
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req })
