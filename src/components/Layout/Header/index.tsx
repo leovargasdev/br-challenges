@@ -18,6 +18,24 @@ export const LayoutHeader = () => {
           </a>
         </Link>
 
+        <ul className={styles.header__navigation}>
+          <li>
+            <Link href="/">
+              <a>Página inicial</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/">
+              <a>Como participar</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/">
+              <a>Sobre</a>
+            </Link>
+          </li>
+        </ul>
+
         {status === 'authenticated' ? (
           <AvatarMenu />
         ) : (

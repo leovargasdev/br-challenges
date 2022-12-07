@@ -5,13 +5,13 @@
   column-gap: 6px;
 
   width: 100%;
-  border-radius: 8px;
-  padding: 12px 0;
-  background: var(--link);
   border: 0;
+  padding: 12px 0;
+  border-radius: 8px;
+  background: var(--violet9);
 
-  font-weight: 600;
-  font-family: var(--family-bold);
+  font-size: 0.875rem;
+  font-weight: 400;
 
   -webkit-touch-callout: none;
 
@@ -21,28 +21,15 @@
     opacity: 0.7;
     user-select: none;
     pointer-events: none;
-    background: rgb(63, 63, 105);
+    background: var(--violet5);
   }
 
   &:hover {
-    background: #5730cc;
+    background: var(--violet8);
   }
 
-  @media(max-width: 650px) {
-    font-size: 0.875rem;
-  }
-}
-
-.button.outline {
-  background: transparent;
-  border: 1px solid var(--link);
-
-  &:hover {
-    background: var(--link);
-  }
-
-  &[aria-disabled='true'] {
-    border-color: var(--link-dark);
+  &.small {
+    padding: 8px 0;
   }
 }
 
