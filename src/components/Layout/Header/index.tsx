@@ -13,7 +13,10 @@ export const LayoutHeader = () => {
     <nav className={styles.header}>
       <div className={styles.header__content}>
         <Link href="/">
-          <a className={styles.header__logo}>
+          <a
+            className={styles.header__logo}
+            aria-label="Link para a página inicial do brchallenges"
+          >
             <Logo />
           </a>
         </Link>
@@ -40,7 +43,7 @@ export const LayoutHeader = () => {
           <AvatarMenu />
         ) : (
           <Link href="/login">
-            <a className={styles.header__signIn.concat(' button')}>
+            <a className={'button '.concat(styles.header__signIn)}>
               Acessar conta
             </a>
           </Link>

@@ -70,17 +70,17 @@ const ProfilePage: NextPage<PageProps> = ({ user, challenges }) => {
             placeholder="Escreva algo sobre você"
           />
 
-          <h2>Desafios que você está participando</h2>
+          {/* <h2>Desafios que você está participando</h2>
 
           <ul className={styles.challenges}>
             {challenges.map(challenge => (
               <li key={challenge.slug} className={styles.challenge}>
                 <strong>{challenge.name}</strong>
                 <div>
-                  <Link href={`/desafio/${challenge.slug}/participar`}>
+                  <Link href={`/desafio/${challenge.slug}/solucao`}>
                     <a className="button outline">
                       <HiPencil />
-                      Editar solução
+                      Minha solução
                     </a>
                   </Link>
 
@@ -91,7 +91,7 @@ const ProfilePage: NextPage<PageProps> = ({ user, challenges }) => {
                 </div>
               </li>
             ))}
-          </ul>
+          </ul> */}
 
           <button type="submit" className={`button ${styles.button__submit}`}>
             <HiRefresh />

@@ -27,7 +27,7 @@ export const ChallengeCard = (challenge: Challenge) => {
 
   return (
     <article className={`${styles.challenge} ${styles[status.type]}`}>
-      {status.type !== 'active' && (
+      {!['active', 'finished'].includes(status.type) && (
         <div className={styles.challenge__status} data-type={status.type}>
           <span>{icons[status.type]}</span>
           <strong>{status.name}</strong>

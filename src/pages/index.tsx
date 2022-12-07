@@ -17,8 +17,8 @@ interface PageProps {
 const HomePage: NextPage<PageProps> = ({ challenges }) => (
   <section className={styles.home}>
     <SEO
-      tabName="Listagem dos desafios"
-      title="Listagem dos desafios"
+      tabName="Página inicial"
+      title="Listagem dos desafios do brchallenges"
       description="Navegue pela nossa lista de desafios e encontre um projeto interessante para condificar"
     />
 
@@ -44,13 +44,13 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
       props: {
         challenges: getParticipants({ challenges, participants })
       },
-      revalidate: 10
+      revalidate: 60
     }
   } catch (err) {
     console.log(err)
   }
 
-  return { props: { challenges: [] }, revalidate: 10 }
+  return { props: { challenges: [] }, revalidate: 60 }
 }
 
 export default HomePage
