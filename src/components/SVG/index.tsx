@@ -1,2 +1,5 @@
-export { Logo } from './Logo'
-export { WaveFooter } from './WaveFooter'
+export { Logo } from './logo'
+export { WaveFooter } from './waveFooter'
+export { IconPerson } from './person'
+export { IconCalendar } from './calendar'
+export { IconClock } from './clock'
