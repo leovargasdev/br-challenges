@@ -5,15 +5,12 @@
   column-gap: 6px;
 
   width: 100%;
-  border: 0;
   padding: 12px 0;
   border-radius: 8px;
   background: var(--violet9);
 
   font-size: 0.875rem;
   font-weight: 400;
-
-  -webkit-touch-callout: none;
 
   transition: all 0.4s;
 
@@ -30,6 +27,15 @@
 
   &.small {
     padding: 8px 0;
+  }
+
+  &.secondary {
+    background: var(--mauve3);
+    border: 1px solid var(--mauve6);
+
+    &:hover {
+      background: var(--mauve4);
+    }
   }
 }
 

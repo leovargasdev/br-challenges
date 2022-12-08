@@ -150,15 +150,8 @@
 }
 
 :where(h1, h2, h3, h4, h5, h6, strong, b) {
+  font-weight: 600;
   font-family: var(--family-bold);
-}
-
-:where(a, u, ins, abbr) {
-  text-underline-offset: 1px;
-
-  @supports (-moz-appearance: none) {
-    text-underline-offset: 2px;
-  }
 }
 
 :where(a[href], area, button, label[for], summary, [tabindex]:not([tabindex*='-'])) {
@@ -167,20 +160,17 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-:where(a) {
+a {
   color: inherit;
   text-decoration: none;
 }
 
-:where(img, svg, video, canvas, audio, iframe, embed, object) {
-  display: block;
-}
-
-:where(img, svg, video) {
-  max-inline-size: 100%;
-  block-size: auto;
-}
-
 fieldset {
   border: 0;
+}
+
+button {
+  border: 0;
+  background: transparent;
+  // -webkit-touch-callout: none;
 }
