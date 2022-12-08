@@ -1,81 +1,79 @@
-import Link from 'next/link'
-import Image from 'next/image'
 import { GetServerSideProps } from 'next'
-import { FaGoogle } from 'react-icons/fa'
-import { GoOctoface } from 'react-icons/go'
 import { signIn, getSession } from 'next-auth/react'
+import chroma from 'chroma-js'
 
 import { SEO } from 'components/SEO'
-import { Logo } from 'components/SVG'
+import { GoogleIcon } from 'components/SVG/Google'
+import { GitHubIcon } from 'components/SVG/GitHub'
 
 import styles from './styles.module.scss'
 
-const LoginPage = () => (
-  <>
+const glowStart = '#6e56cf'
+const glowEnd = '#d6409f'
+
+const LoginPage = () => {
+  const onPointerMove = (event: React.PointerEvent<HTMLButtonElement>) => {
+    const button = event.currentTarget
+    const rect = button.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+
+    button.style.setProperty('--x', `${x}px`)
+    button.style.setProperty('--y', `${y}px`)
+
+    button.style.setProperty(
+      '--glow',
+      chroma.mix(glowStart, glowEnd, x / rect.width).hex()
+    )
+  }
+
+  return (
     <div className={styles.container}>
       <SEO
         tabName="Login"
         title="Entrar na plataforma"
-        description="Procurando projetos frontend para programar? Aprimore as suas habilidades ao codificar os nossos desafios."
+        description="Aprimore as suas habilidades ao codificar os nossos desafios"
       />
 
-      <Link href="/">
-        <a
-          className={styles.logo}
-          aria-label="Link para a página inicial do brchallenges"
-        >
-          <Logo />
-        </a>
-      </Link>
-
-      <figure className={styles.image}>
-        <Image
-          layout="fill"
-          objectFit="cover"
-          objectPosition="top"
-          src="/banner-login.jpg"
-        />
-      </figure>
-
-      <h1>Seja bem-vindo, faça o login para acessar a sua conta.</h1>
-
-      <hr />
-
-      <div className={styles.buttons}>
-        <button
-          type="button"
-          className={styles.github}
-          onClick={() => signIn('github')}
-        >
-          <GoOctoface />
-          Entrar com Github
-        </button>
+      <main className={styles.main}>
+        <h1>
+          Aprimore as suas habilidades ao codificar os nossos desafios.
+        </h1>
+        <p>Faça login e comece agora.</p>
 
         <button
-          type="button"
-          className={styles.google}
+          className={styles.button}
           onClick={() => signIn('google')}
+          onPointerMove={onPointerMove}
         >
-          <FaGoogle />
-          Entrar com Google
+          <GoogleIcon />
+          <span>Entrar com Google</span>
         </button>
-      </div>
-    </div>
-
-    <footer className={styles.footer}>
-      <p>
-        Desenvolvido por{' '}
-        <a
-          href="https://www.leonardovargas.dev/"
-          target="_blank"
-          rel="noreferrer"
+        <button
+          className={styles.button}
+          onClick={() => signIn('github')}
+          onPointerMove={onPointerMove}
         >
-          Leonardo Vargas
-        </a>
-      </p>
-    </footer>
-  </>
-)
+          <GitHubIcon />
+          <span>Entrar com GitHub</span>
+        </button>
+      </main>
+
+      <footer className={styles.footer}>
+        <p>
+          Desenvolvido por{' '}
+          <a
+            href="https://www.leonardovargas.dev/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Leonardo Vargas
+          </a>
+        </p>
+      </footer>
+    </div>
+  )
+}
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req })
