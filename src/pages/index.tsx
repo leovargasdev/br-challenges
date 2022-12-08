@@ -6,7 +6,7 @@ import { ChallengeCard } from 'components/Challenge'
 import { Challenge } from 'types'
 import { createClientPrismic } from 'service/prismic'
 import { getListChallenges, getParticipants } from 'utils/format'
-import { ChallengeModel, connectMongoose } from 'service/mongoose'
+import { ChallengeModel, connectMongoose, UserModel } from 'service/mongoose'
 
 import styles from 'styles/home.module.scss'
 import { CACHE_PAGE, SMALL_CACHE_PAGE } from 'utils/constants'
@@ -42,7 +42,9 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
 
     const participants = await ChallengeModel.find()
 
-    challenges = getParticipants({ challenges, participants })
+    const users = await UserModel.find().limit(100).sort({ updatedAt: -1 })
+
+    challenges = getParticipants({ challenges, participants, users })
 
     return {
       props: { challenges },

@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { PrismicNextImage } from '@prismicio/next'
-import { HiOutlineClock, HiFire, HiCalendar } from 'react-icons/hi'
 
 import { Challenge } from 'types'
 import { SHORT_DATE } from 'utils/constants'
@@ -11,8 +10,10 @@ import {
   getStatusChallenge,
   isChallengeClosed
 } from 'utils/format'
+import { IconPerson, IconCalendar, IconClock } from 'components/SVG'
 
 import styles from './styles.module.scss'
+import Image from 'next/image'
 
 export const ChallengeCard = (challenge: Challenge) => {
   const { data } = useSession()
@@ -26,40 +27,71 @@ export const ChallengeCard = (challenge: Challenge) => {
 
   return (
     <article className={styles.challenge}>
-      <div className={styles.challenge__image}>
-        <PrismicNextImage
-          field={challenge.image}
-          layout="fill"
-          objectFit="cover"
-        />
-      </div>
+      <Link href={`/desafio/${challenge.id}`}>
+        <a aria-label={`Link para a página do desafio ${challenge.name}`}>
+          <div className={styles.challenge__image}>
+            <PrismicNextImage
+              field={challenge.image}
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+        </a>
+      </Link>
 
       <div className={styles.challenge__content}>
-        <h2>{challenge.name}</h2>
+        <Link href={`/desafio/${challenge.id}`}>
+          <a aria-label={`Link para a página do desafio ${challenge.name}`}>
+            <h2>{challenge.name}</h2>
+          </a>
+        </Link>
 
-        <div>
+        <div className={styles.challenge__info}>
           <strong aria-label="Nome do autor do protótipo do desafio">
-            {challenge.authors[0].name}
+            <IconPerson /> {challenge.authors[0].name}
           </strong>
 
           <time dateTime={challenge.deadline}>
             {isClosed ? (
               <>
-                <HiCalendar />
+                <IconCalendar />
                 {getFullDate(challenge.deadline, SHORT_DATE)}
               </>
             ) : (
               <>
-                <HiOutlineClock />
+                <IconClock />
                 {getDaysRemaining(challenge.deadline)} restantes
               </>
             )}
           </time>
         </div>
 
-        <span>
-          <HiFire /> {challenge.participants} participantes
-        </span>
+        {challenge?.users && (
+          <div className={styles.challenge__participants}>
+            <strong>
+              <IconPerson />
+              Partipantes
+            </strong>
+
+            <div className={styles.users}>
+              {challenge.users.map((image, index) => (
+                <figure
+                  key={image}
+                  style={{ transform: `translateX(-${index * 12}px)` }}
+                >
+                  <Image
+                    src={image}
+                    layout="fill"
+                    objectFit="cover"
+                    loading="lazy"
+                  />
+                </figure>
+              ))}
+
+              <span>+ {challenge.participants}</span>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className={styles.challenge__footer}>

@@ -4,7 +4,8 @@ import {
   ChallengePrismic,
   StatusChallenge,
   TypeStatusChallenge,
-  ChallengeMongo
+  ChallengeMongo,
+  User
 } from 'types'
 
 interface GetStatusProps {
@@ -92,20 +93,33 @@ export const getListChallenges = (data: ChallengePrismic[]): Challenge[] => {
 interface GetParticipants {
   challenges: Challenge[]
   participants: ChallengeMongo[]
+  users: User[]
 }
 
 export const getParticipants = ({
   challenges,
-  participants
+  participants,
+  users
 }: GetParticipants) => {
   return challenges.map(challenge => {
+    const usersPhotos = users.reduce((acc, user) => {
+      if (acc.length <= 7) {
+        if (user.challenges.includes(challenge.id) && user.image) {
+          acc.push(user.image)
+        }
+      }
+
+      return acc
+    }, [] as string[])
+
     const participantsIndex = participants.findIndex(
       p => p.challenge_id === challenge.id
     )
 
     return {
       ...challenge,
-      participants: participants[participantsIndex]?.participants || 0
+      users: usersPhotos,
+      participants: participants[participantsIndex]?.participants - 7 || 0
     }
   })
 }
