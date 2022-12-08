@@ -2,16 +2,21 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 interface SEOProps {
-  tabName: string
+  tabName?: string
   title: string
   description: string
   image?: string | null
 }
 
-export const SEO = ({ tabName, title, description, image = '' }: SEOProps) => {
+export const SEO = ({
+  tabName = '',
+  title,
+  description,
+  image = ''
+}: SEOProps) => {
   const { asPath } = useRouter()
 
-  const titleTab = `${tabName} • BRChallenges`
+  const titleTab = `BR Challenges | ${tabName || title}`
 
   return (
     <Head>

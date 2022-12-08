@@ -10,4 +10,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  &.login {
+    height: 100vh;
+  }
 }

@@ -8,18 +8,14 @@ import { Tooltip } from 'components/Tooltip'
 import { SolutionCard } from 'components/SolutionCard'
 import { ChallengeHeaderSmall } from 'components/Challenge'
 
+import { LEVELS_TYPE } from 'utils/constants'
 import { ChallengeProvider } from 'hook/useChallenge'
 import { createClientPrismic } from 'service/prismic'
-import { formattedChallenge, formattedSolution } from 'utils/format'
+import { formattedChallenge } from 'utils/format'
 import type { Challenge, Like, Solution, SolutionLevel } from 'types'
 import { connectMongoose, LikeModel, SolutionModel } from 'service/mongoose'
 
 import styles from './styles.module.scss'
-
-interface ListSolutions {
-  featured: Solution[]
-  published: Solution[]
-}
 
 interface PageProps {
   userLikes: {
@@ -28,7 +24,7 @@ interface PageProps {
     hard: string
   }
   challenge: Challenge
-  solutions: ListSolutions
+  solutions: Solution[]
 }
 
 const ChallengeParticipantsPage: NextPage<PageProps> = ({
@@ -50,7 +46,8 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
       <SEO
         tabName={`Participantes do desafio ${challenge.name}`}
         title={`Participantes do desafio ${challenge.name}`}
-        description={`Veja as soluções do desafio ${challenge.name}`}
+        description={`Confira a lista das soluções do desafio ${challenge.name} do brchallenges`}
+        image={challenge.image.url}
       />
 
       <ChallengeHeaderSmall />
@@ -68,19 +65,29 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
               </Tooltip>
             </h2>
 
-            <ul className={styles.solutions}>
-              {solutions.featured.map(solution => (
-                <SolutionCard
-                  key={solution._id}
-                  solution={solution}
-                  onLike={handleLikeSolution}
-                  isLike={solutionsLike[solution.level] === solution._id}
-                />
-              ))}
-            </ul>
+            <div className={styles.levels}>
+              {LEVELS_TYPE.map(level => {
+                const solutionsLevel = solutions.filter(s => s.level === level)
+
+                if (solutionsLevel.length === 0) return <></>
+
+                return (
+                  <ul className={styles.solutions} key={level}>
+                    {solutionsLevel.map(solution => (
+                      <SolutionCard
+                        key={solution._id}
+                        solution={solution}
+                        onLike={handleLikeSolution}
+                        isLike={solutionsLike[solution.level] === solution._id}
+                      />
+                    ))}
+                  </ul>
+                )
+              })}
+            </div>
           </section>
 
-          {!!solutions.published.length && (
+          {/* {!!solutions.published.length && (
             <section>
               <h2>
                 Outras soluções
@@ -101,7 +108,7 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
                 ))}
               </ul>
             </section>
-          )}
+          )} */}
         </div>
 
         {/* <div>
@@ -155,6 +162,12 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const solutions: Solution[] = await SolutionModel.aggregate([
     {
+      $match: {
+        status: { $ne: 'unpublish' },
+        challenge_id
+      }
+    },
+    {
       $lookup: {
         from: 'users',
         localField: 'user_id',
@@ -164,8 +177,9 @@ export const getServerSideProps: GetServerSideProps = async ({
       }
     },
     { $unwind: '$user' },
-    { $project: { user_id: 0, createdAt: 0 } }
-  ]).match({ challenge_id })
+    { $project: { user_id: 0, createdAt: 0, updatedAt: 0 } },
+    { $sort: { likes: -1 } }
+  ])
 
   const userLikes = {
     easy: '',
@@ -186,26 +200,11 @@ export const getServerSideProps: GetServerSideProps = async ({
     }
   }
 
-  const result = solutions.reduce(
-    (acc, solution) => {
-      const solutionType = solution.status
-
-      if (solutionType === 'unpublish') {
-        return acc
-      }
-
-      acc[solutionType].push(formattedSolution(solution))
-
-      return acc
-    },
-    { featured: [], published: [] } as ListSolutions
-  )
-
   return {
     props: {
       challenge,
       userLikes,
-      solutions: result
+      solutions: solutions.map(s => ({ ...s, _id: String(s._id) }))
     }
   }
 }

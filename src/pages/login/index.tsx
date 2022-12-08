@@ -35,7 +35,6 @@ const LoginPage = () => {
         description="Aprimore as suas habilidades ao codificar os nossos desafios"
       />
 
-
       <main className={styles.main}>
         <h1>
           Eleve suas habilidades de Front-End com desafios e concorra à prêmios.
@@ -59,6 +58,19 @@ const LoginPage = () => {
           <span>Entrar com GitHub</span>
         </button>
       </main>
+
+      <footer className={styles.footer}>
+        <p>
+          Desenvolvido por{' '}
+          <a
+            href="https://www.leonardovargas.dev/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Leonardo Vargas
+          </a>
+        </p>
+      </footer>
     </div>
   )
 }

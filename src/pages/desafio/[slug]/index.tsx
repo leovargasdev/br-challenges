@@ -29,10 +29,8 @@ const ChallengePage: NextPage<Challenge> = challenge => {
     <ChallengeProvider challenge={challenge}>
       <SEO
         tabName={`Desafio - ${challenge.name}`}
-        title={`Desafio - ${challenge.name}`}
-        description={
-          challenge.description || `Acesse o desafio ${challenge.name}`
-        }
+        title={`Desafio ${challenge.name} do brchallenges`}
+        description={challenge.description}
         image={challenge.image.url}
       />
 
@@ -75,14 +73,15 @@ const ChallengePage: NextPage<Challenge> = challenge => {
           <ul>
             <li>1º lugar: R$ 50,00</li>
             <li>
-              2º e 3º lugar: Vips no canal da twitch do{' '}
+              2º: Vip no{' '}
               <a
                 href="https://www.twitch.tv/leovargasdev"
                 target="_blank"
                 rel="noreferrer"
               >
-                @leovargasdev
+                canal da twitch
               </a>
+              .
             </li>
           </ul>
 

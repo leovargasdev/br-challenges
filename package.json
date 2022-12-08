@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "slicemachine": "start-slicemachine"
+    "slicemachine": "start-slicemachine",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.7",
@@ -52,6 +53,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-standard": "^5.0.0",
+    "next-sitemap": "^3.1.32",
     "prettier": "^2.7.1",
     "slice-machine-ui": "^0.4.2",
     "typescript": "4.7.4"

@@ -9,6 +9,7 @@ import { getListChallenges, getParticipants } from 'utils/format'
 import { ChallengeModel, connectMongoose } from 'service/mongoose'
 
 import styles from 'styles/home.module.scss'
+import { CACHE_PAGE, SMALL_CACHE_PAGE } from 'utils/constants'
 
 interface PageProps {
   challenges: Challenge[]
@@ -17,10 +18,11 @@ interface PageProps {
 const HomePage: NextPage<PageProps> = ({ challenges }) => (
   <section className={styles.home}>
     <SEO
-      tabName="Listagem dos desafios"
-      title="Listagem dos desafios"
+      title="Desafios frontend para praticar as suas habilidades"
       description="Navegue pela nossa lista de desafios e encontre um projeto interessante para condificar"
     />
+
+    {/* <h1>Navegue pelos nossos desafios</h1> */}
 
     {challenges.map(challenge => (
       <ChallengeCard key={challenge.id} {...challenge} />
@@ -34,23 +36,23 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
 
     const response = await prismic.getAllByType<any>('challenges')
 
-    const challenges = getListChallenges(response)
+    let challenges = getListChallenges(response)
 
     await connectMongoose()
 
     const participants = await ChallengeModel.find()
 
+    challenges = getParticipants({ challenges, participants })
+
     return {
-      props: {
-        challenges: getParticipants({ challenges, participants })
-      },
-      revalidate: 10
+      props: { challenges },
+      revalidate: CACHE_PAGE
     }
   } catch (err) {
     console.log(err)
   }
 
-  return { props: { challenges: [] }, revalidate: 10 }
+  return { props: { challenges: [] }, revalidate: SMALL_CACHE_PAGE }
 }
 
 export default HomePage
