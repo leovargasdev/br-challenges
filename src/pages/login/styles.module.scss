@@ -13,13 +13,16 @@
     content: '';
     position: absolute;
     z-index: 2;
-    inset: 40% -60% 0 -60%;
+    // inset: 40% -60% 0 -60%;
     background-image: radial-gradient(
-      ellipse at bottom,
-      #1d0559 0%,
-      #020112 100%
+      circle,
+      hsl(257 89% 18% / 0.3) 0%,
+      hsl(244 89% 4%) 50%
     );
-    opacity: 0.3;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    opacity: 0.8;
   }
 
   // &::before {
@@ -44,8 +47,7 @@
     width: 100%;
     height: 100%;
     top: 0;
-    opacity: 0.3;
-    // filter: unset;
+    opacity: 0.2;
   }
 }
 
@@ -64,6 +66,7 @@
 
     &::before {
       content: 'Eleve suas habilidades de Front-End com desafios e concorra à prêmios.';
+      pointer-events: none;
       background-image: linear-gradient(
         45deg,
         hsla(0, 0%, 100%, 0) 45%,
@@ -128,8 +131,6 @@
 }
 
 .button {
-  --glow-start: #6e56cf;
-  --glow-end: #d6409f;
   all: unset;
   box-sizing: border-box;
   position: relative;
@@ -211,6 +212,7 @@
     &::before {
       content: '';
       position: absolute;
+      z-index: -1;
       top: -16px;
       left: -16px;
       width: 48px;
