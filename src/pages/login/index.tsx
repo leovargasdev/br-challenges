@@ -21,9 +21,6 @@ const LoginPage = () => {
     button.style.setProperty('--x', `${x}px`)
     button.style.setProperty('--y', `${y}px`)
 
-    /* const glowStart = button.style.getPropertyValue('--glow-start').trim() */
-    /* const glowEnd = button.style.getPropertyValue('--glow-end').trim() */
-    console.log({ glowStart, glowEnd })
     button.style.setProperty(
       '--glow',
       chroma.mix(glowStart, glowEnd, x / rect.width).hex()
@@ -38,14 +35,11 @@ const LoginPage = () => {
         description="Aprimore as suas habilidades ao codificar os nossos desafios"
       />
 
-      {/* <div className={styles.gradient} /> */}
 
       <main className={styles.main}>
-        {/* <h1>Bem vindo(a) de volta!</h1> */}
         <h1>
           Eleve suas habilidades de Front-End com desafios e concorra à prêmios.
         </h1>
-        {/* <p>Faça login para fazer os desafios e participar dos eventos.</p> */}
         <p>Faça login e comece agora.</p>
 
         <button
