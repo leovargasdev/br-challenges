@@ -37,7 +37,7 @@ const LoginPage = () => {
 
       <main className={styles.main}>
         <h1>
-          Eleve suas habilidades de Front-End com desafios e concorra à prêmios.
+          Aprimore as suas habilidades ao codificar os nossos desafios.
         </h1>
         <p>Faça login e comece agora.</p>
 
