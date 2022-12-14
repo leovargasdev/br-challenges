@@ -14,6 +14,7 @@ import { createClientPrismic } from 'service/prismic'
 import styles from './styles.module.scss'
 import { PrismicNextImage } from '@prismicio/next'
 import { IconPerson, IconPlus } from 'components/SVG'
+import { DescriptionNavigation } from 'components/Challenge/DescriptionNavigation'
 
 const ChallengePage: NextPage<Challenge> = challenge => {
   const { data } = useSession()
@@ -34,6 +35,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
               field={challenge.image}
               layout="fill"
               objectFit="cover"
+              objectPosition="top"
             />
           </div>
 
@@ -60,28 +62,7 @@ const ChallengePage: NextPage<Challenge> = challenge => {
       </header>
 
       <div className={styles.content}>
-        <aside className={styles.challenge__navigation}>
-          <ul>
-            <li>
-              <a href="#challenge-description">Descrição</a>
-            </li>
-            <li>
-              <a href="#">Nível fácil</a>
-            </li>
-            <li>
-              <a href="#">Nível médio</a>
-            </li>
-            <li>
-              <a href="#">Nível dificil</a>
-            </li>
-            <li>
-              <a href="#challenge-prototype">Protótipo do desafio</a>
-            </li>
-            <li>
-              <a href="#how-participation">Como funciona a participação</a>
-            </li>
-          </ul>
-        </aside>
+        <DescriptionNavigation />
 
         <div className={styles.challenge} id="challenge-description">
           <h1>{challenge.name}</h1>

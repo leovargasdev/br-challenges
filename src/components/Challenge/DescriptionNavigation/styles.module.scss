@@ -1,0 +1,29 @@
+.container {
+  width: 200px;
+
+  position: sticky;
+  top: 24px;
+  left: 0;
+}
+
+.content {
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+
+  li a {
+    display: block;
+    padding: 8px;
+    color: var(--mauve11);
+
+    transition: all 0.4s;
+
+    &.active, &:hover {
+      border-radius: 4px;
+      color: var(--violet10);
+      background: rgba(#28282c, 0.4);
+    }
+  }
+}

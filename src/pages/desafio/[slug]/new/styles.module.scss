@@ -18,7 +18,7 @@
 
 .header__image {
   width: 100%;
-  height: 320px;
+  height: 360px;
   position: relative;
   border-radius: 16px;
   overflow: hidden;
@@ -55,28 +55,8 @@
   margin-top: 40px;
   
   width: 100%;
-  padding-right: 230px;
+  padding-right: 200px;
   max-width: var(--width-normal);
-}
-
-.challenge__navigation {
-  width: 230px;
-
-  position: sticky;
-  top: 32px;
-  left: 0;
-
-  ul {
-    list-style: none;
-
-    display: flex;
-    flex-direction: column;
-    row-gap: 16px;
-
-    li {
-      color: var(--mauve11);
-    }
-  }
 }
 
 .challenge {
