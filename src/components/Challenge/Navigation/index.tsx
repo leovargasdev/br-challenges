@@ -1,6 +1,6 @@
 import styles from './styles.module.scss'
 
-export const DescriptionNavigation = () => (
+export const ChallengeNavigation = () => (
   <aside className={styles.container}>
     <ul className={styles.content}>
       <li>
