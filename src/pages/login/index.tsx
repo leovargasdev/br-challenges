@@ -28,6 +28,7 @@ const LoginPage = () => {
   }
 
   return (
+    <>
     <div className={styles.container}>
       <SEO
         tabName="Login"
@@ -36,9 +37,7 @@ const LoginPage = () => {
       />
 
       <main className={styles.main}>
-        <h1>
-          Aprimore as suas habilidades ao codificar os nossos desafios.
-        </h1>
+        <h1>Aprimore as suas habilidades ao codificar os nossos desafios.</h1>
         <p>Faça login e comece agora.</p>
 
         <button
@@ -59,6 +58,8 @@ const LoginPage = () => {
         </button>
       </main>
 
+    </div>
+
       <footer className={styles.footer}>
         <p>
           Desenvolvido por{' '}
@@ -71,7 +72,7 @@ const LoginPage = () => {
           </a>
         </p>
       </footer>
-    </div>
+      </>
   )
 }
 
