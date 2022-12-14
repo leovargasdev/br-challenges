@@ -28,6 +28,7 @@ const LoginPage = () => {
   }
 
   return (
+    <>
     <div className={styles.container}>
       <SEO
         tabName="Login"
@@ -57,6 +58,8 @@ const LoginPage = () => {
         </button>
       </main>
 
+    </div>
+
       <footer className={styles.footer}>
         <p>
           Desenvolvido por{' '}
@@ -69,7 +72,7 @@ const LoginPage = () => {
           </a>
         </p>
       </footer>
-    </div>
+      </>
   )
 }
 
