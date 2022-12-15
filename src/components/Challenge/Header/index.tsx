@@ -26,6 +26,7 @@ export const ChallengeHeader = () => {
             <IconPlus />
             Enviar solução
           </button>
+
           <button
             type="button"
             className={'button '.concat(styles.button__participate)}
@@ -33,6 +34,7 @@ export const ChallengeHeader = () => {
             <IconPlus />
             Quero participar
           </button>
+
           <Link href="/">
             <a className="button secondary">
               <IconPerson />
