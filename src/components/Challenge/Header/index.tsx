@@ -1,13 +1,42 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
 import { PrismicNextImage } from '@prismicio/next'
 
-import { IconPerson, IconPlus } from 'components/SVG'
+import api from 'service/api'
+import { useChallenge } from 'hook/useChallenge'
+import { IconCheck, IconPerson, IconPlus } from 'components/SVG'
 
 import styles from './styles.module.scss'
-import { useChallenge } from 'hook/useChallenge'
 
 export const ChallengeHeader = () => {
-  const { image } = useChallenge()
+  const router = useRouter()
+
+  const { status, data } = useSession()
+  const { image, id, status_prismic } = useChallenge()
+
+  const [isParticipant, setIsParticipant] = useState<boolean>(false)
+
+  const isVisibleParticipants =
+    status_prismic !== 'active' || data?.user.role === 'admin'
+
+  const toParticipateChallenge = async () => {
+    if (status !== 'authenticated') {
+      router.push('/login')
+    }
+
+    if (!isParticipant) {
+      await api.post(`/challenge/${id}/participate`)
+      setIsParticipant(true)
+    }
+  }
+
+  useEffect(() => {
+    if (data?.user && data.user.challenges.includes(id)) {
+      setIsParticipant(true)
+    }
+  }, [data?.user])
 
   return (
     <header className={styles.header}>
@@ -22,25 +51,36 @@ export const ChallengeHeader = () => {
         </div>
 
         <div className={styles.header__actions}>
-          <button type="button" className="button">
-            <IconPlus />
-            Enviar solução
-          </button>
+          {isParticipant && (
+            <button type="button" className="button">
+              <IconPlus />
+              Enviar solução
+            </button>
+          )}
 
-          <button
-            type="button"
-            className={'button '.concat(styles.button__participate)}
-          >
-            <IconPlus />
-            Quero participar
-          </button>
+          {isParticipant ? (
+            <span className={'button '.concat(styles.button__participant)}>
+              <IconCheck /> Participando
+            </span>
+          ) : (
+            <button
+              type="button"
+              onClick={toParticipateChallenge}
+              className={'button '.concat(styles.button__participate)}
+            >
+              <IconPlus />
+              Quero participar
+            </button>
+          )}
 
-          <Link href="/">
-            <a className="button secondary">
-              <IconPerson />
-              Ver participantes
-            </a>
-          </Link>
+          {isVisibleParticipants && (
+            <Link href="/">
+              <a className="button secondary">
+                <IconPerson />
+                Ver participantes
+              </a>
+            </Link>
+          )}
         </div>
       </div>
     </header>
