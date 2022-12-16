@@ -8,7 +8,6 @@ import { useForm, FormProvider } from 'react-hook-form'
 
 import { SEO } from 'components/SEO'
 import { Input, RadioGroup } from 'components/Form'
-import { ChallengeHeaderSmall } from 'components/Challenge'
 
 import api from 'service/api'
 import { Challenge, Solution } from 'types'
@@ -77,8 +76,6 @@ const SolutionChallengePage: NextPage<PageProps> = ({
         title="Enviar solução"
         description="Formulário para participar do desafio"
       />
-
-      <ChallengeHeaderSmall />
 
       <section className={styles.container}>
         <FormProvider {...useFormMethods}>

@@ -36,9 +36,7 @@ const LoginPage = () => {
       />
 
       <main className={styles.main}>
-        <h1>
-          Aprimore as suas habilidades ao codificar os nossos desafios.
-        </h1>
+        <h1>Aprimore as suas habilidades ao codificar os nossos desafios.</h1>
         <p>Faça login e comece agora.</p>
 
         <button

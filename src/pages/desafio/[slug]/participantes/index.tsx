@@ -6,7 +6,6 @@ import { GetServerSideProps, NextPage } from 'next'
 import { SEO } from 'components/SEO'
 import { Tooltip } from 'components/Tooltip'
 import { SolutionCard } from 'components/SolutionCard'
-import { ChallengeHeaderSmall } from 'components/Challenge'
 
 import { LEVELS_TYPE } from 'utils/constants'
 import { ChallengeProvider } from 'hook/useChallenge'
@@ -49,8 +48,6 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
         description={`Confira a lista das soluções do desafio ${challenge.name} do brchallenges`}
         image={challenge.image.url}
       />
-
-      <ChallengeHeaderSmall />
 
       <div className={styles.container}>
         <div className={styles.listSolutions}>
