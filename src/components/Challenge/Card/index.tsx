@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { PrismicNextImage } from '@prismicio/next'
 
@@ -13,7 +14,6 @@ import {
 import { IconPerson, IconCalendar, IconClock } from 'components/SVG'
 
 import styles from './styles.module.scss'
-import Image from 'next/image'
 
 export const ChallengeCard = (challenge: Challenge) => {
   const { data } = useSession()
@@ -88,7 +88,13 @@ export const ChallengeCard = (challenge: Challenge) => {
                 </figure>
               ))}
 
-              <span>+ {challenge.participants}</span>
+              <span
+                style={{
+                  transform: `translateX(-${challenge.users.length * 12}px)`
+                }}
+              >
+                + {challenge.participants}
+              </span>
             </div>
           </div>
         )}
