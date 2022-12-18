@@ -1,15 +1,20 @@
 import Link from 'next/link'
-import { useSession } from 'next-auth/react'
+import { useState } from 'react'
+import { useSession, signOut } from 'next-auth/react'
 
 import { Logo } from 'components/SVG'
 import { AvatarMenu } from 'components/AvatarMenu'
 
 import styles from './styles.module.scss'
-import { useState } from 'react'
 
 export const LayoutHeader = () => {
   const { status } = useSession()
-  const [isMobileMenu, setisMobileMenu] = useState<boolean>(false)
+  const [isMobileMenu, setIsMobileMenu] = useState<boolean>(false)
+
+  const handleSignOut = () => {
+    signOut()
+    setIsMobileMenu(false)
+  }
 
   return (
     <header className={styles.header}>
@@ -44,11 +49,19 @@ export const LayoutHeader = () => {
             </Link>
           </li>
 
-          <li className={styles.mobile}>
-            <Link href="/login">
-              <a className="button">Acessar conta</a>
-            </Link>
-          </li>
+          {status === 'authenticated' ? (
+            <li className={styles.mobile}>
+              <button className="button" onClick={handleSignOut}>
+                Sair
+              </button>
+            </li>
+          ) : (
+            <li className={styles.mobile}>
+              <Link href="/login">
+                <a className="button">Acessar conta</a>
+              </Link>
+            </li>
+          )}
         </ul>
 
         {status === 'authenticated' ? (
@@ -65,7 +78,7 @@ export const LayoutHeader = () => {
           type="button"
           className={styles.button__toggle}
           aria-expanded={isMobileMenu}
-          onClick={() => setisMobileMenu(state => !state)}
+          onClick={() => setIsMobileMenu(state => !state)}
           aria-label="Botão para abrir/fechar o menu mobile"
         >
           <span />

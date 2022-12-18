@@ -88,18 +88,39 @@
     margin-top: 12px;
   }
 
-  ul,
-  ol {
+  > ul, > ol {
+    list-style: none;
     width: 100%;
     max-width: 780px;
-    padding-left: 40px;
 
-    li + li {
-      margin-top: 8px;
+    li {
+      display: flex;
+      align-items: flex-start;
+      column-gap: 12px;
+  
+      & + li {
+        margin-top: 12px;
+      }
+  
+      &:before {
+        content: "\2713";
+        background: var(--green4);
+    
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+    
+        color: var(--green11);
+        font-size: 1.5rem;
+      }
     }
   }
 
-  li,
+  > ul li,
   p {
     font-size: 1.125rem;
     line-height: 2.25rem;

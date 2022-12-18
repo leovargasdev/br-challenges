@@ -28,7 +28,6 @@ export const AuthorCard = (author: Author) => (
     </div>
 
     <div className={styles.author__info}>
-      <small>Autor</small>
       <h3>{author.name}</h3>
 
       <p>{author.description}</p>
@@ -38,7 +37,7 @@ export const AuthorCard = (author: Author) => (
       <ul className={styles.author__links}>
         {author.links.map(link => (
           <li key={link.type}>
-            <PrismicLink field={link.link} className="button">
+            <PrismicLink field={link.link}>
               {socials[link.type].icon}
               {socials[link.type].label}
             </PrismicLink>

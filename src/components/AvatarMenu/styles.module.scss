@@ -1,8 +1,8 @@
 .user__avatar {
   position: relative;
 
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   border-radius: 100%;
 
   overflow: hidden;
@@ -22,6 +22,11 @@
       height: auto;
     }
   }
+
+
+  @media(max-width: 768px) {
+    display: none;
+  }
 }
 
 .content {
@@ -30,10 +35,10 @@
   align-items: stretch;
   row-gap: 4px;
 
-  padding: 10px 6px;
-  border-radius: 6px;
-  background: #1a1b30;
-  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 4px;
+  background: var(--mauve2);
+  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.1);
 
   color: var(--text);
 

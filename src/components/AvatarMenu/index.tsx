@@ -31,15 +31,12 @@ export const AvatarMenu = () => {
       <DropdownMenu.Portal style={{ zIndex: 100 }}>
         <DropdownMenu.Content
           align="end"
-          sideOffset={5}
+          sideOffset={10}
           className={styles.content}
         >
           <DropdownMenu.Group>
             <DropdownMenu.Label>
               <strong>{user.name}</strong>
-            </DropdownMenu.Label>
-            <DropdownMenu.Label>
-              <strong>{user.email}</strong>
             </DropdownMenu.Label>
           </DropdownMenu.Group>
 

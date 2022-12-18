@@ -1,17 +1,17 @@
 .author {
   display: grid;
   grid-template-columns: 1fr;
-  justify-items: center;
   align-items: center;
-  text-align: center;
-  column-gap: 16px;
-  row-gap: 16px;
+  column-gap: 24px;
 
   width: 100%;
-  padding: 24px;
-  border-radius: 12px;
-  background: #191930;
-  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.1);
+  padding: 32px 24px;
+  border-radius: 8px;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background: url('/background-author-card.png'), var(--mauve2);
 
   @media (min-width: 640px) {
     text-align: left;
@@ -21,15 +21,15 @@
 }
 
 .author__image {
-  width: 140px;
-  height: 140px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   position: relative;
   overflow: hidden;
 
   @media (max-width: 640px) {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
   }
 }
 
@@ -37,13 +37,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  small {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1rem;
-    font-weight: 300;
-  }
 
   h3 {
     font-size: 1.5rem;
@@ -53,14 +46,14 @@
   p {
     font-size: 1rem;
     line-height: 1.25rem;
-    color: var(--text);
+    color: var(--mauve11);
 
-    margin: 6px 0;
+    margin: 4px 0 12px;
   }
 
   hr {
     border: 0;
-    border-bottom: 1px solid var(--text-dark);
+    border-bottom: 1px solid var(--mauve6);
   }
 }
 
@@ -73,24 +66,35 @@
   list-style: none;
   gap: 8px;
 
-  margin-top: 12px;
+  margin-top: 16px;
 
   li {
     flex-grow: 1;
-  }
+    
+    a {
+      display: flex;
+      align-items: center;
+      column-gap: 4px;
+  
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: var(--mauve3);
+      border: 1px solid var(--mauve7);
+  
+      font-weight: 500;
+      font-size: 0.875rem;
+      text-transform: capitalize;
+  
+      transition: background 0.4s;
 
-  a {
-    font-size: 14px;
-    font-weight: 400;
-    padding: 8px 16px;
-    border-radius: 4px;
-    column-gap: 4px;
+      svg {
+        flex-shrink: 0;
+        fill: var(--text-light);
+      }
+    }
 
-    text-transform: capitalize;
-
-    svg {
-      flex-shrink: 0;
-      fill: var(--text-light);
+    &:hover a {
+      background: var(--mauve4);
     }
   }
 }
