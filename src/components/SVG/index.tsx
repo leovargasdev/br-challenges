@@ -1,8 +1,10 @@
 export { Logo } from './logo'
-export { WaveFooter } from './waveFooter'
 export { IconPerson } from './person'
 export { IconCalendar } from './calendar'
 export { IconClock } from './clock'
 export { IconPlus } from './plus'
 export { IconCheck } from './check'
 export { IconClose } from './close'
+
+export { IconGitHub } from './github'
+export { IconGoogle } from './google'

@@ -3,8 +3,7 @@ import { GetServerSideProps } from 'next'
 import { signIn, getSession } from 'next-auth/react'
 
 import { SEO } from 'components/SEO'
-import { GoogleIcon } from 'components/SVG/Google'
-import { GitHubIcon } from 'components/SVG/GitHub'
+import { IconGoogle, IconGitHub } from 'components/SVG'
 
 import styles from './styles.module.scss'
 
@@ -45,7 +44,7 @@ const LoginPage = () => {
             onClick={() => signIn('google')}
             onPointerMove={onPointerMove}
           >
-            <GoogleIcon />
+            <IconGoogle />
             <span>Entrar com Google</span>
           </button>
           <button
@@ -53,7 +52,7 @@ const LoginPage = () => {
             onClick={() => signIn('github')}
             onPointerMove={onPointerMove}
           >
-            <GitHubIcon />
+            <IconGitHub />
             <span>Entrar com GitHub</span>
           </button>
         </main>
