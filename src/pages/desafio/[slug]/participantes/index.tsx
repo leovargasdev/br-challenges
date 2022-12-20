@@ -7,10 +7,10 @@ import { SEO } from 'components/SEO'
 import { Tooltip } from 'components/Tooltip'
 import { SolutionCard } from 'components/SolutionCard'
 
+import { ChallengeProvider } from 'hooks'
 import { LEVELS_TYPE } from 'utils/constants'
-import { ChallengeProvider } from 'hook/useChallenge'
-import { createClientPrismic } from 'service/prismic'
 import { formattedChallenge } from 'utils/format'
+import { createClientPrismic } from 'service/prismic'
 import type { Challenge, Like, Solution, SolutionLevel } from 'types'
 import { connectMongoose, LikeModel, SolutionModel } from 'service/mongoose'
 

@@ -1,15 +1,14 @@
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { getSession } from 'next-auth/react'
 import { GetServerSideProps, NextPage } from 'next'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, useForm } from 'react-hook-form'
-import { HiRefresh, HiPencil, HiTrash } from 'react-icons/hi'
+import { HiRefresh } from 'react-icons/hi'
 
 import { User } from 'types'
 import api from 'service/api'
+import { useToast } from 'hooks'
 import { Input } from 'components/Form'
-import { useToast } from 'contexts/Toast'
 import { zodUserSchema, UserForm } from 'utils/zod'
 import { createClientPrismic } from 'service/prismic'
 
@@ -25,7 +24,7 @@ interface PageProps {
   challenges: UserChallenge[]
 }
 
-const ProfilePage: NextPage<PageProps> = ({ user, challenges }) => {
+const ProfilePage: NextPage<PageProps> = ({ user }) => {
   const router = useRouter()
   const toast = useToast()
   const useFormMethods = useForm<UserForm>({

@@ -38,8 +38,7 @@ export const AuthorCard = (author: Author) => (
         {author.links.map(link => (
           <li key={link.type}>
             <PrismicLink field={link.link}>
-              {socials[link.type].icon}
-              {socials[link.type].label}
+              {socials[link.type].icon} {socials[link.type].label}
             </PrismicLink>
           </li>
         ))}

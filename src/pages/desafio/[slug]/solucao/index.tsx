@@ -11,15 +11,14 @@ import { Input, RadioGroup } from 'components/Form'
 
 import api from 'service/api'
 import { Challenge, Solution } from 'types'
-import { formattedChallenge, getStatusChallenge } from 'utils/format'
+import { ChallengeProvider, useToast } from 'hooks'
 import { createClientPrismic } from 'service/prismic'
-import { ChallengeProvider } from 'hook/useChallenge'
 import { zodSolutionSchema, SolutionForm } from 'utils/zod'
 import { connectMongoose, SolutionModel } from 'service/mongoose'
 import { LEVELS_OPTIONS, DEFAULT_SOLUTION } from 'utils/constants'
+import { formattedChallenge, getStatusChallenge } from 'utils/format'
 
 import styles from './styles.module.scss'
-import { useToast } from 'contexts/Toast'
 
 interface PageProps {
   solution: Solution

@@ -1,23 +1,25 @@
 import { PrismicRichText } from '@prismicio/react'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 
-import { SEO } from 'components/SEO'
-
 import { Challenge } from 'types'
+import { ChallengeProvider } from 'hooks'
 import { CACHE_PAGE } from 'utils/constants'
 import { formattedChallenge } from 'utils/format'
-import { ChallengeProvider } from 'hook/useChallenge'
 import { createClientPrismic } from 'service/prismic'
 
-import { ChallengeNavigation, ChallengeHeader } from 'components/Challenge/'
+import {
+  ChallengeNavigation,
+  ChallengeHeader,
+  AuthorCard
+} from 'components/Challenge/'
+import { SEO } from 'components/SEO'
 
 import styles from './styles.module.scss'
-import { AuthorCard } from 'components/AuthorCard'
 
 const ChallengePage: NextPage<Challenge> = challenge => (
   <ChallengeProvider challenge={challenge}>
     <SEO
-      tabName={`Desafio - ${challenge.name}`}
+      tabName={`Desafio ${challenge.name}`}
       title={`Desafio ${challenge.name} do brchallenges`}
       description={challenge.description}
       image={challenge.image.url}

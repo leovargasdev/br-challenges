@@ -2,13 +2,14 @@ import { HiHeart } from 'react-icons/hi'
 import { GoOctoface } from 'react-icons/go'
 import { FaLinkedinIn } from 'react-icons/fa'
 
+import { useChallenge } from 'hooks'
+import { LEVELS } from 'utils/constants'
 import type { Solution, SolutionLevel } from 'types'
+
 import { LikeButton } from './LikeButton'
 import { Participant } from './Participant'
-import { LEVELS } from 'utils/constants'
 
 import styles from './styles.module.scss'
-import { useChallenge } from 'hook/useChallenge'
 
 interface SolutionCardProps {
   solution: Solution

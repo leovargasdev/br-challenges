@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react'
 import { PrismicNextImage } from '@prismicio/next'
 
 import api from 'service/api'
-import { useChallenge } from 'hook/useChallenge'
+import { useChallenge } from 'hooks'
 import { ModalSolutionForm } from 'components/Modal'
 import { IconCheck, IconPerson, IconPlus } from 'components/SVG'
 

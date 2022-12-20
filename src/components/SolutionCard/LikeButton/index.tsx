@@ -1,13 +1,12 @@
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi'
 
 import api from 'service/api'
 import type { SolutionLevel } from 'types'
-import { useChallenge } from 'hook/useChallenge'
+import { useChallenge, useToast } from 'hooks'
 
 import styles from './styles.module.scss'
-import { useSession } from 'next-auth/react'
-import { useToast } from 'contexts/Toast'
 
 interface LikeButtonProps {
   solutionId: string

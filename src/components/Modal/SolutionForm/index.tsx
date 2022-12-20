@@ -5,8 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, FormProvider } from 'react-hook-form'
 
 import api from 'service/api'
-import { useToast } from 'contexts/Toast'
-import { useChallenge } from 'hook/useChallenge'
+import { useChallenge, useToast } from 'hooks'
 import { LEVELS_OPTIONS } from 'utils/constants'
 import { zodSolutionSchema, SolutionForm } from 'utils/zod'
 
