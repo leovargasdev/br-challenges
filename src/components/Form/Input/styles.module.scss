@@ -5,8 +5,9 @@
   row-gap: 6px;
 
   label {
-    font-size: 1.125rem;
-    line-height: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    color: var(--mauve11);
   }
 
   input {
@@ -15,11 +16,11 @@
     width: 100%;
     padding: 12px;
     border-radius: 6px;
-    background: transparent;
-    border: 1px solid var(--white);
+    background: var(--mauve3);
+    border: 1px solid var(--mauve3);
 
     &:focus, &:not(:placeholder-shown) {
-      border-color: var(--link);
+      border-color: var(--violet8);
     }
 
     &[aria-invalid=true] {
@@ -27,7 +28,8 @@
     }
 
     &::placeholder {
-      color: var(--text-placeholder);
+      color: var(--mauve8);
+      font-weight: 400;
     }
 
     &:disabled {

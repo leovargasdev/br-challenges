@@ -83,7 +83,7 @@ export const ModalSolutionForm = () => {
                   type="url"
                   label="Repositório"
                   name="repository_url"
-                  placeholder="Link do repositório do github"
+                  placeholder="Link do repositório (ex: github, gitlab, bitbucket, etc...)"
                   disabled={disabledInputs}
                 />
 

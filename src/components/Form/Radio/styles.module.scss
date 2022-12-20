@@ -6,12 +6,12 @@
   min-width: 150px;
   padding: 12px 16px;
   border-radius: 4px;
-  border: 1px solid var(--text-placeholder);
-  background: transparent;
+  border: 1px solid var(--mauve3);
+  background: var(--mauve3);
 
   &[aria-checked="true"] {
-    border-color: var(--link);
-    background: rgba(#7f5af0, 0.05);
+    border-color: var(--violet8);
+    background: rgba(#5842c3, 0.05); // --violet8
   }
 
   label {
@@ -30,8 +30,8 @@
       height: 15px;
       position: absolute;
       border-radius: 100%;
-      border: 1px solid rgba(#7f5af0, 0.6);
-      background-color: var(--background);
+      border: 1px solid rgba(#5842c3, 0.6); // --violet8
+      background-color: var(--mauve2);
       transition: border 0.2s;
     }
 
@@ -39,35 +39,5 @@
       border-width: 5px;
       border-color: var(--link);
     }
-  }
-}
-
-.radio__button {
-  display: flex;
-
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
-  border: 2px solid var(--text);
-  background-color: transparent;
-
-  &:focus {
-    box-shadow: 0 0 0 2px var(--link);
-  }
-}
-
-.radio__indicator {
-  display: flex;
-  margin: auto;
-  position: relative;
-  border-radius: 100%;
-  
-  &::after {
-    content: '';
-    
-    width: 10px;
-    height: 10px;
-    border-radius: 100%;
-    background-color: var(--link);
   }
 }

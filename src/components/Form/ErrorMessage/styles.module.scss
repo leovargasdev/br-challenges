@@ -1,14 +1,5 @@
 .error {
-  display: flex;
-  align-items: center;
-  column-gap: 4px;
-
   font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--red);
-
-  svg {
-    width: 0.75rem;
-    height: auto;
-  }
+  color: var(--red11);
 }

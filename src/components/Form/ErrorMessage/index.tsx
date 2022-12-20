@@ -1,5 +1,4 @@
 import { useFormContext } from 'react-hook-form'
-import { BsExclamationCircleFill } from 'react-icons/bs'
 
 import styles from './styles.module.scss'
 
@@ -20,7 +19,6 @@ export const ErrorMessage = ({ name }: ErrorMessageProps) => {
 
   return (
     <span role="alert" className={styles.error}>
-      <BsExclamationCircleFill />
       {errorText}
     </span>
   )
