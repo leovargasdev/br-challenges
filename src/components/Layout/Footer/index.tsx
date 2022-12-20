@@ -1,20 +1,20 @@
-import { WaveFooter } from 'components/SVG'
-
 import styles from './styles.module.scss'
 
 export const LayoutFooter = () => (
   <footer className={styles.footer}>
-    <WaveFooter />
+    <div>
+      <span>&#169; Brchallenges {new Date().getFullYear()}</span>
 
-    <small className={styles.footer__text}>
-      Desenvolvido por{' '}
-      <a
-        href="https://www.leonardovargas.dev/"
-        target="_blank"
-        rel="noreferrer"
-      >
-        Leonardo Vargas
-      </a>
-    </small>
+      <p>
+        Idealizado por{' '}
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://www.leonardovargas.dev/"
+        >
+          Leo Vargas
+        </a>
+      </p>
+    </div>
   </footer>
 )

@@ -94,10 +94,6 @@
     max-width: 780px;
 
     li {
-      display: flex;
-      align-items: flex-start;
-      column-gap: 12px;
-  
       & + li {
         margin-top: 12px;
       }
@@ -106,13 +102,14 @@
         content: "\2713";
         background: var(--green4);
     
-        display: flex;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
     
         width: 32px;
         height: 32px;
         border-radius: 100%;
+        margin-right: 8px;
     
         color: var(--green11);
         font-size: 1.5rem;
@@ -120,19 +117,14 @@
     }
   }
 
-  > ul li,
-  p {
+  > ul li, > ol li, p {
     font-size: 1.125rem;
     line-height: 2.25rem;
     color: var(--mauve11);
 
     a {
-      font-weight: bold;
+      font-weight: 600;
       color: var(--blue9);
-    }
-
-    strong {
-      font-weight: 700;
     }
   }
 

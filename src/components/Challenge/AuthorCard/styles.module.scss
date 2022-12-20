@@ -1,11 +1,13 @@
 .author {
+  margin-top: 32px;
+
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
   column-gap: 24px;
 
   width: 100%;
-  padding: 32px 24px;
+  padding: 16px 24px;
   border-radius: 8px;
 
   background-size: cover;
@@ -40,33 +42,33 @@
 
   h3 {
     font-size: 1.5rem;
-    line-height: 2rem;
+    line-height: 1;
   }
 
   p {
     font-size: 1rem;
     line-height: 1.25rem;
     color: var(--mauve11);
-
-    margin: 4px 0 12px;
   }
 
   hr {
+    margin: 8px 0 16px;
+
     border: 0;
     border-bottom: 1px solid var(--mauve6);
   }
 }
 
 .author__links {
-  max-width: max-content;
-  width: 100%;
+  list-style: none;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  list-style: none;
   gap: 8px;
 
-  margin-top: 16px;
+  width: 100%;
+  max-width: max-content;
 
   li {
     flex-grow: 1;
@@ -74,9 +76,10 @@
     a {
       display: flex;
       align-items: center;
+      justify-content: center;
       column-gap: 4px;
   
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 8px;
       background: var(--mauve3);
       border: 1px solid var(--mauve7);
@@ -89,7 +92,6 @@
 
       svg {
         flex-shrink: 0;
-        fill: var(--text-light);
       }
     }
 
