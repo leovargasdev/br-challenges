@@ -32,7 +32,6 @@ const ChallengePage: NextPage<Challenge> = challenge => (
         <h1>{challenge.name}</h1>
 
         <div className={styles.challenge__content}>
-          <span>;</span>
           <PrismicRichText field={challenge.content} />
 
           <h2 id="challenge-prototype">Protótipo do desafio</h2>

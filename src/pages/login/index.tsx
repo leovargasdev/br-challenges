@@ -1,6 +1,6 @@
+import chroma from 'chroma-js'
 import { GetServerSideProps } from 'next'
 import { signIn, getSession } from 'next-auth/react'
-import chroma from 'chroma-js'
 
 import { SEO } from 'components/SEO'
 import { GoogleIcon } from 'components/SVG/Google'
@@ -29,36 +29,35 @@ const LoginPage = () => {
 
   return (
     <>
-    <div className={styles.container}>
-      <SEO
-        tabName="Login"
-        title="Entrar na plataforma"
-        description="Aprimore as suas habilidades ao codificar os nossos desafios"
-      />
+      <div className={styles.container}>
+        <SEO
+          tabName="Login"
+          title="Entrar na plataforma"
+          description="Aprimore as suas habilidades ao codificar os nossos desafios"
+        />
 
-      <main className={styles.main}>
-        <h1>Aprimore as suas habilidades ao codificar os nossos desafios.</h1>
-        <p>Faça login e comece agora.</p>
+        <main className={styles.main}>
+          <h1>Aprimore as suas habilidades ao codificar os nossos desafios.</h1>
+          <p>Faça login e comece agora.</p>
 
-        <button
-          className={styles.button}
-          onClick={() => signIn('google')}
-          onPointerMove={onPointerMove}
-        >
-          <GoogleIcon />
-          <span>Entrar com Google</span>
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => signIn('github')}
-          onPointerMove={onPointerMove}
-        >
-          <GitHubIcon />
-          <span>Entrar com GitHub</span>
-        </button>
-      </main>
-
-    </div>
+          <button
+            className={styles.button}
+            onClick={() => signIn('google')}
+            onPointerMove={onPointerMove}
+          >
+            <GoogleIcon />
+            <span>Entrar com Google</span>
+          </button>
+          <button
+            className={styles.button}
+            onClick={() => signIn('github')}
+            onPointerMove={onPointerMove}
+          >
+            <GitHubIcon />
+            <span>Entrar com GitHub</span>
+          </button>
+        </main>
+      </div>
 
       <footer className={styles.footer}>
         <p>
@@ -72,7 +71,7 @@ const LoginPage = () => {
           </a>
         </p>
       </footer>
-      </>
+    </>
   )
 }
 

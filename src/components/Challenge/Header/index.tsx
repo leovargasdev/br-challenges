@@ -6,6 +6,7 @@ import { PrismicNextImage } from '@prismicio/next'
 
 import api from 'service/api'
 import { useChallenge } from 'hook/useChallenge'
+import { ModalSolutionForm } from 'components/Modal'
 import { IconCheck, IconPerson, IconPlus } from 'components/SVG'
 
 import styles from './styles.module.scss'
@@ -51,12 +52,7 @@ export const ChallengeHeader = () => {
         </div>
 
         <div className={styles.header__actions}>
-          {isParticipant && (
-            <button type="button" className="button">
-              <IconPlus />
-              Enviar solução
-            </button>
-          )}
+          {isParticipant && <ModalSolutionForm />}
 
           {isParticipant ? (
             <span className={'button '.concat(styles.button__participant)}>
