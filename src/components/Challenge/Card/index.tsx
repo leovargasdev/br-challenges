@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react'
 import { PrismicNextImage } from '@prismicio/next'
 
 import { Challenge } from 'types'
-import { SHORT_DATE } from 'utils/constants'
+import { SHORT_DATE, FULL_DATE } from 'utils/constants'
 import {
   getDaysRemaining,
   getFullDate,
@@ -51,7 +51,10 @@ export const ChallengeCard = (challenge: Challenge) => {
             <IconPerson /> {challenge.authors[0].name}
           </strong>
 
-          <time dateTime={challenge.deadline}>
+          <time
+            dateTime={challenge.deadline}
+            title={getFullDate(challenge.deadline, FULL_DATE)}
+          >
             {isClosed ? (
               <>
                 <IconCalendar />
