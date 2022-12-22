@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import * as Dialog from '@radix-ui/react-dialog'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -6,13 +6,15 @@ import { useForm, FormProvider } from 'react-hook-form'
 
 import api from 'service/api'
 import { useChallenge, useToast } from 'hooks'
-import { LEVELS_OPTIONS } from 'utils/constants'
+import { DEFAULT_SOLUTION, LEVELS_OPTIONS } from 'utils/constants'
 import { zodSolutionSchema, SolutionForm } from 'utils/zod'
 
 import { Input, RadioGroup } from 'components/Form'
 import { IconClose, IconPlus } from 'components/SVG'
 
 import styles from './styles.module.scss'
+
+type SolutionProps = keyof typeof DEFAULT_SOLUTION
 
 export const ModalSolutionForm = () => {
   const toast = useToast()
@@ -53,6 +55,19 @@ export const ModalSolutionForm = () => {
       setLoading(false)
     }
   }
+  const loadSolution = async () => {
+    const response = await api.get(`challenge/${challenge.id}/solution`)
+
+    const fields = ['repository_url', 'url', 'level', 'linkedin_url']
+
+    fields.map(field =>
+      useFormMethods.setValue(field as SolutionProps, response.data[field])
+    )
+  }
+
+  useEffect(() => {
+    loadSolution()
+  }, [])
 
   return (
     <Dialog.Root>
