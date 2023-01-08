@@ -44,8 +44,8 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
     <ChallengeProvider challenge={challenge}>
       <SEO
         tabName={`Participantes do desafio ${challenge.name}`}
-        title={`Participantes do desafio ${challenge.name}`}
-        description={`Confira a lista das soluções do desafio ${challenge.name} do brchallenges`}
+        title={`Soluções do desafio ${challenge.name}: veja como outros participantes resolvera`}
+        description={`Veja como os outros participantes resolveram o desafio ${challenge.name}. Aprenda com a experiência deles e amplie seus conhecimentos ao navegar no código fonte.`}
         image={challenge.image.url}
       />
 

@@ -18,8 +18,9 @@ interface PageProps {
 const HomePage: NextPage<PageProps> = ({ challenges }) => (
   <section className={styles.home}>
     <SEO
-      title="Desafios frontend para praticar as suas habilidades"
-      description="Navegue pela nossa lista de desafios e encontre um projeto interessante para condificar"
+      tabName="Listagem dos desafios"
+      title="Desafios Front-end: teste suas habilidades e aprenda novas tecnologias"
+      description="Melhore suas habilidades em front-end com nossos desafios práticos e aprenda novas tecnologias. Nossa plataforma é perfeita para iniciantes e profissionais experientes. Participe agora e tenha ótimos projetos em seu portfólio!"
     />
 
     {/* <h1>Navegue pelos nossos desafios</h1> */}

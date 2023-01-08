@@ -30,9 +30,9 @@ const LoginPage = () => {
     <>
       <div className={styles.container}>
         <SEO
-          tabName="Login"
-          title="Entrar na plataforma"
-          description="Aprimore as suas habilidades ao codificar os nossos desafios"
+          tabName="Acessar conta"
+          title="ntrar na plataforma de Desafios BRChallenges"
+          description="Acesse sua conta e comece a participar dos nossos desafios front-end. Teste suas habilidades, aprenda novas tecnologias e cresça em sua carreira de desenvolvimento web"
         />
 
         <main className={styles.main}>
