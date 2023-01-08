@@ -1,0 +1,15 @@
+.container {
+  width: 100%;
+  max-width: var(--width-normal);
+
+  margin-top: 48px;
+  h1 {
+    font-size: 2rem;
+    line-height: 1.6;
+
+  }
+  
+  h1:last-child {
+    margin-top: 32px;
+  }
+}

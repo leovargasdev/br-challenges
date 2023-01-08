@@ -5,6 +5,7 @@ export { IconClock } from './clock'
 export { IconPlus } from './plus'
 export { IconCheck } from './check'
 export { IconClose } from './close'
+export { IconChevronRight } from './chevron-right'
 
 export { IconGitHub } from './github'
 export { IconGoogle } from './google'
