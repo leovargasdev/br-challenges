@@ -37,7 +37,7 @@ export const ChallengeHeader = () => {
     if (data?.user && data.user.challenges.includes(id)) {
       setIsParticipant(true)
     }
-  }, [data?.user])
+  }, [data?.user, router.pathname])
 
   return (
     <header className={styles.header}>

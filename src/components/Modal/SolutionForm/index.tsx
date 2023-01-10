@@ -10,7 +10,7 @@ import { DEFAULT_SOLUTION, LEVELS_OPTIONS } from 'utils/constants'
 import { zodSolutionSchema, SolutionForm } from 'utils/zod'
 
 import { Input, RadioGroup } from 'components/Form'
-import { IconClose, IconPlus } from 'components/SVG'
+import { IconClose, IconPlus, IconPencil } from 'components/SVG'
 
 import styles from './styles.module.scss'
 
@@ -20,11 +20,16 @@ export const ModalSolutionForm = () => {
   const toast = useToast()
   const router = useRouter()
   const challenge = useChallenge()
+  const [hasSubmittedSolution, setHasSubmittedSolution] = useState(false)
 
   const useFormMethods = useForm<SolutionForm>({
     mode: 'all',
     resolver: zodResolver(zodSolutionSchema),
-    defaultValues: {}
+    defaultValues: {
+      repository_url: '',
+      url: '',
+      linkedin_url: ''
+    }
   })
 
   const [loading, setLoading] = useState<boolean>(false)
@@ -60,9 +65,12 @@ export const ModalSolutionForm = () => {
 
     const fields = ['repository_url', 'url', 'level', 'linkedin_url']
 
-    fields.map(field =>
-      useFormMethods.setValue(field as SolutionProps, response.data[field])
-    )
+    if (response.data) {
+      setHasSubmittedSolution(true)
+      fields.map(field =>
+        useFormMethods.setValue(field as SolutionProps, response.data[field])
+      )
+    }
   }
 
   useEffect(() => {
@@ -72,8 +80,15 @@ export const ModalSolutionForm = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger className="button">
-        <IconPlus />
-        Enviar solução
+        {hasSubmittedSolution ? (
+          <>
+            <IconPencil /> Editar solução
+          </>
+        ) : (
+          <>
+            <IconPlus /> Enviar solução
+          </>
+        )}
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className={styles.overlay} />
