@@ -79,14 +79,16 @@ export const ModalSolutionForm = () => {
 
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="button">
+      <Dialog.Trigger className={'button '.concat(styles.button__trigger)}>
         {hasSubmittedSolution ? (
           <>
-            <IconPencil /> Editar solução
+            <IconPencil />
+            <span className={styles.button__text}>Editar solução</span>
           </>
         ) : (
           <>
-            <IconPlus /> Enviar solução
+            <IconPlus />
+            <span className={styles.button__text}>Enviar solução</span>
           </>
         )}
       </Dialog.Trigger>

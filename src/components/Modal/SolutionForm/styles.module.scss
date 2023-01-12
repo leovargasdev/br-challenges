@@ -68,3 +68,15 @@
     padding: 12px 16px;
   }
 }
+
+.button__trigger {
+  margin-right: auto;
+}
+
+.button__text {
+  display: block;
+
+  @media(max-width: 600px) {
+    display: none;
+  }
+}

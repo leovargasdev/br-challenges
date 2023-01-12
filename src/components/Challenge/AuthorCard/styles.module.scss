@@ -2,8 +2,9 @@
   margin-top: 32px;
 
   display: grid;
-  grid-template-columns: 1fr;
   align-items: center;
+  justify-items: start;
+  grid-template-columns: max-content 1fr;
   column-gap: 24px;
 
   width: 100%;
@@ -15,10 +16,13 @@
   background-repeat: no-repeat;
   background: url('/background-author-card.png'), var(--mauve2);
 
-  @media (min-width: 640px) {
-    text-align: left;
-    justify-items: start;
-    grid-template-columns: max-content 1fr;
+
+  @media (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
   }
 }
 

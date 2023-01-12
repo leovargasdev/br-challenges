@@ -30,13 +30,13 @@ const ChallengePage: NextPage<Challenge> = challenge => (
     <div className={styles.content}>
       <ChallengeNavigation />
 
-      <div className={styles.challenge} id="challenge-description">
+      <div className={styles.challenge}>
         <h1>{challenge.name}</h1>
 
         <div className={styles.challenge__content}>
           <PrismicRichText field={challenge.content} />
 
-          <h2 id="challenge-prototype">Protótipo do desafio</h2>
+          <h2>Protótipo do desafio</h2>
 
           <iframe
             allowFullScreen
