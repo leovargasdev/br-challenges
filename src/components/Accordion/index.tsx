@@ -4,18 +4,35 @@ import { IconChevronRight } from 'components/SVG'
 
 import styles from './styles.module.scss'
 
-export const Accordion = () => (
-  <AccordionPrimitive.Root type="single" collapsible>
-    {[1, 2, 3, 4, 5, 6].map(item => (
-      <AccordionPrimitive.Item value={`item-${item}`} key={item}>
-        <AccordionPrimitive.Trigger className={styles.trigger}>
-          Is it accessible?
+interface Question {
+  id: string
+  name: string
+  description: string[]
+}
+interface AccordionProps {
+  questions: Question[]
+}
+
+export const Accordion = ({ questions }: AccordionProps) => (
+  <AccordionPrimitive.Root
+    type="single"
+    collapsible
+    className={styles.accordion}
+  >
+    {questions.map(question => (
+      <AccordionPrimitive.Item
+        value={question.id}
+        key={question.id}
+        className={styles.accordion__item}
+      >
+        <AccordionPrimitive.Trigger className={styles.accordion__trigger}>
+          {question.name}
           <IconChevronRight />
         </AccordionPrimitive.Trigger>
-        <AccordionPrimitive.Content className={styles.content}>
-          <div className="AccordionPrimitiveContentText">
-            Yes. It adheres to the WAI-ARIA design pattern.
-          </div>
+        <AccordionPrimitive.Content className={styles.accordion__content}>
+          {question.description.map((text, index) => (
+            <p key={`${question.id}-description-${index}`}>{text}</p>
+          ))}
         </AccordionPrimitive.Content>
       </AccordionPrimitive.Item>
     ))}

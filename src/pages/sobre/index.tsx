@@ -3,6 +3,7 @@ import { NextPage } from 'next'
 import { SEO } from 'components/SEO'
 import { Accordion } from 'components/Accordion'
 
+import questions from 'utils/data/quetions.json'
 import styles from './styles.module.scss'
 
 const AboutPage: NextPage = () => (
@@ -32,7 +33,7 @@ const AboutPage: NextPage = () => (
 
     <h2>Perguntas frequentes</h2>
 
-    {/* <Accordion /> */}
+    <Accordion questions={questions} />
   </section>
 )
 
