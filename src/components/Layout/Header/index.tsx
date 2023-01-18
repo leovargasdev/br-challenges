@@ -43,7 +43,7 @@ export const LayoutHeader = () => {
               <a>Como participar</a>
             </Link>
           </li>
-          <li aria-disabled="true">
+          <li>
             <Link href="/sobre">
               <a>Sobre</a>
             </Link>

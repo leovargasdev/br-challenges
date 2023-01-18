@@ -1,29 +1,38 @@
-import { Accordion } from 'components/Accordion'
 import { NextPage } from 'next'
+
+import { SEO } from 'components/SEO'
+import { Accordion } from 'components/Accordion'
 
 import styles from './styles.module.scss'
 
 const AboutPage: NextPage = () => (
   <section className={styles.container}>
+    <SEO
+      tabName="Sobre"
+      title="Descubra mais sobre o brchallenges"
+      description=" O BrChallenges é uma plataforma para desafios de desenvolvimento front-end, onde os usuários podem treinar os seus conhecimentos em programação web, ao melhorar as suas habilidades tecnologias como HTML, CSS, JavaScript e etc."
+    />
+
     <h1>Sobre</h1>
+
     <div className={styles.description}>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quod
-        nobis totam animi quis impedit, similique, rem eius ex blanditiis vero
-        maxime necessitatibus aspernatur dolore reiciendis assumenda odit
-        repudiandae minima.
+        O BrChallenges é uma plataforma para desafios de desenvolvimento
+        front-end, onde os usuários podem treinar os seus conhecimentos em
+        programação web, ao melhorar as suas habilidades tecnologias como{' '}
+        <i>HTML</i>,<i>CSS</i>, <i>JavaScript</i> e etc.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quod
-        nobis totam animi quis impedit, similique, rem eius ex blanditiis vero
-        maxime necessitatibus aspernatur dolore reiciendis assumenda odit
-        repudiandae minima.
+        Cada desafio é classificado em três níveis de dificuldade: <b>fácil</b>,{' '}
+        <b>médio</b> e <b>difícil</b>. Isso permite que os usuários escolham
+        desafios que sejam adequados para o seu nível de conhecimento, a fim de
+        deixar a participação mais democrática.
       </p>
     </div>
 
-    <h1>Perguntas frequentes</h1>
+    <h2>Perguntas frequentes</h2>
 
-    <Accordion />
+    {/* <Accordion /> */}
   </section>
 )
 
