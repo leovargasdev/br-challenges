@@ -1,18 +1,17 @@
 import { useState } from 'react'
 import { GoInfo } from 'react-icons/go'
-import { getSession } from 'next-auth/react'
-import { GetServerSideProps, NextPage } from 'next'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 
 import { SEO } from 'components/SEO'
 import { Tooltip } from 'components/Tooltip'
 import { SolutionCard } from 'components/SolutionCard'
 
+import api from 'service/api'
 import { ChallengeProvider } from 'hooks'
-import { LEVELS_TYPE } from 'utils/constants'
+import { CACHE_PAGE, LEVELS_TYPE } from 'utils/constants'
 import { formattedChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
-import type { Challenge, Like, Solution, SolutionLevel } from 'types'
-import { connectMongoose, LikeModel, SolutionModel } from 'service/mongoose'
+import type { Challenge, Solution, SolutionLevel } from 'types'
 
 import styles from './styles.module.scss'
 
@@ -83,126 +82,38 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
               })}
             </div>
           </section>
-
-          {/* {!!solutions.published.length && (
-            <section>
-              <h2>
-                Outras soluções
-                <Tooltip icon={<GoInfo />}>
-                  Lista das demais soluções, são envios que foram entregues fora
-                  da data solicitada ou foram desclassificados por algum motivo.
-                </Tooltip>
-              </h2>
-
-              <ul className={styles.solutions}>
-                {solutions.published.map(solution => (
-                  <SolutionCard
-                    key={solution._id}
-                    solution={solution}
-                    onLike={handleLikeSolution}
-                    isLike={solutionsLike[solution.level] === solution._id}
-                  />
-                ))}
-              </ul>
-            </section>
-          )} */}
         </div>
-
-        {/* <div>
-          <h2>
-            Apoiadores
-            <Tooltip icon={<GoInfo />}>
-              Lista das pessoas que contribuiram com algum valor para a
-              premiação do desafio.
-            </Tooltip>
-          </h2>
-
-          <ul className={styles.contributors}>
-            {contributorsMock.map(contributor => (
-              <li key={contributor}>{contributor}</li>
-            ))}
-          </ul>
-        </div> */}
       </div>
     </ChallengeProvider>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
+export const getStaticPaths: GetStaticPaths = async () => {
+  return { fallback: 'blocking', paths: [] }
+}
+
+export const getStaticProps: GetStaticProps = async ({
+  previewData,
   params
 }) => {
-  const session = await getSession({ req })
-  const isAdmin = session?.user.role === 'admin'
-
   const challenge_id = String(params?.slug)
 
-  const prismic = createClientPrismic({ req })
+  const prismic = createClientPrismic({ previewData })
 
   const prismicChallenge = await prismic.getByUID<any>(
     'challenges',
     challenge_id
   )
+
   const challenge = formattedChallenge(prismicChallenge)
 
-  if (challenge.status_prismic === 'active' && !isAdmin) {
-    return {
-      props: {},
-      redirect: {
-        destination: '/desafio/'.concat(challenge_id),
-        permanent: true
-      }
-    }
-  }
-
-  await connectMongoose()
-
-  const solutions: Solution[] = await SolutionModel.aggregate([
-    {
-      $match: {
-        status: { $ne: 'unpublish' },
-        challenge_id
-      }
-    },
-    {
-      $lookup: {
-        from: 'users',
-        localField: 'user_id',
-        foreignField: '_id',
-        as: 'user',
-        pipeline: [{ $project: { createdAt: 0, updatedAt: 0, _id: 0 } }]
-      }
-    },
-    { $unwind: '$user' },
-    { $project: { user_id: 0, createdAt: 0, updatedAt: 0 } },
-    { $sort: { likes: -1 } }
-  ])
-
-  const userLikes = {
-    easy: '',
-    medium: '',
-    hard: ''
-  }
-
-  if (session) {
-    const isUserLikes: Like[] = await LikeModel.find({
-      user_id: session.user._id,
-      challenge_id
-    })
-
-    if (isUserLikes) {
-      isUserLikes.forEach(like => {
-        userLikes[like.level] = like.solution_id.toString()
-      })
-    }
-  }
+  const response = await api.get(
+    `${process.env.VERCEL_URL}/api/challenge/${challenge_id}/participants`
+  )
 
   return {
-    props: {
-      challenge,
-      userLikes,
-      solutions: solutions.map(s => ({ ...s, _id: String(s._id) }))
-    }
+    props: { challenge, ...response.data },
+    revalidate: CACHE_PAGE
   }
 }
 
