@@ -110,7 +110,7 @@ export const getStaticProps: GetStaticProps = async ({
   const challenge = formattedChallenge(prismicChallenge)
 
   const response = await api.get(
-    `${process.env.VERCEL_URL}/api/challenge/${challenge_id}/participants`
+    `${process.env.NEXTAUTH_URL}/api/challenge/${challenge_id}/participants`
   )
 
   return {
