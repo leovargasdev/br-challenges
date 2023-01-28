@@ -8,13 +8,13 @@ import { SolutionCard } from 'components/SolutionCard'
 
 import api from 'service/api'
 import { ChallengeProvider } from 'hooks'
-import { CACHE_PAGE, LEVELS_TYPE } from 'utils/constants'
 import { formattedChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
+import challengesSlug from 'utils/data/challenges.json'
+import { CACHE_PAGE, LEVELS_TYPE } from 'utils/constants'
 import type { Challenge, Solution, SolutionLevel } from 'types'
 
 import styles from './styles.module.scss'
-
 interface PageProps {
   userLikes: {
     easy: string
@@ -89,6 +89,8 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = challengesSlug.map(slug => `/desafio/${slug}/participantes`)
+
   return { fallback: 'blocking', paths: [] }
 }
 

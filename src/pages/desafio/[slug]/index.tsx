@@ -6,6 +6,7 @@ import { ChallengeProvider } from 'hooks'
 import { CACHE_PAGE } from 'utils/constants'
 import { formattedChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
+import challengesSlug from 'utils/data/challenges.json'
 
 import {
   ChallengeNavigation,
@@ -51,9 +52,9 @@ const ChallengePage: NextPage<Challenge> = challenge => (
 )
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // const paths = []
+  const paths = challengesSlug.map(slug => `/desafio/${slug}`)
 
-  return { fallback: 'blocking', paths: [] }
+  return { fallback: 'blocking', paths }
 }
 
 export const getStaticProps: GetStaticProps = async props => {
