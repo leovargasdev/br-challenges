@@ -70,7 +70,7 @@ export const ChallengeHeader = () => {
           )}
 
           {isVisibleParticipants && (
-            <Link href="/">
+            <Link href={`/desafio/${id}/participantes`}>
               <a className="button secondary">
                 <IconPerson />
                 Ver participantes
