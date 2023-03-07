@@ -1,7 +1,8 @@
 import type { NextApiResponse, NextApiRequest } from 'next'
 
-import type { Like, Solution } from 'types'
+import { Like, Solution } from 'types'
 import { connectMongoose, LikeModel, SolutionModel } from 'service/mongoose'
+import { getSession } from 'next-auth/react'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET') {
@@ -11,17 +12,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const { user_id } = req.body
+    const session = await getSession({ req })
+    const user_id = session?.user._id
     const challenge_id = req.query.id as string
+
     await connectMongoose()
 
     const solutions: Solution[] = await SolutionModel.aggregate([
-      {
-        $match: {
-          status: { $ne: 'unpublish' },
-          challenge_id
-        }
-      },
+      { $match: { status: { $ne: 'unpublish' }, challenge_id } },
       {
         $lookup: {
           from: 'users',
@@ -36,11 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       { $sort: { likes: -1 } }
     ])
 
-    const userLikes = {
-      easy: '',
-      medium: '',
-      hard: ''
-    }
+    const userLikes = { easy: '', medium: '', hard: '' }
 
     if (user_id) {
       const isUserLikes: Like[] = await LikeModel.find({

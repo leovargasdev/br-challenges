@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { GoInfo } from 'react-icons/go'
-import { getSession } from 'next-auth/react'
-import { GetServerSideProps, NextPage } from 'next'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 
 import { SEO } from 'components/SEO'
 import { Tooltip } from 'components/Tooltip'
@@ -9,13 +8,13 @@ import { SolutionCard } from 'components/SolutionCard'
 
 import api from 'service/api'
 import { ChallengeProvider } from 'hooks'
-import { LEVELS_TYPE } from 'utils/constants'
 import { formattedChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
+import challengesSlug from 'utils/data/challenges.json'
+import { CACHE_PAGE, LEVELS_TYPE } from 'utils/constants'
 import type { Challenge, Solution, SolutionLevel } from 'types'
 
 import styles from './styles.module.scss'
-
 interface PageProps {
   userLikes: {
     easy: string
@@ -92,22 +91,19 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  res,
-  req,
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = challengesSlug.map(slug => `/desafio/${slug}/participantes`)
+
+  return { fallback: 'blocking', paths }
+}
+
+export const getStaticProps: GetStaticProps = async ({
+  previewData,
   params
 }) => {
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=60, stale-while-revalidate=120'
-  )
-
-  const session = await getSession({ req })
-  const isAdmin = session?.user.role === 'admin'
-
   const challenge_id = String(params?.slug)
 
-  const prismic = createClientPrismic({ req })
+  const prismic = createClientPrismic({ previewData })
 
   const prismicChallenge = await prismic.getByUID<any>(
     'challenges',
@@ -116,30 +112,17 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const challenge = formattedChallenge(prismicChallenge)
 
-  if (challenge.status_prismic === 'active' && !isAdmin) {
-    return {
-      props: {},
-      redirect: {
-        destination: '/desafio/'.concat(challenge_id),
-        permanent: true
-      }
-    }
-  }
-
-  const user_id = session?.user._id
-  const response = await api.get(`challenge/${challenge_id}/participants`, {
-    params: { user_id }
-  })
-
-  const { userLikes, solutions } = response.data
+  const response = await api.get(
+    `${process.env.NEXTAUTH_URL}/api/challenge/${challenge_id}/participants`
+  )
 
   return {
     props: {
       challenge,
-      userLikes,
-      solutions,
-      checktime: new Date().toISOString()
-    }
+      ...response.data,
+      checktime: new Date().toString()
+    },
+    revalidate: CACHE_PAGE
   }
 }
 
