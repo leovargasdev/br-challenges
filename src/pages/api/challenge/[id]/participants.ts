@@ -1,8 +1,8 @@
+import { getSession } from 'next-auth/react'
 import type { NextApiResponse, NextApiRequest } from 'next'
 
-import { Like, Solution } from 'types'
+import type { Like, Solution } from 'types'
 import { connectMongoose, LikeModel, SolutionModel } from 'service/mongoose'
-import { getSession } from 'next-auth/react'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET') {
@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const session = await getSession({ req })
     const user_id = session?.user._id
-    const challenge_id = req.query.id as string
+    const challenge_id = req.query.id
 
     await connectMongoose()
 
@@ -51,7 +51,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json({
       userLikes,
-      solutions: solutions.map(s => ({ ...s, _id: String(s._id) }))
+      solutions: solutions.map(solution => ({
+        ...solution,
+        _id: String(solution._id)
+      }))
     })
   } catch (error) {
     console.log(error)

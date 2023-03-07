@@ -15,13 +15,13 @@ import { CACHE_PAGE, LEVELS_TYPE } from 'utils/constants'
 import type { Challenge, Solution, SolutionLevel } from 'types'
 
 import styles from './styles.module.scss'
+
 interface PageProps {
   userLikes: {
     easy: string
     medium: string
     hard: string
   }
-  checktime: string
   challenge: Challenge
   solutions: Solution[]
 }
@@ -29,10 +29,8 @@ interface PageProps {
 const ChallengeParticipantsPage: NextPage<PageProps> = ({
   challenge,
   solutions,
-  userLikes,
-  checktime
+  userLikes
 }) => {
-  console.log(checktime)
   const [solutionsLike, setSolutionsLike] = useState(userLikes)
 
   const handleLikeSolution = (
@@ -119,8 +117,7 @@ export const getStaticProps: GetStaticProps = async ({
   return {
     props: {
       challenge,
-      ...response.data,
-      checktime: new Date().toString()
+      ...response.data
     },
     revalidate: CACHE_PAGE
   }
