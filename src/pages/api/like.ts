@@ -28,8 +28,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     )
 
     if (!isLike) {
+      // Add like do usuário desse desafio e level
       await LikeModel.create({ user_id, challenge_id, solution_id, level })
 
+      // Add um novo like a solução
       await SolutionModel.updateOne(
         { _id: solution_id },
         { $inc: { likes: 1 } }
@@ -38,8 +40,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const newLike = solution_id
       const oldLike = isLike.solution_id.toString()
 
-      if (oldLike !== newLike) {
-        await SolutionModel.updateOne({ _id: oldLike }, { $inc: { likes: -1 } })
+      // Remove like da solução
+      await SolutionModel.updateOne({ _id: oldLike }, { $inc: { likes: -1 } })
+
+      // Limpa o like do usuário desse desafio e level
+      if (newLike === oldLike) {
+        await LikeModel.remove(isLike._id)
+      }
+
+      // Add um novo like a solução
+      if (newLike !== oldLike) {
         await SolutionModel.updateOne({ _id: newLike }, { $inc: { likes: 1 } })
       }
     }

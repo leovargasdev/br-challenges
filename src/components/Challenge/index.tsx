@@ -1,4 +1,5 @@
 export { AuthorCard } from './AuthorCard'
 export { ChallengeCard } from './Card'
 export { ChallengeHeader } from './Header'
+export { ChallengeHeaderSimple } from './HeaderSimple'
 export { ChallengeNavigation } from './Navigation'

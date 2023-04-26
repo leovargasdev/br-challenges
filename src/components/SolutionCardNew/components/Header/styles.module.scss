@@ -1,0 +1,33 @@
+.solution__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button, .likes {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: var(--mauve3);
+
+    svg {
+      margin-top: 3px;
+    }
+  }
+}
+
+.user__image {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.likes {
+}

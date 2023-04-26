@@ -1,0 +1,29 @@
+
+.solution {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  row-gap: 16px;
+
+  padding: 20px;
+  border-radius: 8px;
+  background: var(--mauve2);
+}
+
+.user__info {
+  margin-bottom: 16px;
+
+  strong {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--mauve12);
+  }
+
+  p {
+    margin-top: 4px;
+
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--mauve11);
+  }
+} 
