@@ -2,19 +2,20 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 
 import { SEO } from 'components/SEO'
 
+import { useState } from 'react'
+
 import api from 'service/api'
 import { ChallengeProvider } from 'hooks'
+import { CACHE_PAGE, LEVELS_OPTIONS } from 'utils/constants'
 import { formattedChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
-import { CACHE_PAGE } from 'utils/constants'
 import type { Challenge, Solution, SolutionLevel } from 'types'
 
-import styles from './styles.module.scss'
-import { ChallengeHeaderSimple } from 'components/Challenge'
-import Image from 'next/image'
-import { IconGitHub, IconHeart, IconLinkedin } from 'components/SVG'
+import { Filter } from 'components/Form'
 import { SolutionCard } from 'components/SolutionCardNew'
-import { useState } from 'react'
+import { ChallengeHeaderSimple } from 'components/Challenge'
+
+import styles from './styles.module.scss'
 
 interface PageProps {
   userLikes: {
@@ -40,7 +41,17 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
     setSolutionsLike(state => ({ ...state, [level]: solutionId }))
   }
 
-  console.log(solutionsLike)
+  const [filter, setFilter] = useState<string[]>([])
+
+  const handleFilter = (value: string) => {
+    setFilter(state => {
+      if (state.includes(value)) {
+        return state.filter(s => s !== value)
+      }
+
+      return [...state, value]
+    })
+  }
 
   return (
     <ChallengeProvider challenge={challenge}>
@@ -54,17 +65,29 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
       <ChallengeHeaderSimple />
 
       <section className={styles.container}>
-        <h1>Participantes do desafio</h1>
+        <header className={styles.header}>
+          <h1>Participantes do desafio</h1>
+
+          <Filter
+            selecteds={filter}
+            options={LEVELS_OPTIONS}
+            label="Filtrar por dificuldade"
+            onFilter={handleFilter}
+          />
+        </header>
 
         <ul className={styles.solutions}>
-          {solutions.map(solution => (
-            <SolutionCard
-              key={solution._id}
-              solution={solution}
-              onLike={handleLikeSolution}
-              isLike={solutionsLike[solution.level] === solution._id}
-            />
-          ))}
+          {solutions.map(
+            solution =>
+              (filter.length === 0 || filter.includes(solution.level)) && (
+                <SolutionCard
+                  key={solution._id}
+                  solution={solution}
+                  onLike={handleLikeSolution}
+                  isLike={solutionsLike[solution.level] === solution._id}
+                />
+              )
+          )}
         </ul>
       </section>
     </ChallengeProvider>
