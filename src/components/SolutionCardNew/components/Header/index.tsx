@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import api from 'service/api'
 import { useChallenge, useToast } from 'hooks'
 import type { Solution, SolutionLevel } from 'types'
+import { LEVELS } from 'utils/constants'
 
 import styles from './styles.module.scss'
 
@@ -52,8 +53,10 @@ export const SolutionHeart = ({
   return (
     <header className={styles.solution__header}>
       {solution.user?.image && (
-        <div className={styles.user__image}>
-          <Image src={solution.user.image} layout="fill" objectFit="cover" />
+        <div className={styles.user__image} data-type={solution.level}>
+          <picture>
+            <Image src={solution.user.image} layout="fill" objectFit="cover" />
+          </picture>
         </div>
       )}
 

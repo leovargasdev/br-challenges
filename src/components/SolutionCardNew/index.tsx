@@ -3,6 +3,7 @@ import { SolutionFooter } from './components/Footer'
 import type { Solution, SolutionLevel } from 'types'
 
 import styles from './styles.module.scss'
+import { LEVELS } from 'utils/constants'
 
 interface SolutionCardProps {
   solution: Solution
@@ -17,13 +18,15 @@ export const SolutionCard = ({
 }: SolutionCardProps) => {
   return (
     <li key={solution._id} className={styles.solution}>
+      <span className={styles.level} data-type={solution.level}>
+        {LEVELS[solution.level]}
+      </span>
+
       <SolutionHeart {...solution} isLike={isLike} onLike={onLike} />
 
       <div className={styles.user__info}>
         <strong>{solution.user?.name}</strong>
         <p>{solution.user?.bio || '-'}</p>
-        <p>{solution._id}</p>
-        <p>{solution.level}</p>
       </div>
 
       <SolutionFooter {...solution} />

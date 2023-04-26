@@ -11,7 +11,7 @@
     font-size: 0.875rem;
     font-weight: 500;
 
-    padding: 12px 18px;
+    padding: 10px 18px;
     border-radius: 8px;
     background: var(--mauve3);
 
@@ -22,12 +22,29 @@
 }
 
 .user__image {
-  position: relative;
-  width: 72px;
-  height: 72px;
-  border-radius: 100%;
-  overflow: hidden;
-}
+  display: flex;
 
-.likes {
+  padding: 3px;
+  border-radius: 100%;
+  border: 1px solid transparent;
+
+  &[data-type="easy"] {
+    border-color: var(--green);
+  }
+
+  &[data-type="medium"] {
+    border-color: #1194e2;
+  }
+
+  &[data-type="hard"] {
+    border-color: var(--red);
+  }
+
+  picture {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 100%;
+    overflow: hidden;
+  }
 }
