@@ -52,6 +52,10 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
     })
   }
 
+  const solutionsFiltered = solutions.filter(
+    solution => filter.length === 0 || filter.includes(solution.level)
+  )
+
   return (
     <ChallengeProvider challenge={challenge}>
       <SEO
@@ -76,17 +80,14 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
         </div>
 
         <ul className={styles.solutions}>
-          {solutions.map(
-            solution =>
-              (filter.length === 0 || filter.includes(solution.level)) && (
-                <SolutionCard
-                  key={solution._id}
-                  solution={solution}
-                  onLike={handleLikeSolution}
-                  isLike={solutionsLike[solution.level] === solution._id}
-                />
-              )
-          )}
+          {solutionsFiltered.map(solution => (
+            <SolutionCard
+              key={solution._id}
+              solution={solution}
+              onLike={handleLikeSolution}
+              isLike={solutionsLike[solution.level] === solution._id}
+            />
+          ))}
         </ul>
       </section>
     </ChallengeProvider>

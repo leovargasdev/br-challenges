@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./.github/logo.png" />
+  <img src="./.github/logo.png" width="400px" />
 </p>
 
 <p align="center">
@@ -22,27 +22,46 @@
 
 ## 💻 Projeto
 
-Plataforma de desafios frontend, quadro do notion com as tarefas [AQUI](https://leovargas.notion.site/741c30d90cc942f7aeff6f0af1699e7e?v=d81f9faa01b843929c01872ab2be6aee)
+O [BrChallenges](https://www.brchallenges.com/) é uma plataforma para desafios de desenvolvimento _frontend_, onde os usuários podem treinar os seus conhecimentos em programação web, ao melhorar as suas habilidades tecnologias como _HTML_, _CSS_, _JavaScript_ e etc.
 
--  [Next.js](https://nextjs.org/)
+Cada desafio é classificado em três níveis de dificuldade: **fácil**, **médio** e **difícil**. Isso permite que os usuários escolham desafios que sejam adequados para o seu nível de conhecimento, a fim de deixar a participação mais democrática.
+
+## 🚀 Tecnologias
+
+-  [NextJS](https://nextjs.org/)
 -  [Sass](https://sass-lang.com/)
 -  [TypeScript](https://www.typescriptlang.org/)
 -  [Mongoose](https://mongoosejs.com/)
 -  [Prismic](https://prismic.io/)
 -  [Next Auth](https://next-auth.js.org/)
+-  [Radix UI](https://www.radix-ui.com/)
 
 Também foi adicionado as ferramentas [**ESLint**](https://eslint.org/) e [**Prettier**](https://prettier.io/) para aumentar a produtividade e auxiliar a manter um padrão de código.
 
-## 📥 Instalação e execução
+## 📥 Rodando localmente
 
-Faça um clone desse repositório e acesse o diretório.
+Clone o projeto
 
 ```bash
-# Instalando as dependências
-$ yarn
+  git clone https://github.com/leovargasdev/br-challenges
+```
 
-# Executanto aplicação
-$ yarn next
+Entre no diretório do projeto
+
+```bash
+  cd my-project
+```
+
+Instale as dependências
+
+```bash
+  yarn install
+```
+
+Inicie o servidor
+
+```bash
+  yarn next
 ```
 
 **PS: Configurar as variáveis ambientes do arquivo `env.example`.**

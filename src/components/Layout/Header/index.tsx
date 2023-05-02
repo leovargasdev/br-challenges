@@ -38,11 +38,11 @@ export const LayoutHeader = () => {
               <a>Página inicial</a>
             </Link>
           </li>
-          <li aria-disabled="true">
+          {/* <li aria-disabled="true">
             <Link href="/">
               <a>Como participar</a>
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link href="/sobre">
               <a>Sobre</a>

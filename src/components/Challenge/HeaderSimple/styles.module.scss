@@ -21,7 +21,7 @@
 
   &:after {
     content: '';
-    background: linear-gradient(347deg, rgba(10, 12, 16, 0.5) 10%, rgba(10, 12, 16, 0.75) 50%, rgba(10, 12, 16, 0.5) 90%);
+    background: linear-gradient(347deg, rgba(10, 12, 16, 0.5) 10%, rgba(10, 12, 16, 0.65) 50%, rgba(10, 12, 16, 0.5) 90%);
     width: 100%;
     height: 100%;
     
@@ -49,25 +49,26 @@
   align-items: center;
 
   span {
-    font-size: 0.875rem;
     font-weight: 500;
+    font-size: 0.875rem;
 
-    padding: 5px 12px;
+    padding: 4px 14px;
     border-radius: 6px;
     background: var(--link);
 
-    margin-bottom: -12px;
+    margin-bottom: -10px;
   }
 
   h1 {
     font-size: 64px;
     font-weight: 700;
+    color: var(--mauve12);
   }
 
   p {
     display: flex;
     align-items: center;
-    column-gap: 4px;
+    column-gap: 6px;
 
     font-size: 1.125rem;
 

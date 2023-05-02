@@ -1,12 +1,12 @@
-import { PrismicNextImage } from '@prismicio/next'
-import { IconPerson } from 'components/SVG'
-
+import Link from 'next/link'
 import { useChallenge } from 'hooks'
+import { IconPerson } from 'components/SVG'
+import { PrismicNextImage } from '@prismicio/next'
 
 import styles from './styles.module.scss'
 
 export const ChallengeHeaderSimple = () => {
-  const { image, name, authors } = useChallenge()
+  const { image, name, authors, id } = useChallenge()
 
   return (
     <header className={styles.header}>
@@ -20,7 +20,12 @@ export const ChallengeHeaderSimple = () => {
 
         <div className={styles.header__info}>
           <span>desafio</span>
-          <h1>{name}</h1>
+          <Link href={`/desafio/${id}`}>
+            <a aria-label={`Link para a página do desafio ${name}`}>
+              <h1>{name}</h1>
+            </a>
+          </Link>
+
           <p title="Autor do layout do desafio">
             <IconPerson /> {authors[0].name}
           </p>
