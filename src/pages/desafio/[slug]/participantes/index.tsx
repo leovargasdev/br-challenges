@@ -1,18 +1,18 @@
 import { useState } from 'react'
-import { GoInfo } from 'react-icons/go'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-
-import { SEO } from 'components/SEO'
-import { Tooltip } from 'components/Tooltip'
-import { SolutionCard } from 'components/SolutionCard'
 
 import api from 'service/api'
 import { ChallengeProvider } from 'hooks'
 import { formattedChallenge } from 'utils/format'
 import { createClientPrismic } from 'service/prismic'
 import challengesSlug from 'utils/data/challenges.json'
-import { CACHE_PAGE, LEVELS_TYPE } from 'utils/constants'
+import { CACHE_PAGE, LEVELS_OPTIONS } from 'utils/constants'
 import type { Challenge, Solution, SolutionLevel } from 'types'
+
+import { SEO } from 'components/SEO'
+import { Filter } from 'components/Form'
+import { SolutionCard } from 'components/SolutionCard'
+import { ChallengeHeaderSimple } from 'components/Challenge'
 
 import styles from './styles.module.scss'
 
@@ -40,6 +40,18 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
     setSolutionsLike(state => ({ ...state, [level]: solutionId }))
   }
 
+  const [filter, setFilter] = useState<string[]>([])
+
+  const handleFilter = (value: string) => {
+    setFilter(state => {
+      if (state.includes(value)) {
+        return state.filter(s => s !== value)
+      }
+
+      return [...state, value]
+    })
+  }
+
   return (
     <ChallengeProvider challenge={challenge}>
       <SEO
@@ -49,49 +61,40 @@ const ChallengeParticipantsPage: NextPage<PageProps> = ({
         image={challenge.image.url}
       />
 
-      <div className={styles.container}>
-        <div className={styles.listSolutions}>
-          <section>
-            <h2>
-              Soluções em destaque
-              <Tooltip icon={<GoInfo />}>
-                Soluções que estão aptas a participar da premiação do desafio,
-                por terem entregue até a data solicitada e atendido os critérios
-                de aceite. No período de votação do desafio, as soluções dessa
-                lista podem receber likes dos usuários da plataforma.
-              </Tooltip>
-            </h2>
+      <ChallengeHeaderSimple />
 
-            <div className={styles.levels}>
-              {LEVELS_TYPE.map(level => {
-                const solutionsLevel = solutions.filter(s => s.level === level)
+      <section className={styles.container}>
+        <div className={styles.header}>
+          <h1>Participantes do desafio</h1>
 
-                if (solutionsLevel.length === 0) return <></>
-
-                return (
-                  <ul className={styles.solutions} key={level}>
-                    {solutionsLevel.map(solution => (
-                      <SolutionCard
-                        key={solution._id}
-                        solution={solution}
-                        onLike={handleLikeSolution}
-                        isLike={solutionsLike[solution.level] === solution._id}
-                      />
-                    ))}
-                  </ul>
-                )
-              })}
-            </div>
-          </section>
+          <Filter
+            selecteds={filter}
+            options={LEVELS_OPTIONS}
+            label="Filtrar por dificuldade"
+            onFilter={handleFilter}
+          />
         </div>
-      </div>
+
+        <ul className={styles.solutions}>
+          {solutions.map(
+            solution =>
+              (filter.length === 0 || filter.includes(solution.level)) && (
+                <SolutionCard
+                  key={solution._id}
+                  solution={solution}
+                  onLike={handleLikeSolution}
+                  isLike={solutionsLike[solution.level] === solution._id}
+                />
+              )
+          )}
+        </ul>
+      </section>
     </ChallengeProvider>
   )
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = challengesSlug.map(slug => `/desafio/${slug}/participantes`)
-
   return { fallback: 'blocking', paths }
 }
 

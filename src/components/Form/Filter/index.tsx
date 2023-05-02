@@ -21,7 +21,7 @@ export const Filter = ({
   onFilter,
   selecteds
 }: FilterProps) => {
-  const [active, setActive] = useState<boolean>(true)
+  const [active, setActive] = useState<boolean>(false)
 
   const handleFilterOption = (optionId: string) => {
     onFilter(optionId)

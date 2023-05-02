@@ -1,114 +1,60 @@
+
 .solution {
-  overflow: hidden;
-  position: relative;
-  padding: 24px 32px;
-  border-radius: 0 6px 6px 0;
-  background: var(--background-light);
-  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.2);
-
-  &:hover .level {
-    transform: rotate(180deg) translateX(0);
-  }
-}
-
-.likes {
   display: flex;
-  align-items: center;
-  column-gap: 4px;
+  flex-direction: column;
+  align-items: stretch;
+  row-gap: 16px;
 
-  padding: 2px 8px;
-  border-radius: 4px;
+  padding: 40px 20px 20px;
+  border-radius: 4px 4px 12px 12px;
+  background: var(--mauve2);
 
-  font-weight: 600;
-  font-size: 1.25rem;
-  font-family: var(--font-bold);
+  position: relative;
+  overflow: hidden;
 }
+
+.user__info {
+  margin-bottom: 12px;
+
+  strong {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--mauve12);
+  }
+
+  p {
+    margin-top: 2px;
+
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--mauve11);
+  }
+} 
 
 .level {
   position: absolute;
   top: 0;
-  left: 0;
-  bottom: 0;
+  left: -10px;
+
+  width: calc(100% + 20px);
   
-  font-size: 0.625rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 3px;
+  font-weight: 500;
   text-align: center;
-  font-family: var(--font-bold);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
 
-  user-select: none;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(180deg) translateX(16px);
+  padding: 4px 10px;
+  transform: skew(-10deg);
 
-  padding: 0 4px;
-
-  transition: 0.2s all;
-  
   &[data-type="easy"] {
-    background: var(--green);
+    background: rgba(44, 182, 125, 0.5);
   }
 
   &[data-type="medium"] {
-    background: #1194e2;
+    background: rgba(17, 149, 226, 0.5);
   }
 
   &[data-type="hard"] {
-    background: var(--red);
-  }
-
-  &:hover {
-    cursor: default;
-  }
-}
-
-.solution__content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.solution__links {
-  display: flex;
-  column-gap: 8px;
-
-  margin-top: 16px;
-  transition: 0.2s all;
-
-  a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    column-gap: 4px;
-
-    font-size: 0.875rem;
-    font-weight: 500;
-    font-family: var(--font-bold);
-
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: 1px solid var(--link);
-
-    transition: 0.4s background;
-
-    &:first-child {
-      width: 100%;
-    }
-
-    svg {
-      width: 18px;
-      height: auto;
-    }
-
-    &:hover {
-      background: var(--link);
-    }
-
-    &[aria-disabled="true"] {
-      opacity: 0.5;
-      border-color: var(--link-dark);
-      pointer-events: none;
-    }
+    background: rgba(255, 107, 107, 0.5);
   }
 }
