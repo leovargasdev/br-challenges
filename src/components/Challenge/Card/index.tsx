@@ -34,6 +34,7 @@ export const ChallengeCard = (challenge: Challenge) => {
               field={challenge.image}
               layout="fill"
               objectFit="cover"
+              objectPosition="top"
             />
           </div>
         </a>
