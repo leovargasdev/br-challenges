@@ -23,8 +23,6 @@ const HomePage: NextPage<PageProps> = ({ challenges }) => (
       description="Melhore suas habilidades em front-end com nossos desafios práticos e aprenda novas tecnologias. Nossa plataforma é perfeita para iniciantes e profissionais experientes. Participe agora e tenha ótimos projetos em seu portfólio!"
     />
 
-    {/* <h1>Navegue pelos nossos desafios</h1> */}
-
     {challenges.map(challenge => (
       <ChallengeCard key={challenge.id} {...challenge} />
     ))}

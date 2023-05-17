@@ -92,14 +92,20 @@ export const ChallengeCard = (challenge: Challenge) => {
                 </figure>
               ))}
 
-              <span
-                style={{
-                  transform: `translateX(-${challenge.users.length * 12}px)`
-                }}
-              >
-                + {challenge.participants}
-              </span>
+              {challenge?.participants && challenge.participants > 0 && (
+                <span
+                  style={{
+                    transform: `translateX(-${challenge.users.length * 12}px)`
+                  }}
+                >
+                  + {challenge.participants}
+                </span>
+              )}
             </div>
+
+            {challenge.users.length === 0 && (
+              <p>Sem participantes no momento 🙁</p>
+            )}
           </div>
         )}
       </div>

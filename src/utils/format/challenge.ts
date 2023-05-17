@@ -102,8 +102,8 @@ export const getParticipants = ({
   users
 }: GetParticipants) => {
   return challenges.map(challenge => {
-    const usersPhotos = users.reduce((acc, user) => {
-      if (acc.length <= 7) {
+    const usersPhotos = users.slice(0, 20).reduce((acc, user) => {
+      if (acc.length <= 7 && user.role !== 'admin') {
         if (user.challenges.includes(challenge.id) && user.image) {
           acc.push(user.image)
         }
