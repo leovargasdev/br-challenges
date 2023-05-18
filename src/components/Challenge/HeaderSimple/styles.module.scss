@@ -76,4 +76,22 @@
       fill: var(--mauve12)
     }
   }
+
+  @media(max-width: 600px) {
+    span {
+      font-size: 0.75rem;
+      padding: 4px 18px;
+      margin-bottom: -10px;
+    }
+  
+    h1 {
+      font-size: 44px;
+      margin-bottom: 4px;
+    }
+  
+    p {
+      column-gap: 6px;
+      font-size: 0.875rem;
+    }
+  }
 }
