@@ -81,7 +81,8 @@ export const ChallengeCard = (challenge: Challenge) => {
               {challenge.users.map((image, index) => (
                 <figure
                   key={image}
-                  style={{ transform: `translateX(-${index * 12}px)` }}
+                  className={styles.avatar}
+                  style={{ '--position': index } as never}
                 >
                   <Image
                     src={image}
@@ -92,11 +93,10 @@ export const ChallengeCard = (challenge: Challenge) => {
                 </figure>
               ))}
 
-              {challenge?.participants && challenge.participants > 0 && (
+              {!!challenge.participants && (
                 <span
-                  style={{
-                    transform: `translateX(-${challenge.users.length * 12}px)`
-                  }}
+                  className={styles.participants__counter}
+                  style={{ '--position': challenge.users.length } as never}
                 >
                   + {challenge.participants}
                 </span>

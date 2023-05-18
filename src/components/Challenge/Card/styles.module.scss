@@ -6,6 +6,10 @@
   border-radius: 8px;
   background: var(--mauve2);
   border: 1px solid var(--mauve6);
+
+  &:hover .challenge__image img {
+    transform: scale(1.1);
+  }
 }
 
 .challenge__image {
@@ -17,10 +21,6 @@
 
   img {
     transition: transform 0.4s;
-  }
-
-  &:hover img {
-    transform: scale(1.1);
   }
 }
 
@@ -60,54 +60,56 @@
   a:hover {
     text-decoration: underline;
   }
+  
+  @media(max-width: 600px) {
+    h2 {
+      font-size: 1.375rem;
+    }
+  
+    strong, time {
+      font-size: 0.875rem;
+    }
+  }
 }
 
 .challenge__participants {
   display: flex;
   flex-direction: column;
   row-gap: 8px;
-
-  strong {
-    font-weight: 400;
-    color: var(--mauve11);
-    font-size: 1.125rem;
-  }
 }
 
 .users {
   display: flex;
   align-items: center;
 
-  figure {
-    display: block;
-
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-    overflow: hidden;
-    position: relative;
-    border: 3px solid var(--mauve2);
-
-    &:hover {
-      transform: translateY(10px);
-    }
+  .avatar, .participants__counter {
+    transform: translateX(calc(var(--position) * -12px));
   }
+}
 
-  > span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  overflow: hidden;
+  position: relative;
+  border: 3px solid var(--mauve2);
+}
 
-    font-size: 0.875rem;
-    letter-spacing: -1px;
-    font-weight: 600;
+.participants__counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
+  font-size: 0.875rem;
+  letter-spacing: -1px;
+  font-weight: 600;
 
-    background: var(--mauve3);
-  }
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+
+  background: var(--mauve3);
 }
 
 .challenge__footer {
@@ -120,5 +122,13 @@
 
   a {
     font-size: 1rem;
+  }
+
+  @media(max-width: 600px) {
+    padding: 12px;
+
+    a {
+      font-size: 0.875rem;
+    }
   }
 }
