@@ -1,4 +1,4 @@
-import { compareAsc, isPast, parseISO } from 'date-fns'
+import { isPast } from 'date-fns'
 import {
   Challenge,
   ChallengePrismic,
@@ -69,13 +69,6 @@ interface Acumulator {
 }
 
 export const getListChallenges = (data: ChallengePrismic[]): Challenge[] => {
-  // Ordenando
-  data.sort((c1, c2) => {
-    const d1 = parseISO(c1.data.deadline)
-    const d2 = parseISO(c2.data.deadline)
-    return compareAsc(d1, d2)
-  })
-
   const initalReduce = { after: [], before: [] }
 
   const challenges = data.reduce((acc: Acumulator, item) => {
