@@ -17,19 +17,18 @@ export const SEO = ({
   const { asPath } = useRouter()
 
   const titleTab = `BR Challenges | ${tabName || title}`
+  const urlPage = 'https://www.brchallenges.com' + asPath
 
   return (
     <Head>
       <title>{titleTab}</title>
       <meta name="title" content={title} />
       <meta name="description" content={description} />
+      <link rel="canonical" href={urlPage} />
 
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta
-        property="og:url"
-        content={`https://www.brchallenges.com${asPath}`}
-      />
+      <meta property="og:url" content={urlPage} />
 
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description} />
