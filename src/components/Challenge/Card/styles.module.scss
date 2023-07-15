@@ -83,7 +83,7 @@
   align-items: center;
 
   .avatar, .participants__counter {
-    transform: translateX(calc(var(--position) * -12px));
+    transform: translateX(calc(var(--position) * -17px));
   }
 }
 

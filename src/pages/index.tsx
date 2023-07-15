@@ -3,13 +3,13 @@ import { GetStaticProps, NextPage } from 'next'
 import { SEO } from 'components/SEO'
 import { ChallengeCard } from 'components/Challenge'
 
-import { Challenge } from 'types'
+import type { Challenge, ChallengePrismic } from 'types'
+import { CACHE_PAGE } from 'utils/constants'
 import { createClientPrismic } from 'service/prismic'
 import { getListChallenges, getParticipants } from 'utils/format'
 import { ChallengeModel, connectMongoose, UserModel } from 'service/mongoose'
 
 import styles from 'styles/home.module.scss'
-import { CACHE_PAGE, SMALL_CACHE_PAGE } from 'utils/constants'
 
 interface PageProps {
   challenges: Challenge[]
@@ -33,15 +33,17 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
   try {
     const prismic = createClientPrismic({ previewData })
 
-    const response = await prismic.getAllByType<any>('challenges')
+    const response = await prismic.getAllByType('challenges')
 
-    let challenges = getListChallenges(response)
+    let challenges = getListChallenges(
+      response as unknown as ChallengePrismic[]
+    )
 
     await connectMongoose()
 
     const participants = await ChallengeModel.find()
 
-    const users = await UserModel.find().limit(100).sort({ updatedAt: -1 })
+    const users = await UserModel.find().limit(200).sort({ updatedAt: -1 })
 
     challenges = getParticipants({ challenges, participants, users })
 
@@ -53,7 +55,7 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
     console.log(err)
   }
 
-  return { props: { challenges: [] }, revalidate: SMALL_CACHE_PAGE }
+  return { props: { challenges: [] }, revalidate: CACHE_PAGE }
 }
 
 export default HomePage

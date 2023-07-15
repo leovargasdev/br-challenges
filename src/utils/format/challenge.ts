@@ -89,14 +89,16 @@ interface GetParticipants {
   users: User[]
 }
 
+const SIZE_USERS = 12
+
 export const getParticipants = ({
   challenges,
   participants,
   users
 }: GetParticipants) => {
   return challenges.map(challenge => {
-    const usersPhotos = users.slice(0, 20).reduce((acc, user) => {
-      if (acc.length <= 7 && user.role !== 'admin') {
+    const usersPhotos = users.slice(0, 40).reduce((acc, user) => {
+      if (acc.length <= SIZE_USERS && user.role !== 'admin') {
         if (user.challenges.includes(challenge.id) && user.image) {
           acc.push(user.image)
         }
@@ -112,7 +114,8 @@ export const getParticipants = ({
     return {
       ...challenge,
       users: usersPhotos,
-      participants: participants[participantsIndex]?.participants - 7 || 0
+      participants:
+        participants[participantsIndex]?.participants - SIZE_USERS || 0
     }
   })
 }
