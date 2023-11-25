@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useState } from 'react'
+import classNames from 'classnames'
 import { useSession, signOut } from 'next-auth/react'
 
 import { Logo } from 'components/SVG'
@@ -19,34 +20,25 @@ export const LayoutHeader = () => {
   return (
     <header className={styles.header}>
       <nav className={styles.header__content}>
-        <Link href="/">
-          <a
-            className={styles.header__logo}
-            aria-label="Link para a página inicial do brchallenges"
-          >
-            <Logo />
-          </a>
+        <Link
+          href="/"
+          className={styles.header__logo}
+          aria-label="Link para a página inicial do brchallenges"
+        >
+          <Logo />
         </Link>
 
         <ul
-          className={`${styles.header__navigation} ${
-            isMobileMenu ? styles.active : ''
-          }`}
+          className={classNames(
+            styles.header__navigation,
+            isMobileMenu && styles.active
+          )}
         >
           <li>
-            <Link href="/">
-              <a>Página inicial</a>
-            </Link>
+            <Link href="/">Página inicial</Link>
           </li>
-          {/* <li aria-disabled="true">
-            <Link href="/">
-              <a>Como participar</a>
-            </Link>
-          </li> */}
           <li>
-            <Link href="/sobre">
-              <a>Sobre</a>
-            </Link>
+            <Link href="/sobre">Sobre</Link>
           </li>
 
           {status === 'authenticated' ? (
@@ -57,8 +49,8 @@ export const LayoutHeader = () => {
             </li>
           ) : (
             <li className={styles.mobile}>
-              <Link href="/login">
-                <a className="button">Acessar conta</a>
+              <Link href="/login" className="button">
+                Acessar conta
               </Link>
             </li>
           )}
@@ -67,10 +59,11 @@ export const LayoutHeader = () => {
         {status === 'authenticated' ? (
           <AvatarMenu />
         ) : (
-          <Link href="/login">
-            <a className={'button '.concat(styles.header__signIn)}>
-              Acessar conta
-            </a>
+          <Link
+            href="/login"
+            className={'button '.concat(styles.header__signIn)}
+          >
+            Acessar conta
           </Link>
         )}
 

@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import { useRouter } from 'next/router'
 
 import { LayoutHeader } from './Header'
@@ -17,11 +18,11 @@ export const Layout = ({ children }: LayoutProps) => {
     <div className={styles.layout}>
       {!isLogin && <LayoutHeader />}
 
-      <main className={`${styles.main} ${isLogin ? styles.login : ''}`}>
+      {/* <main className={classnames(styles.main, isLogin && styles.login)}>
         {children}
       </main>
 
-      {!isLogin && <LayoutFooter />}
+      {!isLogin && <LayoutFooter />} */}
     </div>
   )
 }
