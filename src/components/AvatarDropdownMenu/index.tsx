@@ -5,22 +5,27 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { FaSignOutAlt, FaUser, FaUserAstronaut } from 'react-icons/fa'
 
 import styles from './styles.module.scss'
-import { User } from 'types'
+// import { User } from 'types'
 
-export const AvatarMenu = () => {
+export const AvatarDropdownMenu = () => {
   const { data } = useSession()
 
   if (!data?.user) {
     return <></>
   }
 
-  const user = data.user as User
+  const user = data.user
 
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className={styles.user__avatar}>
         {user?.image ? (
-          <Image src={user.image} layout="fill" objectFit="cover" />
+          <Image
+            src={user.image}
+            layout="fill"
+            objectFit="cover"
+            alt={`Imagem de avatar do usuário ${user.name}`}
+          />
         ) : (
           <span>
             <FaUserAstronaut />

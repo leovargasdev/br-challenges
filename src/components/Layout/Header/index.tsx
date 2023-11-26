@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { useSession, signOut } from 'next-auth/react'
 
 import { Logo } from 'components/SVG'
-import { AvatarMenu } from 'components/AvatarMenu'
+import { AvatarDropdownMenu } from 'components'
 
 import styles from './styles.module.scss'
 
@@ -57,7 +57,7 @@ export const LayoutHeader = () => {
         </ul>
 
         {status === 'authenticated' ? (
-          <AvatarMenu />
+          <AvatarDropdownMenu />
         ) : (
           <Link
             href="/login"
