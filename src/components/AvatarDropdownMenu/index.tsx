@@ -5,16 +5,22 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { FaSignOutAlt, FaUser, FaUserAstronaut } from 'react-icons/fa'
 
 import styles from './styles.module.scss'
-// import { User } from 'types'
 
 export const AvatarDropdownMenu = () => {
-  const { data } = useSession()
+  const { data, status } = useSession()
+  const user = data?.user
 
-  if (!data?.user) {
-    return <></>
+  if (status !== 'authenticated') {
+    return (
+      <Link href="/login" className={'button '.concat(styles.button__signIn)}>
+        Acessar conta
+      </Link>
+    )
   }
 
-  const user = data.user
+  if (!user) {
+    return <></>
+  }
 
   return (
     <DropdownMenu.Root>

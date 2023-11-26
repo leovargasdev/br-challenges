@@ -1,3 +1,11 @@
+.button__signIn {
+  max-width: 150px;
+
+  @media(max-width: 768px) {
+    display: none!important;
+  }
+}
+
 .user__avatar {
   position: relative;
 
@@ -22,7 +30,6 @@
       height: auto;
     }
   }
-
 
   @media(max-width: 768px) {
     display: none;

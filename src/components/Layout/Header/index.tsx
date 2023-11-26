@@ -56,16 +56,7 @@ export const LayoutHeader = () => {
           )}
         </ul>
 
-        {status === 'authenticated' ? (
-          <AvatarDropdownMenu />
-        ) : (
-          <Link
-            href="/login"
-            className={'button '.concat(styles.header__signIn)}
-          >
-            Acessar conta
-          </Link>
-        )}
+        <AvatarDropdownMenu />
 
         <button
           type="button"
