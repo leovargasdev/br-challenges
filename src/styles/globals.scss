@@ -9,8 +9,8 @@
 }
 
 :root {
-  --background: #2B2B2B;
-  --background-secondary: #3B3B3B;
+  --background: #161618;
+  --background-secondary: #1c1c1f;
 
   --text: #fff;
   --text-secondary: #858584;
@@ -27,6 +27,10 @@
   --width-normal: 1360px;
   --width-medium: 1100px;
   --width-small: 600px;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 :where(body) {

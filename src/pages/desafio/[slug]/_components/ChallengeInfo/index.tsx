@@ -24,7 +24,9 @@ export const ChallengeInfo = (challenge: Challenge) => (
 
     <section>
       <h2>Autor do layout</h2>
-      <p>{challenge.authors.map(author => author.name).join(',')}</p>
+      <a href="#authors">
+        {challenge.authors.map(author => author.name).join(',')}
+      </a>
     </section>
 
     <section>
@@ -43,8 +45,10 @@ export const ChallengeInfo = (challenge: Challenge) => (
       />
     </section>
 
-    {challenge.authors.map(author => (
-      <CardAuthor key={author.name} {...author} />
-    ))}
+    <section id="authors">
+      {challenge.authors.map(author => (
+        <CardAuthor key={author.name} {...author} />
+      ))}
+    </section>
   </div>
 )
