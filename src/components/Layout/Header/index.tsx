@@ -10,11 +10,11 @@ import styles from './styles.module.scss'
 
 export const LayoutHeader = () => {
   const { status } = useSession()
-  const [isMobileMenu, setIsMobileMenu] = useState<boolean>(false)
+  const [activeMenuMobile, setActiveMenuMobile] = useState<boolean>(true)
 
   const handleSignOut = () => {
     signOut()
-    setIsMobileMenu(false)
+    setActiveMenuMobile(false)
   }
 
   return (
@@ -31,7 +31,7 @@ export const LayoutHeader = () => {
         <ul
           className={classNames(
             styles.header__navigation,
-            isMobileMenu && styles.active
+            activeMenuMobile && styles.active
           )}
         >
           <li>
@@ -42,13 +42,13 @@ export const LayoutHeader = () => {
           </li>
 
           {status === 'authenticated' ? (
-            <li className={styles.mobile}>
+            <li>
               <button className="button" onClick={handleSignOut}>
                 Sair
               </button>
             </li>
           ) : (
-            <li className={styles.mobile}>
+            <li>
               <Link href="/login" className="button">
                 Acessar conta
               </Link>
@@ -61,8 +61,8 @@ export const LayoutHeader = () => {
         <button
           type="button"
           className={styles.button__toggle}
-          aria-expanded={isMobileMenu}
-          onClick={() => setIsMobileMenu(state => !state)}
+          aria-expanded={activeMenuMobile}
+          onClick={() => setActiveMenuMobile(state => !state)}
           aria-label="Botão para abrir/fechar o menu mobile"
         >
           <span />

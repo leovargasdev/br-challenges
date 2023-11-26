@@ -18,6 +18,15 @@ export const Layout = ({ children }: LayoutProps) => {
     <div className={styles.layout}>
       {!isLogin && <LayoutHeader />}
 
+      <h1>olar</h1>
+      <h1>olar</h1>
+      <h1>olar</h1>
+      <h1>olar</h1>
+      <h1>olar</h1>
+      <h1>olar</h1>
+      <h1>olar</h1>
+      <h1>olar</h1>
+
       {/* <main className={classnames(styles.main, isLogin && styles.login)}>
         {children}
       </main>
