@@ -1,0 +1,33 @@
+.cover {
+  width: 100%;
+  height: 560px;
+
+  img {
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.container {
+  margin-top: 40px;
+
+  width: 100%;
+  max-width: var(--width-medium);
+
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  column-gap: 64px;
+
+  aside {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+
+    > button, > a {
+      font-size: 1rem;
+      padding: 12px 0;
+    }
+  }
+}

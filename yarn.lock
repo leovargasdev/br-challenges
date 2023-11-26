@@ -1590,6 +1590,13 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.1.6.tgz#22958c042e10b67463997bd6ea7115fe28cbcaf9"
   integrity sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==
 
+"@formatjs/intl-localematcher@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@formatjs/intl-localematcher/-/intl-localematcher-0.5.2.tgz#5fcf029fd218905575e5080fa33facdcb623d532"
+  integrity sha512-txaaE2fiBMagLrR4jYhxzFO6wEdEG4TPMqrzBAcbr4HFUYzH/YC+lg6OIzKCHm8WgDdyQevxbAAV1OgcXctuGw==
+  dependencies:
+    tslib "^2.4.0"
+
 "@gar/promisify@^1.1.3":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
@@ -1773,7 +1780,7 @@
     "@prismicio/helpers" "^2.3.8"
     "@prismicio/types" "^0.2.7"
 
-"@prismicio/helpers@^2.3.3", "@prismicio/helpers@^2.3.5", "@prismicio/helpers@^2.3.8":
+"@prismicio/helpers@^2.3.3", "@prismicio/helpers@^2.3.8":
   version "2.3.9"
   resolved "https://registry.yarnpkg.com/@prismicio/helpers/-/helpers-2.3.9.tgz#dd2513a429644ed2d7a6fbc8955de6b2e9659fc0"
   integrity sha512-p7Y1sG83A2YPZvptfAzuZA8xH1bdM2wGRjqSKW9Qa0rAnBq2OfVKRvwl9OMCZML4eLUMxSEUAEWRVSoKpQnJvA==
@@ -1797,16 +1804,16 @@
     newtype-ts "^0.3.5"
     tslib "^2.3.1"
 
-"@prismicio/next@^0.1.3":
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/@prismicio/next/-/next-0.1.9.tgz#e87ce6940d76b31925d52fae146c2670fd943512"
-  integrity sha512-KI9slID+nLoAUe24j3GycSLVZGQMlDxnvI3MbgL8ZStf82A4abk+SMfU6WzxiG1r7oe8lyvc6sXMgbZxXo74wQ==
+"@prismicio/next@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@prismicio/next/-/next-1.5.0.tgz#a11d8dfbc715b35981f89e7c97d2f788ed2d80ec"
+  integrity sha512-WbAbBwvUUfrgCJCX8a1SKjGrbnpzLtbo9MnTn0aDRc2yZ4BhK1PRN4Q24Bqx0wmJybQkzM6PcBKiDkZBps1gxA==
   dependencies:
-    "@prismicio/helpers" "^2.3.5"
-    "@prismicio/types" "^0.2.3"
-    imgix-url-builder "^0.0.3"
+    "@formatjs/intl-localematcher" "^0.5.2"
+    imgix-url-builder "^0.0.4"
+    negotiator "^0.6.3"
 
-"@prismicio/react@^2.5.0":
+"@prismicio/react@^2.7.3":
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/@prismicio/react/-/react-2.7.3.tgz#ff8d4e9957969c78d7de5513d5c4afc75a5db599"
   integrity sha512-4Fr19mcJPCDCQUvCYUjphgFH6bzoNeamIVubDvDTdedYYGT+SjKCwNRIElDJIh6QMCU8zqvVAT4jAS3Tok5hlw==
@@ -1872,7 +1879,7 @@
     newtype-ts "^0.3.5"
     tslib "^2.3.1"
 
-"@prismicio/types@^0.2.3", "@prismicio/types@^0.2.7":
+"@prismicio/types@^0.2.7":
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/@prismicio/types/-/types-0.2.8.tgz#76a0eb2f657a87f003ec81b654c8d72dbcd3228b"
   integrity sha512-EmuYYil56U+UtEifMD/9TmLzpWliV+X6kypwPq47GNXmIXyFK1JsP3z872fUziXwoBjd2YILj28DNdYXlLOpXg==
@@ -4218,7 +4225,7 @@ date-fns@*, date-fns@^2.30.0:
   dependencies:
     "@babel/runtime" "^7.21.0"
 
-debug@2, debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
+debug@2, debug@2.6.9, debug@^2.1.3, debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   integrity sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
@@ -5661,6 +5668,11 @@ imgix-url-builder@^0.0.3:
   resolved "https://registry.yarnpkg.com/imgix-url-builder/-/imgix-url-builder-0.0.3.tgz#9f386de64cdd1363d352a7f6313fd7dacd8fb282"
   integrity sha512-8Oc2Cn4+jF06sEfJcVPlWYfD2F6RjrwIMbk1xEzux8unoB5LsvFc/GL1BQ47HPaeE12ReX2nMUcjUslGYWLxHA==
 
+imgix-url-builder@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/imgix-url-builder/-/imgix-url-builder-0.0.4.tgz#c0e9569eb069178b1462d6ce0b8d0943cb334a1c"
+  integrity sha512-JRLydfxGTTbSSOG82ewuCgnmw/CzIPzoDqpP3UYD7RE+QWS8ZZbpF87ZuRqtcbEKdxahRsExinuKRxPZVvukWA==
+
 immutable@^4.0.0:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.3.4.tgz#2e07b33837b4bb7662f288c244d1ced1ef65a78f"
@@ -6179,6 +6191,13 @@ jsonfile@^6.0.1:
     universalify "^2.0.0"
   optionalDependencies:
     graceful-fs "^4.1.6"
+
+jsonp@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/jsonp/-/jsonp-0.2.1.tgz#a65b4fa0f10bda719a05441ea7b94c55f3e15bae"
+  integrity sha512-pfog5gdDxPdV4eP7Kg87M8/bHgshlZ5pybl+yKxAnCZ5O7lCIn7Ixydj03wOlnDQesky2BPyA91SQ+5Y/mNwzw==
+  dependencies:
+    debug "^2.1.3"
 
 jsonparse@^1.3.1:
   version "1.3.1"
@@ -6845,6 +6864,13 @@ next-auth@^4.24.5:
     preact "^10.6.3"
     preact-render-to-string "^5.1.19"
     uuid "^8.3.2"
+
+next-share@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/next-share/-/next-share-0.27.0.tgz#fc4e9eb5e6ade268106c0fae49e78bf2fe235991"
+  integrity sha512-Fmfl4LIL61g10vtiDECVldxtNgVNd4OQgnI5vk9IJxn/WMZLdhniUtV15xz4PGpo8UuDdTHwmDT8R/CP60EQHA==
+  dependencies:
+    jsonp "^0.2.1"
 
 next-sitemap@^3.1.32:
   version "3.1.55"

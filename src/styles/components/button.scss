@@ -30,6 +30,11 @@
   }
 }
 
+.button.secondary {
+  border: 1px solid var(--line);
+  background: var(--background-secondary);
+}
+
 .loading {
   position: relative;
   color: transparent!important;
