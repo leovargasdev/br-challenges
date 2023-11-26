@@ -7,10 +7,7 @@
   padding-top: 48px;
   padding-bottom: 32px;
 
-  background: rgba(28, 28, 31, 0.4);
-  border-top: 1px solid var(--mauve6);
-
-  color: var(--mauve11);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 
   div {
     width: 100%;
@@ -31,7 +28,7 @@
 
       a {
         font-weight: 500;
-        color: var(--blue10)
+        color: var(--blue);
       }
     }
   }
