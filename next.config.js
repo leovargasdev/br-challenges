@@ -10,7 +10,7 @@ const nextConfig = {
       'lh3.googleusercontent.com'
     ]
   },
-  pageExtensions: ['page.tsx'],
+  pageExtensions: ['page.tsx', 'ts'],
 }
 
 module.exports = nextConfig

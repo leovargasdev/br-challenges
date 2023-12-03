@@ -1,0 +1,36 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 6px;
+
+  input {
+    outline: none;
+
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: var(--background-tertiary);
+
+    &:focus, &:not(:placeholder-shown) {
+      border-color: var(--purple);
+    }
+
+    &[aria-invalid=true] {
+      border-color: var(--red);
+    }
+
+    &::placeholder {
+      font-weight: 400;
+      color: var(--text-secondary);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+      background: rgba(#fff, 0.05);
+      border-color: rgba(#fff, 0.2);
+    }
+  }
+}

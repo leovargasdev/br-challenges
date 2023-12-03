@@ -11,6 +11,7 @@
 :root {
   --background: #161618;
   --background-secondary: #1c1c1f;
+  --background-tertiary: rgba(255, 255, 255, 0.03);
 
   --text: #fff;
   --text-secondary: #858584;
@@ -65,4 +66,9 @@ fieldset {
 button {
   border: 0;
   background: transparent;
+}
+
+label {
+  font-size: 1rem;
+  line-height: 1.5;
 }

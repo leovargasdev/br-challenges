@@ -5,6 +5,7 @@ import { SocialShare } from '../SocialShare'
 import type { Challenge } from 'types/challenge'
 
 import styles from './styles.module.scss'
+import { ModalSolutionForm } from 'components/Modal'
 
 export const Aside = (challenge: Challenge) => {
   const isParticipant = true
@@ -16,10 +17,13 @@ export const Aside = (challenge: Challenge) => {
       />
 
       {isParticipant ? (
-        <span className="button">
-          <RxCheck size={14} />
-          Participando
-        </span>
+        <>
+          <span className="button">
+            <RxCheck size={14} />
+            Participando
+          </span>
+          <ModalSolutionForm challengeId={challenge.id} />
+        </>
       ) : (
         <button className="button" type="button">
           <RxPlus size={14} />
