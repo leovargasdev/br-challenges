@@ -6,13 +6,16 @@ import { SessionProvider } from 'next-auth/react'
 import { Layout } from 'components'
 
 import 'styles/globals.scss'
+import { ToastProvider } from 'hooks'
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => (
   <SessionProvider session={session}>
     <PrismicPreview repositoryName="br-challenges">
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <ToastProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ToastProvider>
     </PrismicPreview>
   </SessionProvider>
 )

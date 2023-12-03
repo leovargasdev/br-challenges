@@ -25,29 +25,29 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   // await connectMongoose()
 
-  // if (req.method === 'POST') {
-  //   try {
-  //     const solution = zodSolutionSchema.parse(req.body)
+  if (req.method === 'POST') {
+    try {
+      const solution = zodSolutionSchema.parse(req.body)
+      console.log(solution)
+      // const isSolution = await SolutionModel.findOneAndUpdate(
+      //   { user_id, challenge_id },
+      //   solution
+      // )
 
-  //     const isSolution = await SolutionModel.findOneAndUpdate(
-  //       { user_id, challenge_id },
-  //       solution
-  //     )
+      // // Primeiro envio
+      // if (!isSolution) {
+      //   await SolutionModel.create({ user_id, challenge_id, ...solution })
+      // }
 
-  //     // Primeiro envio
-  //     if (!isSolution) {
-  //       await SolutionModel.create({ user_id, challenge_id, ...solution })
-  //     }
+      return res.status(200).send('')
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return res.status(422).json(error.flatten().fieldErrors)
+      }
 
-  //     return res.status(200).json({ type: isSolution ? 'update' : 'create' })
-  //   } catch (error) {
-  //     if (error instanceof ZodError) {
-  //       return res.status(422).json(error.flatten().fieldErrors)
-  //     }
-
-  //     return res.status(500).send('Internal Server Error')
-  //   }
-  // }
+      return res.status(500).send('Internal Server Error')
+    }
+  }
 
   // await connectMongoose()
   // const queryMongo = { user_id, challenge_id }
@@ -57,7 +57,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // return res.status(200).json(solution)
   return res.status(200).json({
     repository_url: 'http://localhost:3000/desafio/paqueta-calcados',
-    linkedin_url: 'http://localhost:3000/desafio/paqueta-calcados',
+    linkedin_url: '',
     url: 'http://aaa.com.br',
     level: 'medium'
   })

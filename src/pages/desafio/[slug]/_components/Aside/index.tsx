@@ -2,10 +2,10 @@ import Link from 'next/link'
 import { RxCheck, RxPerson, RxPlus } from 'react-icons/rx'
 
 import { SocialShare } from '../SocialShare'
+import { ModalSolutionForm } from 'components'
 import type { Challenge } from 'types/challenge'
 
 import styles from './styles.module.scss'
-import { ModalSolutionForm } from 'components/Modal'
 
 export const Aside = (challenge: Challenge) => {
   const isParticipant = true

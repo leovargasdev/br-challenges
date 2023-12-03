@@ -5,7 +5,7 @@ import { useForm, FormProvider } from 'react-hook-form'
 import { RxCross1, RxPencil1, RxPlus } from 'react-icons/rx'
 
 import api from 'service/api'
-// import { useChallenge, useToast } from 'hooks'
+import { useToast } from 'hooks'
 import { zodSolutionSchema, SolutionForm } from 'utils/zod'
 import { DEFAULT_SOLUTION, LEVELS_OPTIONS } from 'utils/constants'
 
@@ -20,7 +20,7 @@ interface ModalSolutionFormProps {
 export const ModalSolutionForm = ({ challengeId }: ModalSolutionFormProps) => {
   const endpoint = `challenge/${challengeId}/solution`
 
-  // const toast = useToast()
+  const toast = useToast()
   const [loading, setLoading] = useState<boolean>(false)
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false)
 
@@ -31,29 +31,24 @@ export const ModalSolutionForm = ({ challengeId }: ModalSolutionFormProps) => {
   })
 
   const onSubmit = async (data: SolutionForm): Promise<void> => {
-    console.log(data)
-    // setLoading(true)
+    setLoading(true)
 
-    // try {
-    //   const response = await api.post(endpoint, data)
+    try {
+      await api.post(endpoint, data)
 
-    //   const descriptionType =
-    //     response.data.type === 'create' ? 'salva' : 'atualizada'
+      const actionType = hasSubmitted ? 'atualizada' : 'salva'
+      const description = `Solução ${actionType} com sucesso`
 
-    //   toast.success('Sucesso', {
-    //     description: `Solução ${descriptionType} com sucesso`
-    //   })
+      toast.success('Sucesso', { description })
+    } catch (err) {
+      console.log(err)
 
-    //   router.push('/')
-    // } catch (err) {
-    //   console.log(err)
-
-    //   toast.error('Ops! Tivemos um problema', {
-    //     description: 'Falha ao salvar o sua solução'
-    //   })
-    // } finally {
-    //   setLoading(false)
-    // }
+      toast.error('Ops! Tivemos um problema', {
+        description: 'Falha ao salvar o sua solução'
+      })
+    } finally {
+      setLoading(false)
+    }
   }
 
   const loadSolution = async (): Promise<void> => {
