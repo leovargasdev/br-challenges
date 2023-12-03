@@ -38,6 +38,15 @@ export const LayoutHeader = () => {
             <Link href="/">Página inicial</Link>
           </li>
           <li>
+            <a
+              href="https://discord.gg/JPS2bY6GVy"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Comunidade
+            </a>
+          </li>
+          <li>
             <Link href="/sobre">Sobre</Link>
           </li>
 
