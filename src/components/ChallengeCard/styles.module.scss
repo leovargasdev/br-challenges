@@ -5,9 +5,18 @@
   overflow: hidden;
   border-radius: 8px;
   background: var(--background-tertiary);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
-  &:hover .challenge__image img {
-    transform: scale(1.1);
+  filter: grayscale(0.3);
+  transition: all 0.4s;
+  
+  &:hover {
+    filter: grayscale(0);
+
+    .challenge__image img {
+      filter: grayscale(0);
+      transform: scale(1.1);
+    }
   }
 }
 
@@ -15,13 +24,20 @@
   width: 100%;
   height: 250px;
   overflow: hidden;
-
+  
   img {
+    filter: grayscale(0.7);
+
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: top;
-    transition: transform 0.4s;
+
+    transition: all 0.4s;
+  }
+
+  @media(max-width: 650px) {
+    height: 200px;
   }
 }
 
@@ -31,6 +47,10 @@
   display: flex;
   flex-direction: column;
   row-gap: 12px;
+
+  @media(max-width: 650px) {
+    padding: 16px;
+  }
 
   h1 {
     font-size: 1.75rem;
@@ -42,6 +62,24 @@
     column-gap: 4px;
 
     margin-bottom: 2px;
+  }
+
+  @media(max-width: 650px) {
+    padding: 16px;
+
+    h1 {
+      font-size: 1.375rem;
+    }
+    
+    strong {
+      font-size: 0.875rem;
+      margin-bottom: 0;
+
+      svg {
+        width: 0.875rem;
+        height: auto;
+      }
+    }
   }
 }
 
@@ -55,6 +93,14 @@
     color: var(--text-secondary);
     font-family: var(--family-bold);
   }
+
+  @media(max-width: 650px) {
+    column-gap: 32px;
+
+    time, p {
+      font-size: 0.875rem;
+    }
+  }
 }
 
 .challenge__participants {
@@ -63,18 +109,24 @@
   row-gap: 8px;
 
   margin-bottom: 12px;
+
+  @media(max-width: 650px) {
+    margin-bottom: 8px;
+  }
 }
 
 .users {
-  display: flex;
-  align-items: center;
+  position: relative;
+  height: 40px;
 
   .user__image, .participants__counter {
+    position: absolute;
+    top: 0;
+    left: calc(var(--position) * 25px);
+
     width: 40px;
     height: 40px;
-    border-radius: 40px;
-
-    transform: translateX(calc(var(--position) * -12px));
+    border-radius: 100%;
   }
 
   .user__image {
@@ -99,6 +151,22 @@
   
     background: #333;
   }
+
+  @media(max-width: 650px) {
+    .user__image, .participants__counter {
+      width: 32px;
+      height: 32px;
+      left: calc(var(--position) * 20px);
+    }
+
+    picture:nth-child(n+15) {
+      display:none;
+    }
+
+    .participants__counter {
+      left: calc(13 * 20px);
+    }
+  }
 }
 
 .links {
@@ -108,5 +176,13 @@
 
   a {
     padding: 12px 0;
+  }
+
+  @media(max-width: 650px) {
+    column-gap: 16px;
+
+    a {
+      font-size: 0.75rem;
+    }
   }
 }

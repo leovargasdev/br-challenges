@@ -20,4 +20,9 @@
   @media(max-width: 768px) {
     grid-template-columns: 1fr;
   }
+
+  @media(max-width: 650px) {
+    padding: 0 16px;
+    margin-top: 16px;
+  }
 }
