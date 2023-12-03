@@ -1,0 +1,57 @@
+.challenge {
+  display: flex;
+  flex-direction: column;
+ 
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--background-tertiary);
+
+  &:hover .challenge__image img {
+    transform: scale(1.1);
+  }
+}
+
+.challenge__image {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s;
+  }
+}
+
+.challenge__info {
+  padding: 24px;
+  height: 250px;
+
+  display: flex;
+  flex-direction: column;
+
+  .challenge__date {
+    display: flex;
+    align-items: center;
+    column-gap: 6px;
+
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-family: var(--family-bold);
+  }
+
+  strong {
+    font-size: 1.75rem;
+  }
+}
+
+.links {
+  display: flex;
+  margin-top: auto;
+  column-gap: 24px;
+
+  a {
+    padding: 12px 0;
+  }
+}

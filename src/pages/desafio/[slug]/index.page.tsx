@@ -1,15 +1,24 @@
 import { PrismicNextImage } from '@prismicio/next'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 
+import { SEO } from 'components'
 import { Aside } from './_components/Aside'
-import type { Challenge } from 'types/challenge'
 import { ChallengeInfo } from './_components/ChallengeInfo'
 
-import styles from './styles.module.scss'
+import type { Challenge } from 'types/challenge'
 import MOCK_CHALLENGE from 'mocks/challenge.json'
+
+import styles from './styles.module.scss'
 
 const ChallengePage: NextPage<Challenge> = challenge => (
   <>
+    <SEO
+      tabName={`Desafio ${challenge.name}`}
+      title={`Desafio ${challenge.name} do brchallenges`}
+      description={challenge.description}
+      image={challenge.image.url}
+    />
+
     <picture className={styles.cover}>
       <PrismicNextImage field={challenge.image} />
     </picture>
