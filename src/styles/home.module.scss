@@ -8,4 +8,16 @@
 
   width: 100%;
   max-width: var(--width-normal);
+
+  @media(max-width: 1200px) {
+    max-width: 100%;
+    padding: 0 24px;
+    margin-top: 24px;
+
+    gap: 32px;
+  }
+
+  @media(max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }

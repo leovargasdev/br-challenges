@@ -1,42 +1,36 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { PrismicNextImage } from '@prismicio/next'
+import { RxCalendar, RxPencil1, RxPerson, RxReader } from 'react-icons/rx'
 
+import { formatDate } from 'utils/format'
 import type { Challenge } from 'types/challenge'
 
 import styles from './styles.module.scss'
-import {
-  RxCalendar,
-  RxPencil1,
-  RxPencil2,
-  RxPerson,
-  RxReader
-} from 'react-icons/rx'
-import { formatDate } from 'utils/format'
 
 export const ChallengeCard = (challenge: Challenge) => (
   <article className={styles.challenge}>
-    {/* <Link
-      href={`/desafio/${challenge.id}`}
-      aria-label={`Link para a página do desafio ${challenge.name}`}
-    </Link> */}
-
     <picture className={styles.challenge__image}>
       <PrismicNextImage field={challenge.image} />
     </picture>
 
     <div className={styles.challenge__info}>
-      <h1>{challenge.name}</h1>
+      <Link
+        href={`/desafio/${challenge.id}`}
+        aria-label={`Link para a página do desafio ${challenge.name}`}
+      >
+        <h1>{challenge.name}</h1>
+      </Link>
 
       <div className={styles.challenge__line}>
-        <div className={styles.challenge__date}>
+        <div>
           <strong>
             <RxPencil1 size={16} />
             Design
           </strong>
-          <p>{challenge.authors[0].name}</p>
+          <p>{challenge.authors.map(a => a.name).join(',')}</p>
         </div>
-        <div className={styles.challenge__date}>
+        <div>
           <strong>
             <RxCalendar size={16} />
             Publicando em
@@ -61,7 +55,12 @@ export const ChallengeCard = (challenge: Challenge) => (
                 className={styles.user__image}
                 style={{ '--position': index } as never}
               >
-                {/* <Image src={image} alt="imagem de avatar" loading="lazy" /> */}
+                <Image
+                  src={image}
+                  layout="fill"
+                  alt="imagem de avatar"
+                  loading="lazy"
+                />
               </picture>
             ))}
 
@@ -80,10 +79,7 @@ export const ChallengeCard = (challenge: Challenge) => (
       </div>
 
       <div className={styles.links}>
-        <Link
-          className="button"
-          href={`/desafio/${challenge.id}/participantes`}
-        >
+        <Link className="button" href={`/desafio/${challenge.id}`}>
           <RxReader size={14} />
           Mais detalhes
         </Link>

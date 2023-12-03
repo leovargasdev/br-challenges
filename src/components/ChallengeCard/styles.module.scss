@@ -17,9 +17,10 @@
   overflow: hidden;
 
   img {
-    object-fit: cover;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: top;
     transition: transform 0.4s;
   }
 }
@@ -39,6 +40,8 @@
     display: flex;
     align-items: center;
     column-gap: 4px;
+
+    margin-bottom: 2px;
   }
 }
 
@@ -58,6 +61,8 @@
   display: flex;
   flex-direction: column;
   row-gap: 8px;
+
+  margin-bottom: 12px;
 }
 
 .users {
@@ -67,14 +72,14 @@
   .user__image, .participants__counter {
     width: 40px;
     height: 40px;
-    border-radius: 100%;
+    border-radius: 40px;
 
-    transform: translateX(calc(var(--position) * -17px));
+    transform: translateX(calc(var(--position) * -12px));
   }
 
   .user__image {
     overflow: hidden;
-    border: 3px solid var(--background);
+    border: 2px solid #333;
 
     img {
       width: 100%;
@@ -88,15 +93,13 @@
     align-items: center;
     justify-content: center;
   
-    font-size: 0.875rem;
-    letter-spacing: -1px;
     font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: -2px;
   
-    background: var(--background);
+    background: #333;
   }
 }
-
-
 
 .links {
   display: flex;
