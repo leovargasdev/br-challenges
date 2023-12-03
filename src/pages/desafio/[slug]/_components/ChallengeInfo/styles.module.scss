@@ -12,7 +12,7 @@
     align-items: center;
     column-gap: 6px;
 
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--text-secondary);
     font-family: var(--family-bold);
   }
@@ -70,6 +70,38 @@
       a {
         font-weight: 500;
         color: var(--blue);
+      }
+    }
+  }
+
+  @media(max-width: 768px) {
+    row-gap: 24px;
+  }
+
+  @media(max-width: 650px) {
+    row-gap: 16px;
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .challenge__date {
+      font-size: 0.875rem;
+      margin-top: 4px;
+    }
+
+    h2 {
+      font-size: 1rem;
+    }
+
+    .challenge__description {
+      h3 {
+        margin-top: 14px;
+      }
+
+      > ul li, > ol li, p {
+        font-size: 0.875rem;
+        line-height: 1.8;
       }
     }
   }

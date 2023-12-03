@@ -16,6 +16,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 24px;
 
     span {
       font-size: 1rem;
@@ -29,6 +30,23 @@
       a {
         font-weight: 500;
         color: var(--blue);
+      }
+    }
+  }
+
+  @media(max-width: 650px) {
+    margin-top: 24px;
+    padding: 24px 0;
+
+    div {
+      padding: 0 16px;
+
+      span {
+        font-size: 0.75rem;
+      }
+
+      p {
+        font-size: 0.875rem;
       }
     }
   }

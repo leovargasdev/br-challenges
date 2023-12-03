@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
 
 export const LayoutHeader = () => {
   const { status } = useSession()
-  const [activeMenuMobile, setActiveMenuMobile] = useState<boolean>(true)
+  const [activeMenuMobile, setActiveMenuMobile] = useState<boolean>(false)
 
   const handleSignOut = () => {
     signOut()

@@ -7,6 +7,23 @@
     font-size: 1rem;
     padding: 12px 0;
   }
+
+  @media(max-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 24px;
+
+    margin-bottom: 12px;
+  }
+
+  @media(max-width: 650px) {
+    gap: 12px;
+
+    > button, > a {
+      font-size: 0.75rem;
+      padding: 10px 0;
+    }
+  }
 }
 
 .participant {
@@ -46,5 +63,9 @@
     font-weight: 700;
     letter-spacing: 1px;
     font-family: var(--family-bold);
+  }
+
+  @media(max-width: 768px) {
+    display: none;
   }
 }
