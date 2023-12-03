@@ -25,26 +25,78 @@
 }
 
 .challenge__info {
-  padding: 24px;
-  height: 250px;
+  padding: 16px 24px 24px;
 
   display: flex;
   flex-direction: column;
+  row-gap: 12px;
 
-  .challenge__date {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  strong {
     display: flex;
     align-items: center;
-    column-gap: 6px;
+    column-gap: 4px;
+  }
+}
 
+.challenge__line {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 64px;
+
+  time, p {
     font-size: 1rem;
     color: var(--text-secondary);
     font-family: var(--family-bold);
   }
+}
 
-  strong {
-    font-size: 1.75rem;
+.challenge__participants {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.users {
+  display: flex;
+  align-items: center;
+
+  .user__image, .participants__counter {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+
+    transform: translateX(calc(var(--position) * -17px));
+  }
+
+  .user__image {
+    overflow: hidden;
+    border: 3px solid var(--background);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .participants__counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    font-size: 0.875rem;
+    letter-spacing: -1px;
+    font-weight: 600;
+  
+    background: var(--background);
   }
 }
+
+
 
 .links {
   display: flex;

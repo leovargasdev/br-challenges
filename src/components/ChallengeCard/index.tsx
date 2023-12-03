@@ -1,10 +1,17 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { PrismicNextImage } from '@prismicio/next'
 
 import type { Challenge } from 'types/challenge'
 
 import styles from './styles.module.scss'
-import { RxCalendar, RxPerson, RxReader } from 'react-icons/rx'
+import {
+  RxCalendar,
+  RxPencil1,
+  RxPencil2,
+  RxPerson,
+  RxReader
+} from 'react-icons/rx'
 import { formatDate } from 'utils/format'
 
 export const ChallengeCard = (challenge: Challenge) => (
@@ -19,14 +26,58 @@ export const ChallengeCard = (challenge: Challenge) => (
     </picture>
 
     <div className={styles.challenge__info}>
-      <div className={styles.challenge__date}>
-        <RxCalendar size={16} />
-        <time dateTime={challenge.deadline}>
-          {formatDate(challenge.deadline, 'dd/MM/yyyy')}
-        </time>
+      <h1>{challenge.name}</h1>
+
+      <div className={styles.challenge__line}>
+        <div className={styles.challenge__date}>
+          <strong>
+            <RxPencil1 size={16} />
+            Design
+          </strong>
+          <p>{challenge.authors[0].name}</p>
+        </div>
+        <div className={styles.challenge__date}>
+          <strong>
+            <RxCalendar size={16} />
+            Publicando em
+          </strong>
+          <time dateTime={challenge.deadline}>
+            {formatDate(challenge.deadline, 'dd/MM/yyyy')}
+          </time>
+        </div>
       </div>
 
-      <strong>{challenge.name}</strong>
+      <div className={styles.challenge__participants}>
+        <strong>
+          <RxPerson />
+          Partipantes
+        </strong>
+
+        {challenge.users.length ? (
+          <div className={styles.users}>
+            {challenge.users.map((image, index) => (
+              <picture
+                key={image}
+                className={styles.user__image}
+                style={{ '--position': index } as never}
+              >
+                {/* <Image src={image} alt="imagem de avatar" loading="lazy" /> */}
+              </picture>
+            ))}
+
+            {!!challenge.participants && (
+              <span
+                className={styles.participants__counter}
+                style={{ '--position': challenge.users.length } as never}
+              >
+                + {challenge.participants}
+              </span>
+            )}
+          </div>
+        ) : (
+          <p>Sem participantes no momento 🙁</p>
+        )}
+      </div>
 
       <div className={styles.links}>
         <Link
