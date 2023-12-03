@@ -14,7 +14,7 @@ export const ChallengeInfo = (challenge: Challenge) => (
       <div className={styles.challenge__date}>
         <RxCalendar size={16} />
         <p>
-          Criado em{' '}
+          Publicado em{' '}
           <time dateTime={challenge.deadline}>
             {formatDate(challenge.deadline, 'dd/MM/yyyy')}
           </time>

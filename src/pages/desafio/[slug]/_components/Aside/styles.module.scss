@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+
+  > button, > a, > span {
+    font-size: 1rem;
+    padding: 12px 0;
+  }
+
+  > span {
+    opacity: 0.9;
+    filter: grayscale(0.2);
+    pointer-events: none;
+  }
+}

@@ -19,15 +19,4 @@
   display: grid;
   grid-template-columns: 1fr 300px;
   column-gap: 64px;
-
-  aside {
-    display: flex;
-    flex-direction: column;
-    row-gap: 24px;
-
-    > button, > a {
-      font-size: 1rem;
-      padding: 12px 0;
-    }
-  }
 }
