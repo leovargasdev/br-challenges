@@ -21,6 +21,7 @@ export const ModalSolutionForm = ({ challengeId }: ModalSolutionFormProps) => {
   const endpoint = `challenge/${challengeId}/solution`
 
   const toast = useToast()
+  const [open, setOpen] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false)
 
@@ -48,6 +49,7 @@ export const ModalSolutionForm = ({ challengeId }: ModalSolutionFormProps) => {
       })
     } finally {
       setLoading(false)
+      setOpen(false)
     }
   }
 
@@ -65,9 +67,8 @@ export const ModalSolutionForm = ({ challengeId }: ModalSolutionFormProps) => {
   useEffect(() => {
     loadSolution()
   }, [])
-
   return (
-    <Dialog.Root>
+    <Dialog.Root onOpenChange={setOpen} open={open}>
       <Dialog.Trigger className="button">
         {hasSubmitted ? (
           <>

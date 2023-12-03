@@ -3,14 +3,48 @@
   flex-direction: column;
   row-gap: 24px;
 
-  > button, > a, > span {
+  > button, > a {
     font-size: 1rem;
     padding: 12px 0;
   }
+}
+
+.participant {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.participant__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 12px;
+
+
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--line);
 
   > span {
-    opacity: 0.9;
-    filter: grayscale(0.2);
-    pointer-events: none;
+    display: flex;
+    background: var(--blue);
+
+    width: 38px;
+    height: 38px;
+
+    svg {
+      margin: auto;
+    }
+  }
+
+  strong {
+    flex: 1;
+    padding-bottom: 4px;
+
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-family: var(--family-bold);
   }
 }

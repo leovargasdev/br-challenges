@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { RxCheck, RxPerson, RxPlus } from 'react-icons/rx'
+import { RxPerson, RxPlus } from 'react-icons/rx'
+import { IoTicketSharp } from 'react-icons/io5'
 
 import { SocialShare } from '../SocialShare'
 import { ModalSolutionForm } from 'components'
@@ -18,10 +19,13 @@ export const Aside = (challenge: Challenge) => {
 
       {isParticipant ? (
         <>
-          <span className="button">
-            <RxCheck size={14} />
-            Participando
-          </span>
+          <div className={styles.participant__button}>
+            <span>
+              <IoTicketSharp size={20} color="var(--text)" />
+            </span>
+            <strong>Participando</strong>
+          </div>
+
           <ModalSolutionForm challengeId={challenge.id} />
         </>
       ) : (
