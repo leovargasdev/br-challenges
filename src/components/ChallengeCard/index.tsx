@@ -55,12 +55,7 @@ export const ChallengeCard = (challenge: Challenge) => (
                 className={styles.user__image}
                 style={{ '--position': index } as never}
               >
-                <Image
-                  src={image}
-                  layout="fill"
-                  alt="imagem de avatar"
-                  loading="lazy"
-                />
+                <Image src={image} alt="imagem de avatar" loading="lazy" fill />
               </picture>
             ))}
 

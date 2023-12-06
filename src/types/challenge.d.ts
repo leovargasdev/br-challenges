@@ -14,3 +14,8 @@ export interface Challenge {
   participants: number
   users: string[]
 }
+
+export interface ChallengeMongo {
+  participants: number
+  challenge_id: string
+}

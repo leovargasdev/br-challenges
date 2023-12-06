@@ -1,10 +1,14 @@
 import { GetStaticProps, NextPage } from 'next'
 
 import { SEO, ChallengeCard } from 'components'
+import { createClientPrismic } from 'service/prismic'
+import { getListChallenges } from 'utils/format/challenge'
+
 import type { Challenge } from 'types/challenge'
+import type { Ordering } from '@prismicio/client'
+import MOCK_CHALLENGES from 'mocks/challenges.json'
 
 import styles from 'styles/home.module.scss'
-import MOCK_CHALLENGES from 'mocks/challenges.json'
 
 interface PageProps {
   challenges: Challenge[]
@@ -29,32 +33,25 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
     return { props: { challenges: MOCK_CHALLENGES }, revalidate: false }
   }
 
-  // try {
-  //   const prismic = createClientPrismic({ previewData })
+  try {
+    const prismic = createClientPrismic({ previewData })
 
-  //   const response = await prismic.getAllByType('challenges')
+    const orderings: Ordering[] = [
+      { field: 'document.first_publication_date', direction: 'desc' }
+    ]
+    const response = await prismic.getAllByType('challenges', { orderings })
 
-  //   let challenges = getListChallenges(
-  //     response as unknown as ChallengePrismic[]
-  //   )
+    const challenges = await getListChallenges(response)
 
-  //   await connectMongoose()
+    return {
+      props: { challenges },
+      revalidate: 60 * 60 * 5
+    }
+  } catch (err) {
+    console.log(err)
+  }
 
-  //   const participants = await ChallengeModel.find()
-
-  //   const users = await UserModel.find().limit(200).sort({ updatedAt: -1 })
-
-  //   challenges = getParticipants({ challenges, participants, users })
-
-  //   return {
-  //     props: { challenges },
-  //     revalidate: CACHE_PAGE
-  //   }
-  // } catch (err) {
-  //   console.log(err)
-  // }
-
-  return { props: { challenges: [] } }
+  return { props: { challenges: [] }, revalidate: false }
 }
 
 export default HomePage
