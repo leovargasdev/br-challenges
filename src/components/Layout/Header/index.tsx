@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { useSession, signOut } from 'next-auth/react'
 
 import { Logo } from 'components/SVG'
-import { AvatarDropdownMenu } from 'components'
+import { AvatarDropdownMenu } from './AvatarDropdownMenu'
 
 import styles from './styles.module.scss'
 

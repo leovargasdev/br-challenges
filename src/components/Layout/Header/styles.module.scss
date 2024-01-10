@@ -34,6 +34,31 @@
   li {
     font-weight: 500;
 
+    a {
+      display: flex;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 18px;
+        left: 0;
+        height: 1px;
+        width: 80%;
+        background: var(--text);
+
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform .8s;
+      }
+    }
+
+    &:hover a::after {
+      transform: scaleX(1);
+      transform-origin: left;
+      transition: transform .8s;
+    }
+
     &:last-child {
       display: none;
     }
